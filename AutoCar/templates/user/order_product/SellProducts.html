@@ -1,0 +1,53 @@
+{% extends 'user/order_product/Base.html' %}
+
+    {% block content %}
+        {% load static %}
+    <style>
+        .image-st {
+            background-image: url("{% static 'img/carousel-bg-1.jpg' %}");
+            
+          }
+    </style>
+    <!-- Add products start -->
+    <div class="container-fluid mt-4">
+        
+        <div class="container col-6 mt-6 p-3 "  style="background: #000000cc;margin-top:70px;border-radius: 32px">
+            <form action="SellProducts" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row d-flex justify-content-center align-items-center mt-2">
+                    <div class="row d-flex justify-content-center align-items-center mt-2" >
+                        <h2 class="text-uppercase text-center text-white">Add Your Product</h2>
+                    </div>
+                    
+                    <div class="col-md-8 ">
+                    
+                        <div class="col-12 mt-2">
+                            <input type="text" name="product_name" id="" class="form-control form-manual" placeholder="Enter Product Name"  required>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <input type="text" name="price" id="" class="form-control form-manual"  placeholder="Enter Your Price" required>
+                        </div>
+                        <div class="col-12 mt-2 mb-2">
+                            <input type="file" name="image" class="form-control form-manual"  id="">
+                        </div>
+                        
+                        <div class="col-12 mt-2 mb-2">
+                            <textarea type="text" name="details" id=""  style="height: 20%;"   class="form-control form-manual"  >Enter Your  Product Details </textarea>
+                        </div>
+                        <div class="col-md-12 d-flex justify-content-center ">
+
+                            <input type="submit" value="Submit" class="btn btn-danger">
+                        </div>
+                
+                    </div>
+                    
+                </div>
+                
+            
+            </div>
+        </form>
+        </div>
+      </div>
+      
+    <!-- Add products end -->
+    {% endblock %}

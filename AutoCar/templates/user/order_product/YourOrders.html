@@ -1,0 +1,244 @@
+{% extends 'user/order_product/Base.html' %}
+
+    {% block content %}
+        {% load static %}
+
+    <style>
+        .image-st {
+            background-image: url("{% static 'img/carousel-bg-1.jpg' %}");
+          }
+    </style>
+    <style>
+        /* Container for the progress bar */
+        .progress-container {
+            position: relative;
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        /* Background line of the progress bar */
+        .progress-line-bg {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 50%;
+            height: 5px;
+            background: #ccc;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+        
+        /* Active progress line */
+        .progress-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 5px;
+            background: #0d6efd;
+            z-index: 2;
+            transform: translateY(-50%);
+            transition: width 0.3s ease-in-out;
+        }
+        
+        /* Step images */
+        .progress-step {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            z-index: 3;
+            text-align: center;
+        }
+        
+        .progress-step img {
+            width: 100%;
+            height: auto;
+        }
+        
+        /* Text labels */
+        .step-label {
+            position: absolute;
+            top: 35px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        
+        </style>
+
+
+     <div class="container-fluid mt-4">
+        <div class="row col-12 d-flex justify-content-center text-uppercase m-auto text-center">
+            <h5>Your Orders</h5>
+        </div>
+     </div>
+     {%if orders.exists %}
+     <div class="container mt-4">
+        {% for i in orders %}
+            <!-- offcanvas alert start -->
+            <div class="offcanvas offcanvas-top mt-4" tabindex="-1" id="offcanvasTop{{ i.pk }}" aria-labelledby="offcanvasTopLabel{{ i.pk }}" style="left: 50%; transform: translateX(-50%); width: 90%; background-color: #121212e6;">
+                <div class="offcanvas-header col-12 d-flex justify-content-center text-center">
+                  <h5 id="offcanvasTopLabel{{ i.pk }}" class="text-center text-uppercase">Cancel Order</h5>
+                  <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="row d-flex justify-content-center text-center text-primary">
+                        <div class="col-12">
+                            <strong class="text-white text-uppercase">Confirmation</strong>
+                        </div>
+                        <div class="col-12">
+                            <strong>Are You Sure to cancel your order?</strong>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center mt-2">
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-success text-white" data-bs-dismiss="offcanvas">No</button>
+                        </div>
+                        <div class="col-auto">
+                            <a href="../CancelOrder/{{ i.pk }}" class="btn btn-danger rounded-2">Yes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- offcanvas alert end -->
+    
+            <div class="row mt-2 border border-primary shadow-lg p-3 mb-5 bg-body rounded">
+                <div class="col-md-5 border border-primary">
+                    <img src="{{ i.product_details.product_image.url }}" width="100%" height="400px" alt="">
+                </div>
+                <div class="col-md-7">
+                    <div class="col-12">
+                        <p><strong>Product ID :</strong>{{ i.product_details.id }}</p>
+                    </div>
+                    <div class="col-12 text-uppercase text-dark">
+                        <h2 class="text-dark"><strong>{{ i.product_details.product_name }}</strong></h2>
+                    </div>
+                    <div class="col-12 text-uppercase text-dark">
+                        <h2 class="text-dark"><strong>₹{{ i.payment_amount }}</strong></h2>
+                    </div>
+                    <div class="col-12 text-uppercase text-dark">
+                        <h2 class="text-dark"><strong><hr></strong></h2>
+                    </div>
+                    <div class="col-12 text-uppercase text-dark">
+                        <strong class="text-dark">{{ i.product_details }}</strong>
+                    </div>
+                    <div class="col-12 text-uppercase text-dark">
+                        <strong><hr></strong>
+                    </div>
+                    <div class="col-12 text-uppercase text-dark">
+                        <strong>Quantity :<strong> {{ i.quantity }} </strong></strong>
+                    </div>
+                    <div class="col-12 text-uppercase text-dark mt-2">
+                        <strong class="text-dark">Payment Amount: ₹{{ i.payment_amount }}</strong>
+                    </div>
+                    <div class="col-12 text-uppercase text-dark mt-2">
+                        <strong class="text-dark">Payment Status : {{ i.payment_status }}</strong>
+                    </div>
+                    <div class="col-12 text-uppercase text-dark mt-2">
+                        <strong class="text-dark">Order Status : {{ i.order_status }}</strong>
+                    </div>
+                    <div class="col-12 text-uppercase text-dark mt-2">
+                        <strong class="text-dark">Order Date : {{ i.created_at }}</strong>
+                    </div>
+    
+                    {% if i.order_status == 'ordered' %}
+                        <div class="col-12 text-uppercase text-dark mt-4 mb-2">
+                            <!-- Dynamically set the data-bs-target to open the specific offcanvas -->
+                            <button class="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop{{ i.pk }}" aria-controls="offcanvasTop{{ i.pk }}">Cancel Your Order</button>
+                        </div>
+
+                    
+
+                    {% endif %}
+                    {% if i.order_status == 'delivered' %}
+                    <div class="col-12 text-uppercase text-dark mt-2">
+                        
+                        
+                        <button class="btn btn-success edit-btn" style="width: 83px;" data-bs-toggle="modal" data-bs-target="#editModal"
+                        data-id="{{ i.product_details.pk }}" >
+                    Rate
+                </button>
+
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+        {%else%}
+        <div class="container mt-4">
+            <div class="row m-auto">
+                <div class="col-12 d-flex justify-content-center m-auto">
+                    <img src="{% static './img/order-now.png'%}" class="" width="40px" alt="">  <p class="">You have no orders at the moment.</p>
+
+                </div>
+            </div>
+        </div>
+
+        {%endif%}
+
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Rate</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="edit-form" method="POST" action="Rate" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="product-id">
+                    <div class="mb-3">
+                        <label for="userRating" class="form-label">Rating</label>
+                        <select name='userRating' class="form-control" id="userRating" required>
+                            <option value="">Select Rating</option>
+                            <option value="1">1 - Poor</option>
+                            <option value="2">2 - Fair</option>
+                            <option value="3">3 - Good</option>
+                            <option value="4">4 - Very Good</option>
+                            <option value="5">5 - Excellent</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userFeedback" class="form-label">Feedback</label>
+                        <textarea class="form-control" id="userFeedback" rows="3" name="userFeedback" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // JavaScript to populate the modal with the selected product's details
+    document.addEventListener('DOMContentLoaded', function () {
+        const editButtons = document.querySelectorAll('.edit-btn');
+        const modal = document.getElementById('editModal');
+
+        editButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const productId = this.getAttribute('data-id');
+               
+
+                // Populate the modal form fields
+                modal.querySelector('#product-id').value = productId;
+                
+            });
+        });
+    });
+</script>
+
+
+    
+
+        {% endblock %}

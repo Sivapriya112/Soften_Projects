@@ -1,0 +1,79 @@
+{% extends 'user/order_product/Base.html' %}
+
+    {% block content %}
+        {% load static %}
+
+    <!-- products Start -->
+    <div class="container d-flex justify-content-center mt-2" >
+        <div class="row   align-items-center ">
+        
+            <h2 class="text-dark text-uppercase">your wishlist</h2>
+        
+
+        </div>
+     </div>
+     {%if data.exists %}
+
+     <div class="container mt-4">
+        {% for i in data %}
+        <div class="row mt-2 border border-primary rounded-4">
+            <div class="col-md-5 border border-primary  ">
+                <img src="{{i.product_details.product_image.url}}" width="100%" height="400px" alt="">
+            </div> 
+            <div class="col-md-7 ">
+                <div class="col-12">
+                    <p><strong>Product ID :</strong>{{details.id}}</p>
+                </div>
+                <div class="col-12 text-uppercase text-dark">
+                    <h2 class="text-dark"><strong>{{i.product_details.product_name}}</strong></h2>
+                </div>
+                <div class="col-12 text-uppercase text-dark">
+                    <h2 class="text-dark"><strong>₹{{i.product_details.product_price}}</strong></h2>
+                </div>
+                <div class="col-12 text-uppercase text-dark">
+                    <h2 class="text-dark"><strong><hr></strong></h2>
+                </div>
+                <div class="col-12 text-uppercase text-dark">
+                    <strong class="text-dark">{{i.product_details.product_details}}</strong>
+                </div>
+                <div class="col-12 text-uppercase text-dark">
+                    <strong ><hr></strong>
+                </div>
+                <!-- <div class="col-12 text-uppercase text-dark mb-4">
+                    <strong>Quantity :  {{i.product_details.quantity}} </strong>
+                </div> -->
+                {%if i.product_details.quantity == 0 %}
+                <div class="col-12 text-uppercase text-dark">
+                    <strong style="color: red;">Out Of Stock</strong>
+                </div>
+                {% else %}
+                <div class="col-12 row text-uppercase text-dark mt-2 mb-2">
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <a href="../AddCart/{{i.product_details.pk}}" class=" h-100 btn btn-danger text-uppercase">add to cart</a>
+                    </div>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <a href="../ProductDetails/{{i.product_details.pk}}" class="btn btn-success text-uppercase">buy now</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {%endfor %}
+
+
+        </div>
+        {%else%}
+        <div class="container mt-4">
+            <div class="row m-auto">
+                <div class="col-12 d-flex justify-content-center m-auto">
+                    <img src="{% static './img/order-now.png'%}" class="" width="40px" alt="">  <p class="">You have no wishlist at the moment.</p>
+
+                </div>
+            </div>
+        </div>
+
+        {%endif%}
+
+     </div>
+    <!-- products End -->
+    {% endblock %}

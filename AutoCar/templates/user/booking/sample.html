@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date and Time Slot Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .hidden {
+            display: none;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #selectedTime {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h3>Select a Date:</h3>
+    <input type="date" id="dateInput" onchange="showTimeSlotModal()">
+    
+    <div id="selectedTime"></div>
+
+    <!-- The Modal -->
+    <div id="timeSlotModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Select a Time Slot:</h3>
+            <div id="timeSlotContainer"></div>
+            <button onclick="displaySelectedTime()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        function showTimeSlotModal() {
+            const dateValue = document.getElementById("dateInput").value;
+            if (dateValue) {
+                // Fetch available time slots from the server
+                fetch("{% url 'get_time_slots' %}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    body: JSON.stringify({ date: dateValue })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.available_time_slots && data.available_time_slots.length > 0) {
+                        generateTimeSlots(data.available_time_slots);  // Pass available slots to the function
+                        document.getElementById("timeSlotModal").style.display = "block"; // Show the modal
+                    } else {
+                        alert('No available time slots for this date.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching time slots:', error);
+                    alert('An error occurred while fetching time slots. Please try again.');
+                });
+            }
+        }
+        
+        function generateTimeSlots(availableTimeSlots) {
+            const timeSlotContainer = document.getElementById("timeSlotContainer");
+            timeSlotContainer.innerHTML = "";  // Clear previous slots
+        
+            availableTimeSlots.forEach(slot => {
+                const radioButton = document.createElement("input");
+                radioButton.type = "radio";
+                radioButton.name = "timeSlot";
+                radioButton.value = slot;
+        
+                const label = document.createElement("label");
+                label.innerText = slot;
+        
+                timeSlotContainer.appendChild(radioButton);
+                timeSlotContainer.appendChild(label);
+                timeSlotContainer.appendChild(document.createElement("br"));
+            });
+        }
+
+        function displaySelectedTime() {
+            const selectedTime = document.querySelector('input[name="timeSlot"]:checked');
+            const displayArea = document.getElementById("selectedTime");
+
+            if (selectedTime) {
+                displayArea.innerText = "Selected Time Slot: " + selectedTime.value;
+                closeModal(); // Close the modal after selection
+            } else {
+                displayArea.innerText = "Please select a time slot.";
+            }
+        }
+
+        function closeModal() {
+            document.getElementById("timeSlotModal").style.display = "none";
+        }
+
+        // Close the modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById("timeSlotModal");
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

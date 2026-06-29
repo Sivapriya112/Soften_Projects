@@ -1,0 +1,97 @@
+{% extends 'user/order_product/Base.html' %}
+
+    {% block content %}
+        {% load static %}
+    <!-- Order Success -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="invoice">
+                    <h2 class="text-center">Invoice</h2>
+                    
+                    <table class="table  mt-3 text-dark">
+                        <thead>
+                            <tr class="text-uppercase">
+                                <th>Image</th>
+                                <th>Product Name</th>
+                                <th>Details</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in data %}
+                            <tr class="">
+                                <td style="    width: 10%;height: 10%;">
+                                    <img src="{{i.product_details.product_image.url}}" width="86%" alt="">
+                                </td>
+                                <td>
+                                    <div class="mt-4">
+                                        <strong>{{i.product_details.product_name}}</strong>
+                                    </div>
+                                    
+                                </td>
+                                <td>
+                                    <div class="mt-4">
+                                        <h6 class="text-dark"><strong id="productDetails-{{forloop.counter}}">{{i.product_details.product_details}}</strong></h6>
+                                        
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="mt-4">
+                                        <strong>₹{{i.product_details.product_price}}</strong>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="mt-4">
+                                     <strong>{{i.quantity}}</strong>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="mt-4">
+                                      <strong>
+                                        {% for j in list%}
+                                          {% if j.product_name == i.product_details.product_name%}
+                                          ₹{{ j.total_price }}
+                                          
+                                          {% endif%}
+                                          {% endfor%}
+                                      </strong>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="container">
+                        <div class="row col-12">
+                            <strong>Delivery Address :{{housename}},{{landmark}},{{area}},{{pincode}}</strong>
+                            <strong><p>Payment Status: Success</p></strong>
+                            <strong><p>Total Amount: ₹{{ total}}</p></strong>
+                        </div>
+                    </div>
+                    
+                    <div class="text-right mt-4">
+                        <h4></h4>
+                        
+                    </div>
+    
+                    <!-- Buttons for Print and Booking List -->
+                    <div class="mt-4 d-flex justify-content-between">
+                        <button onclick="printInvoice()" class="btn btn-primary">Print Invoice</button>
+                        <a href="../YourOrders" class="btn btn-secondary">Go to Orders List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function printInvoice() {
+            // Opens a print dialog for the user
+            window.print();
+        }
+    </script>
+    
+    {% endblock %}

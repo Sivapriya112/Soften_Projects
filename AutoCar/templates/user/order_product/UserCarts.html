@@ -1,0 +1,165 @@
+{% extends 'user/order_product/Base.html' %}
+
+    {% block content %}
+        {% load static %}
+  <style>
+          
+    .end-start {
+      margin-left: auto; /* Pushes the element to the right */
+  }
+  
+  </style>
+        <div class="container-fluid">
+            <div class="row col-md-12 d-flex justify-content-center ">
+                <h5 class="text-uppercase text-center mt-4 mb-4">Your Carts</h5>
+            </div>
+        </div>
+     {%if data.exists %}
+        
+        
+        <form action="ProductsPayment/{{total}}" method="post">
+          {%csrf_token%}
+        <div class="container" style="max-width: 1220px;">
+            <table class="table  mt-3 text-dark">
+                <thead>
+                    <tr class="text-uppercase">
+                        <th>Image</th>
+                        <th>Product Name</th>
+                        <th>Details</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                    <tr class="">
+                        <td style="    width: 10%;height: 10%;">
+                            <img src="{{i.product_details.product_image.url}}" width="86%" alt="">
+                        </td>
+                        <td>
+                            <div class="mt-4">
+                                <strong>{{i.product_details.product_name}}</strong>
+                            </div>
+                            
+                        </td>
+                        <td>
+                            <div class="mt-4">
+                                <h6 class="text-dark"><strong id="productDetails-{{forloop.counter}}">{{i.product_details.product_details}}</strong></h6>
+                                <a href="#" id="toggleLink-{{forloop.counter}}" style="display: none;">Show More</a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mt-4">
+                                <strong>₹{{i.product_details.product_price}}</strong>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mt-4">
+                              <a href="../CartDecrement/{{i.pk}}"><img src="{% static './img/delete.png'%}" width="25px" alt=""></a><strong>{{i.quantity}}<a href="../CartIncrement/{{i.pk}}"><img src="{% static './img/add.png'%}" width="25px" alt=""></a></strong>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="mt-4">
+                              <strong>
+                                {% for j in list%}
+                                  {% if j.p_pk == i.product_details.pk%}
+                                  ₹{{ j.total_price }}
+                                  
+                                  {% endif%}
+                                  {% endfor%}
+                              </strong>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="container d-flex">
+          <div class="end-start col-md-4">
+            <div class="row">
+              <div class="col">
+                <h5><strong>SubTotal :</strong></h5>
+              </div>
+              <div class="col text-center">
+                <h5><strong>₹{{total}}</strong></h5>
+              </div>
+
+            </div>
+            
+            <div class="row mt-2">
+              <div class="col">
+                <!-- <h5><strong>Offer :</strong></h5> -->
+              </div>
+              <div class="col">
+                <h5><strong></strong></h5>
+                
+              </div>
+
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col">
+                <h5><strong>Total :  </strong></h5>
+              </div>
+              <div class="col text-center">
+                <h5><strong>₹{{total}}</strong></h5>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-12 d-flex justify-content-end mt-4">
+                <input type="submit" value="Proceed to pay" class="btn btn-success rounded-3">
+              </div>
+            </div>
+
+          </div>
+        </div>
+        </form>
+        {%else%}
+        <div class="container mt-4">
+            <div class="row m-auto">
+                <div class="col-12 d-flex justify-content-center m-auto">
+                    <img src="{% static './img/order-now.png'%}" class="" width="40px" alt="">  <p class="">You have no cart items at the moment.</p>
+
+                </div>
+            </div>
+        </div>
+
+        {%endif%}
+        
+        
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const maxWords = 10; // Set the maximum number of words to display initially
+            const productDetailsElement = document.getElementById("productDetails");
+            const toggleLink = document.getElementById("toggleLink");
+            
+            const originalText = productDetailsElement.textContent;
+            const words = originalText.split(" ");
+            
+            if (words.length > maxWords) {
+                const truncatedText = words.slice(0, maxWords).join(" ") + "...";
+                productDetailsElement.textContent = truncatedText;
+                toggleLink.style.display = "inline";
+                
+                let isTruncated = true; // State to track whether text is truncated
+                
+                toggleLink.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    if (isTruncated) {
+                        productDetailsElement.textContent = originalText;
+                        toggleLink.textContent = "Show Less";
+                    } else {
+                        productDetailsElement.textContent = truncatedText;
+                        toggleLink.textContent = "Show More";
+                    }
+                    isTruncated = !isTruncated;
+                });
+            }
+        });
+        
+        
+    </script>
+    {% endblock %}

@@ -1,0 +1,169 @@
+{% extends 'user/booking/Base.html' %}
+
+    {% block content %}
+        {% load static %}
+    <style>
+        .image-st{
+            background-image: url("{% static 'img/carousel-bg-1.jpg' %}");
+        }
+        input[type='text'],textarea{
+         
+            /* Firefox, Chrome, Opera */
+            text-align: center;
+        }
+    </style>
+
+     <!-- Page Header Start -->
+     <div class="container-fluid page-header mb-5 p-0 image-st">
+        <div class="container-fluid page-header-inner py-5">
+            <div class="container text-center">
+                <h1 class="display-3 text-white mb-3 animated slideInDown text-uppercase">Your Booking</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center text-uppercase">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Booking</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+    {%if booking_details.exists %}
+
+     
+    <!-- orders listing -->
+     <div class="container">
+        <div class="row col-12">
+            <div class="col-4 ">
+                <label for="search-input">Search :</label>
+            </div>
+            
+            <div class="col-md-8 d-flex flex-row-reverse">
+                
+                <input type="text" style="width:50%;" id="search-input" onkeyup="searchTable()" placeholder="Search for services, car numbers, payment status, or anything..." >
+            </div>
+         </div> 
+     </div>
+
+    <div class="container border border-danger rounded shadow-lg p-3 mb-5 bg-white">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table id="booking-table" class="table table-hover">
+                        <thead class="text-uppercase">
+                            <tr style="color: #D81324;">
+                                <th scope="col">Services</th>
+                                <th scope="col">Car Number</th>
+                                <th scope="col">Payment Status</th>
+                                <th scope="col">Payment Amount</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-uppercase" style="color: #000000;">
+                            {% for i in booking_details %}
+                            <tr>
+                                <td>{{i.services}}</td>
+                                <td>{{i.car_number}}</td>
+                                <td>
+                                    {{i.payment_status}}
+                                    {% if i.payment_status == 'Pending' %}
+                                    <form action="../PayPending" method="POST">
+                                        {% csrf_token %}
+                                        {% for j in p %}
+                                        {% if i.pk == j.pk %}
+                                        <input type="hidden" name="booking_id" value="{{i.pk}}">
+                                        <script src="https://checkout.razorpay.com/v1/checkout.js" data-key="rzp_test_SROSnyInFv81S4" data-amount={{j.amount}} data-currency="INR" data-order_id="{{payment.id}}" data-buttontext="Pay" data-name="django payment" data-description="this is test payment" data-image="https://example.com/your_logo.jpg" data-prefill.name="Gaurav Kumar" data-prefill.email="django@test.com" data-theme.color="#4CAF50"></script>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </form>
+                                    {% endif %}
+                                </td>
+                                <td>₹{{i.payment_amount}}</td>
+                                <td>{{i.date}}</td>
+                                <td>{{i.time_slot}}</td>
+                                <td>
+                                    <div class="row col-2">
+                                        <div class="col">{{i.status}}</div>
+                                        {% if i.status == 'Pending' %}
+                                        <div class="col-12 text-uppercase text-dark mt-4 mb-2">
+                                            <button class="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop{{ i.pk }}" aria-controls="offcanvasTop{{ i.pk }}">Cancel</button>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                            <div class="offcanvas offcanvas-top mt-4" tabindex="-1" id="offcanvasTop{{ i.pk }}" aria-labelledby="offcanvasTopLabel{{ i.pk }}" style="left: 50%; transform: translateX(-50%); width: 90%; background-color: #121212e6;">
+                                <div class="offcanvas-header col-12 d-flex justify-content-center text-center">
+                                    <h5 id="offcanvasTopLabel" class="text-center text-uppercase"></h5>
+                                    <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <div class="row d-flex justify-content-center text-center text-primary">
+                                        <div class="col-12">
+                                            <strong class="text-white text-uppercase">Confirmation</strong>
+                                        </div>
+                                        <div class="col-12">
+                                            <strong>Are You Sure to cancel your order</strong>
+                                        </div>
+                                    </div>
+                                    <div class="row d-flex justify-content-center mt-2">
+                                        <div class="col-auto">
+                                            <button type="button" class="btn btn-success text-white" data-bs-dismiss="offcanvas">No</button>
+                                        </div>
+                                        <div class="col-auto">
+                                            <a href="../CancelBooking/{{i.pk}}" class="btn btn-warning">Yes</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- orders listing end-->
+    {% else %}
+    <div class="container mt-4">
+        <div class="row m-auto">
+            <div class="col-12 d-flex justify-content-center m-auto">
+                <img src="{% static './img/order-now.png' %}" width="40px" alt="">
+                <p>You have no booking at the moment.</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+     
+
+    <script>
+        function searchTable() {
+            // Get the search input and table
+            const input = document.getElementById("search-input").value.toUpperCase();
+            const table = document.getElementById("booking-table");
+            const rows = table.getElementsByTagName("tr");
+
+            // Loop through table rows and filter
+            for (let i = 1; i < rows.length; i++) { // Start from 1 to skip the header row
+                const row = rows[i];
+                const cells = row.getElementsByTagName("td");
+                let match = false;
+
+                // Check each cell for a match
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j] && cells[j].innerText.toUpperCase().includes(input)) {
+                        match = true;
+                        break;
+                    }
+                }
+
+                // Show or hide row based on match
+                row.style.display = match ? "" : "none";
+            }
+        }
+    </script>
+    {% endblock %}

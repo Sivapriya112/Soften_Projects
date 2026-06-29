@@ -1,0 +1,101 @@
+{% extends 'Admin/Base.html' %}
+
+    {% block content %}
+    {% load static  %}
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('{% static "img/service-5.jpg"%}') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff; /* White text for better contrast */
+           
+        }
+        .box {
+            opacity: 0; /* Initial state hidden */
+            transform: translateY(30px); /* Slightly below original position */
+            transition: all 0.5s ease-in-out; /* Smooth animation */
+            height: 100px;
+            border-radius: 30px;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+        .box.animate {
+            opacity: 1; /* Visible */
+            transform: translateY(0); /* Original position */
+        }
+        .box:hover {
+            transform: scale(1.1); /* Slightly bulge */
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Optional shadow for hover effect */
+        }
+        .today-booking {
+            background-color: #df05055d;
+            color: #a57d32;
+        }
+        .stock-update {
+            background-color: #6667ab8a;
+            color: #a57d32;
+        }
+        .delivery-boy-request {
+            background-color: #6e0d2594;
+            color: #a57d32;
+        }
+    </style>
+
+    <!--admin Home -->
+    <div class="container-fluid">
+
+        <div class="container-fluid mt-4">
+            <div class="row d-flex justify-content-center m-auto text-center text-white">
+                <h2 class="text-white">Welcome Back Admin</h2>
+            </div>
+        </div>
+        <div class="container mt-4">
+            <div class="row justify-content-center">
+                <a href="ViewBookings" class="col-md-3 text-center box today-booking">
+                    <h5 class="text-white">Today Booking</h5>
+                </a>
+                <a href="../StockUpdate" class="col-md-3 text-center box stock-update">
+                    <h5 class="text-white">Stock Update</h5>
+                </a>
+                <a href="ViewDeliveryBoys" class="col-md-3 text-center box delivery-boy-request">
+                    <h5 class="text-white">Delivery Boy Request</h5>
+                </a>
+            </div>
+        </div>
+    
+        
+    
+        
+        
+    </div>
+    <!--admin Home  end-->
+    <script>
+        // JavaScript to apply animation on page load
+        document.addEventListener("DOMContentLoaded", function () {
+            // Select all boxes
+            const boxes = document.querySelectorAll('.box');
+
+            // Add 'animate' class to each box with a slight delay
+            boxes.forEach((box, index) => {
+                setTimeout(() => {
+                    box.classList.add('animate');
+                }, index * 200); // Staggered animation with 200ms delay between each box
+            });
+
+            // Optional: Log hover events for interactivity
+            boxes.forEach((box) => {
+                box.addEventListener('mouseenter', () => {
+                    console.log(`${box.textContent.trim()} hovered`);
+                });
+            });
+        });
+    </script>
+
+    {% endblock %}

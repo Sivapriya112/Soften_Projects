@@ -1,0 +1,99 @@
+{% extends 'DeliveryBoy/Base.html' %}
+
+    {% block content %}
+        {% load static %}
+
+
+    <!-- Profile section -->
+     
+    <div class="container shadow-lg p-3 mb-5 bg-white rounded mt-4 ">
+        <form action="" method="post" enctype="multipart/form-data">
+            {%csrf_token %}
+            <div class="row text-center ">
+                <div class="col-md-12 mt-4" style="top:20px">
+                    {% if details.instance.profile_picture %}
+                        <img src="{{ details.instance.profile_picture.url }}" class="rounded-circle" width="30%" height="auto" alt="User Image" >
+                    {% else %}
+                        <img src="/static/img/person.png" class="rounded-circle" width="30%" height="auto" alt="Default Image">
+                    {% endif %}
+                    
+                    
+                </div>
+                <div class="row mx-auto text-uppercase text-center mt-2" >
+                    <h5 style="">Edit Your profile</h5>
+                </div>
+                 <div class="row col-md-10 m-auto">
+                    <div class="col-md-6">
+                            <div class="col-12 mt-2">
+                                <label for="">NAME</label>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <!-- {{ details.name.label_tag }} -->
+                            
+                                {{ details.name }}
+                            </div>
+                            <div class="col-12 mt-2">
+                                <label for="">USERNAME</label>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <!-- {{ products.product_name.label_tag }} -->
+                                <!-- {{ details.username.label_tag }} -->
+                                {{ details.username }}
+                            </div>
+                            <div class="col-12 mt-2">
+                                <label for="">EMAIL</label>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <!-- {{ products.product_name.label_tag }} -->
+                                {{ details.email }}
+                            </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-12 mt-2">
+                            <label for="">PHONE NUMBER</label>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <!-- {{ products.product_name.label_tag }} -->
+                            {{ details.phone }}
+                        </div>
+                        <div class="col-12 mt-2">
+                            <label for="">EDIT YOUR PROFILE IMAGE</label>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <!-- {{ products.product_name.label_tag }} -->
+                            {{ details.profile_picture }}
+                        </div>
+                        <div class="col-12 mt-2">
+                            <label for="">ADDRESS</label>
+                        </div>
+                            <div class="col-12 mt-2">
+                                <!-- {{ products.product_name.label_tag }} -->
+                                {{ details.address }}
+                            </div>
+                            
+
+
+                            
+                    </div>
+                    <div class="col-12 mt-2 m-auto">
+                        <label for="">Status</label>
+                    </div>
+                    <div class="col-6 mt-2 m-auto">
+                        <!-- {{ products.product_price.label_tag }} -->
+                        {{ details.status }}
+                    </div>
+                    <div class="col-md-12 d-flex justify-content-center mt-2">
+                        <input type="submit" value="Save" class="btn btn-danger">
+                    </div>
+                 
+                    
+            </div>
+        </form>
+     </div>
+    
+    <!-- products End -->
+    
+
+    <!-- Profile section end-->
+    <!-- JavaScript start -->
+    {% endblock %}

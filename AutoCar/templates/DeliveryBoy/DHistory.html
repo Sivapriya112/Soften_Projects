@@ -1,0 +1,252 @@
+{% extends 'DeliveryBoy/Base.html' %}
+
+    {% block content %}
+        <style>
+            /* Style for the link */
+            .show-alert-link {
+                color: blue;
+                text-decoration: underline;
+                cursor: pointer;
+            }
+    
+            /* Style for the alert box */
+            .alert-box {
+                display: none; /* Initially hidden */
+                background-color: #ddd1d0; /* Red background */
+                color: rgb(5, 5, 5);
+                padding: 20px;
+                border-radius: 5px;
+                margin-top: 20px;
+                text-align: center;
+                max-width: 800px;
+                
+                margin-left: auto;
+                margin-right: auto;
+            }
+             /* Style for the close button */
+        .close-btn {
+            
+            top: -24px;
+            left: 209px;
+            color: white;
+            background: transparent;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    
+        /* Close button on hover */
+        .close-btn:hover {
+            color: #000;
+        }
+        </style>
+        {%if details.exists %}
+
+     
+        <!-- orders listing -->
+         <div class="container mt-4">
+            <div class="row col-12">
+                <div class="col-4 ">
+                    <label for="search-input">Search :</label>
+                </div>
+                
+                <div class="col-md-8 d-flex flex-row-reverse">
+                    
+                    <input type="text" style="width:50%;" id="search-input" onkeyup="searchTable()" placeholder="Search for services, car numbers, payment status, or anything..." >
+                </div>
+             </div> 
+         </div>
+    
+        <div class="container border border-danger rounded shadow-lg p-3 mb-5 bg-white  mt-4">
+            <div class="row">
+                
+                <div class="col-md-12 table-responsive">
+                    <table id="booking-table" class="table-responsive table table-hover" >
+                        <thead class="text-uppercase">
+                          <tr style="color: #D81324;">
+                            
+                            <th scope="col">Customer NAME</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Payment Amount</th>
+                            <th scope="col">Payment Status</th>
+                            <th scope="col">Ordered Date</th>
+                            <th scope="col">Ordered Time</th>
+                            <th scope="col">Order Status</th>
+                            
+                          </tr>
+                        </thead>
+                        <tbody class="text-uppercase" style="color: #000000;">
+                            {% for i in details %}
+                          <tr>
+                            
+                            <td>{{i.user_details.name}}</td>
+                            <td>
+                                {{i.user_details.housename}},
+                                {{i.user_details.landmark}},
+                                {{i.user_details.area}},
+                                {{i.user_details.pincode}}
+                            </td>
+                            <td>
+                                <a href="#" class="show-alert-link" data-bs-toggle="offcanvas" data-bs-target="#productDetails{{ i.pk }}">{{i.product_details.product_name}}</a>
+                            </td>
+                            <td>{{i.quantity}}</td>
+                            <td>₹{{i.payment_amount}}</td>
+                            <td>{{i.payment_status}}</td>
+                            <td>{{i.created_at|date:"Y-m-d"}}</td>
+                            <td>{{i.created_at|time:"H:i:s"}}</td>
+                            <td>
+                                {% if i.order_status == 'delivered' %}
+                                {{i.order_status}}
+                                {% else  %}
+
+                                <div class="col">
+                                    <form action="../deliveryotp/{{i.pk}}" method="post">
+                                        {% csrf_token %}
+                                        <input type="text" name="otp" id="" style="width: 80px;" placeholder="otp">
+                                        <input type="submit" class="btn btn-success" value="verify">
+                                    </form>
+                                </div>
+                                {% endif  %}
+
+                            </td>
+                            <td>
+                                {% if i.order_status == 'delivered' %}
+                                
+                                {% else  %}
+                                <div class="col-12 text-uppercase text-dark mt-4 mb-2">
+                                    <!-- Dynamically set the data-bs-target to open the specific offcanvas -->
+                                    <button class="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop{{ i.pk }}" aria-controls="offcanvasTop{{ i.pk }}">Cancel Order</button>
+                                </div>
+                                {% endif  %}
+
+                            </td>
+                            
+                            
+                          </tr>
+                          <!-- offcanvas alert start -->
+                            <div class="offcanvas offcanvas-top mt-4" tabindex="-1" id="offcanvasTop{{ i.pk }}" aria-labelledby="offcanvasTopLabel{{ i.pk }}" style="left: 5%; width: 90%; background-color: #121212e6;">
+                                <div class="offcanvas-header col-12 d-flex justify-content-center text-center">
+                                    <h5 id="offcanvasTopLabel{{ i.pk }}" class="text-center text-uppercase">Cancel Order</h5>
+                                    <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <div class="row d-flex justify-content-center text-center text-primary">
+                                        <div class="col-12">
+                                            <strong class="text-white text-uppercase">Confirmation</strong>
+                                        </div>
+                                        <div class="col-12">
+                                            <strong>Are You Sure want to Cancel Delivery order </strong>
+                                        </div>
+                                        <div class="col-12">
+                                            <strong>Your points will be changed from {{current_point}} to {{next}} (point:0 you will be Rejected)  </strong>
+                                        </div>
+                                    </div>
+                                    <div class="row d-flex justify-content-center mt-2">
+                                        <div class="col-6">
+                                            <button type="button" class="btn btn-success text-white w-100" data-bs-dismiss="offcanvas">No</button>
+                                        </div>
+                                        <div class="col-6">
+                                            <a href="../CancelDeliveryorder/{{ i.pk }}" class="btn btn-danger rounded-2 w-100">Yes</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- offcanvas alert end -->
+    
+                            <!-- Product Details Offcanvas -->
+                            <div class="offcanvas offcanvas-top mt-4" tabindex="-1" id="productDetails{{ i.pk }}" aria-labelledby="productDetailsLabel{{ i.pk }}" style="left: 5%; width: 90%; height: 80vh; background-color: #121212e6;">
+                                <div class="offcanvas-header col-12 d-flex justify-content-center text-center">
+                                    <h5 id="productDetailsLabel{{ i.pk }}" class="text-center text-uppercase text-white">Product Details</h5>
+                                    <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <img src="{{i.product_details.product_image.url}}" width="100%" height="auto" alt="">
+                                        </div>
+                                        <div class="col-md-7 text-white">
+                                            <p><strong>Product ID:</strong> {{i.product_details.id}}</p>
+                                            <h2><strong>{{i.product_details.product_name}}</strong></h2>
+                                            <h2><strong>₹{{i.product_details.product_price}}</strong></h2>
+                                            <hr>
+                                            <p><strong>Details:</strong> {{i.product_details.product_details}}</p>
+                                            <hr>
+                                            <p><strong>Quantity:</strong> {{i.quantity}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                              
+                              {% endfor %}
+                        </tbody>
+                      </table>
+                      
+                        
+                </div>
+            </div>
+        </div>
+        <!-- orders listing end-->
+        {%else%}
+        <div class="container mt-4">
+            <div class="row m-auto">
+                <div class="col-12 d-flex justify-content-center m-auto">
+                    {% load static %}
+                    <img src="{% static './img/order-now.png'%}" class="" width="40px" alt="">  <p class="">You have no booking at the moment.</p>
+    
+                </div>
+            </div>
+        </div>
+    
+        {%endif%}
+        <script>
+            // Function to show the alert box
+            function showAlert() {
+                var alertBox = document.getElementById('alertBox');
+                alertBox.style.display = 'block'; // Display the alert box
+            }
+             // Function to close the alert box
+             function closeAlert() {
+                var alertBox = document.getElementById('alertBox');
+                alertBox.style.display = 'none'; // Hide the alert box
+            }
+    
+            // Add event listener to the link
+            document.getElementById('alertLink').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default link behavior
+                showAlert(); // Call showAlert function
+            });
+    
+            // Add event listener to the close button
+            document.getElementById('closeBtn').addEventListener('click', function() {
+                closeAlert(); // Call closeAlert function when button is clicked
+            });
+        </script>
+        <script>
+            function searchTable() {
+                // Get the search input and table
+                const input = document.getElementById("search-input").value.toUpperCase();
+                const table = document.getElementById("booking-table");
+                const rows = table.getElementsByTagName("tr");
+    
+                // Loop through table rows and filter
+                for (let i = 1; i < rows.length; i++) { // Start from 1 to skip the header row
+                    const row = rows[i];
+                    const cells = row.getElementsByTagName("td");
+                    let match = false;
+    
+                    // Check each cell for a match
+                    for (let j = 0; j < cells.length; j++) {
+                        if (cells[j] && cells[j].innerText.toUpperCase().includes(input)) {
+                            match = true;
+                            break;
+                        }
+                    }
+    
+                    // Show or hide row based on match
+                    row.style.display = match ? "" : "none";
+                }
+            }
+        </script>
+        {% endblock %}

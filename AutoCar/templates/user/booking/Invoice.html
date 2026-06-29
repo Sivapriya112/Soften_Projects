@@ -1,0 +1,41 @@
+{% extends 'user/booking/Base.html' %}
+
+    {% block content %}
+        {% load static %}
+       
+    <!-- Order Success -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="invoice">
+                    <h2 class="text-center">Invoice</h2>
+                    
+                    <div class="invoice-details">
+                        <h4>Booking Details</h4>
+                        <p><strong>User:</strong> {{ order.user.name }}</p>
+                        <p><strong>Service:</strong> {{ order.services }}</p>
+                        <p><strong>Car Model:</strong> {{ order.car_model }}</p>
+                        <p><strong>Car Number:</strong> {{ order.car_number }}</p>
+                        <p><strong>Date:</strong> {{ order.date }}</p>
+                        <p><strong>Time Slot:</strong> {{ order.time_slot }}</p>
+                        <p><strong>Payment Amount:</strong> ₹{{ order.payment_amount }}</p>
+                        <p><strong>Payment Status:</strong> {{ order.payment_status }}</p>
+                        <p><strong>Created At:</strong> {{ order.created_at }}</p>
+                    </div>
+                    
+                    <div class="text-right mt-4">
+                        <h4>Total Amount: ₹{{ order.payment_amount }}</h4>
+                        <p><em>Payment Status:</em> {{ order.payment_status }}</p>
+                    </div>
+    
+                    <!-- Buttons for Print and Booking List -->
+                    <div class="mt-4 d-flex justify-content-between">
+                        <button onclick="printInvoice()" class="btn btn-primary">Print Invoice</button>
+                        <a href="../UserBookingListing" class="btn btn-secondary">Go to Booking List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% endblock %}

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <title>Carve</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+    
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
+    
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700&family=Ubuntu:wght@400;500&display=swap" rel="stylesheet"> 
+    
+        <!-- Icon Font Stylesheet -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+        <!-- Libraries Stylesheet -->
+        <link href="{% static 'lib/animate/animate.min.css'%}" rel="stylesheet">
+        <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css'%}" rel="stylesheet">
+        <link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css'%}" rel="stylesheet" />
+    
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="{% static 'css/bootstrap.min.css'%} " rel="stylesheet">
+    
+        <!-- Template Stylesheet -->
+        <link href="{% static 'css/style.css'%}" rel="stylesheet">
+    </head>
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+<!-- Topbar Start -->
+<div class="container-fluid bg-light p-0">
+    <div class="row gx-0 d-none d-lg-flex">
+        <div class="col-lg-7 px-5 text-start">
+            <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                 <small class="fa fa-map-marker-alt text-primary me-2"></small> 
+                 <small>2nd Floor,CVP Champers,kadavanthara,Cochin - 682020</small>
+            </div>
+            <div class="h-100 d-inline-flex align-items-center py-3">
+                <small class="far fa-clock text-primary me-2"></small>
+                <small>Mon - Sun : 09.00 AM - 09.00 PM</small>
+            </div>
+        </div>
+        <div class="col-lg-5 px-5 text-end">
+          
+            
+            <div class="h-100 d-inline-flex align-items-center">
+              
+                <!-- <a class="btn btn-sm-square bg-white text-primary me-1" href="../UserCart"><img src="{% static './img/cart.png' %}" width="30px" alt=""></i></a>
+                <a class="btn btn-sm-square bg-white text-primary me-1" href="../ViewWishList"><img src="{% static './img/heart.png' %}" width="30px" alt=""></a>
+                 -->
+        </div>
+    </div>
+</div>
+<!-- Topbar End -->
+
+
+
+  <!-- Navbar Start -->
+  <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+    <a href="index" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <h2 class="m-0 text-primary"><i class="fa fa-car me-3"></i>CarServ</h2>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a href="index" class="nav-item nav-link active">Home</a>
+            <a href="index#about" class="nav-item nav-link">About</a>
+            <a href="index#services" class="nav-item nav-link">Services</a>
+            <a href="index#products" class="nav-item nav-link">Products</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Login</a>
+                <div class="dropdown-menu fade-up m-0">
+                    <a href="user_login" class="dropdown-item">User</a>
+                    <a href="DUserLogin" class="dropdown-item">Delivery Boy</a>
+                    <a href="AdminLogin" class="dropdown-item">Admin</a>
+                </div>
+            </div>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Register</a>
+                <div class="dropdown-menu fade-up m-0">
+                    <a href="UserRegister" class="dropdown-item">User</a>
+                    <a href="DUserRegister" class="dropdown-item">Delivery Boy</a>
+    
+                </div>
+            </div>
+            
+        </div>
+        <a href="user_login" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Explore Services<i class="fa fa-arrow-right ms-3"></i></a>
+    </div>
+</nav>
+<!-- Navbar End -->
+     <!-- alert-messages -->
+     {% if messages %}
+     <div id="alert-container" >
+         {% for m in messages %}
+             <div class="alert alert-danger" role="alert">
+                 <a href="#" class="alert-link">{{ m }}</a>
+             </div>
+         {% endfor %}
+     </div>
+     
+ {% endif %}
+ 
+     <!-- alert-messages-end -->
+    <!-- Register Start -->
+        <div class="container-fluid d-flex justify-content-center mt-4">
+            <h2 class="text-uppercase">Join us</h2>
+        </div>
+        
+        <div class="container-fluid d-flex mt-2 justify-content-center">
+            <div class="col-md-4">
+                <div class="container d-flex justify-content-center" >
+                    
+                        <form class="col-md-12" action="../DUserRegister" method="post" enctype="multipart/form-data">
+                            {%csrf_token %}
+                            <div class="col-12 mt-2">
+                                <input type="text" name="name" id="" class="form-control form-manual"  placeholder="Your Name" required>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <input type="email" name="email" id="" class="form-control form-manual" placeholder="Email" required>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <input type="text" name="phoneno" id="phoneno" class="form-control form-manual" placeholder="Phone number" required maxlength="10" oninput="validatePhoneNumber(this)">
+                            </div>
+                            <input 
+                            type="text" 
+                            name="License_number" 
+                            id="License_number" 
+                            class="form-control form-manual mt-2" 
+                            placeholder="Enter License Number" 
+                            pattern="^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,11}$" 
+                            title="Please provide a valid Indian license number (e.g., MH12AB1234567)" 
+                            maxlength="16"
+                            required>
+                            <div class="col-12 mt-2">
+                                <input type="file" name="License_image" id="" class="form-control form-manual" placeholder="Username" required>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <input type="text" name="username" id="" class="form-control form-manual" placeholder="Username" required>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <div class="input-group">
+                                    <input 
+                                      type="password" 
+                                      name="password" 
+                                      id="psw" 
+                                      class="form-control form-manual" 
+                                      placeholder="Enter Password" 
+                                      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                                      title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
+                                      required>
+                                    <button class="btn btn-outline-danger " style="border-top-right-radius: 12px;border-bottom-right-radius: 12px;" type="button" id="togglePassword">
+                                      <i class="bi bi-eye-slash"></i>
+                                    </button>
+                                  </div>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <input type="password" name="cpassword" id="" class="form-control form-manual" placeholder="Confirm Password" required>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <div class="col-4 mt-2 mx-auto">
+                                    <div class="row justify-content-center">
+                                        <input type="submit" value="Register" class="btn btn-success form-manual" required>
+                                    </div>
+                                </div>
+                            </div>
+`                            
+                            
+                        </form>
+                        
+                        
+                    
+                </div>
+            </div>
+            
+        </div>
+        <div class="container ">
+            <div class="row ">
+                <div class="col-12 d-flex justify-content-center">
+                    <a href="../DUserLogin">Login</a>
+                </div>
+            </div>
+            
+        </div>
+    <!-- Register End -->
+    <!-- JavaScript Libraries -->
+    <script>
+        // Toggle password visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('psw');
+    
+        togglePassword.addEventListener('click', function () {
+          const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+          passwordInput.setAttribute('type', type);
+    
+          // Toggle the eye icon
+          this.querySelector('i').classList.toggle('bi-eye');
+          this.querySelector('i').classList.toggle('bi-eye-slash');
+        });
+      </script>
+    <script>
+        function validatePhoneNumber(input) {
+            // Remove any non-numeric characters
+            input.value = input.value.replace(/[^0-9]/g, '');
+            
+            // Limit input to 10 digits
+            if (input.value.length > 10) {
+                input.value = input.value.slice(0, 10);
+            }
+        }
+        </script>
+        
+        
+        <script>
+        function isNumberKey(evt) {
+            // Only allow numeric keys (0-9)
+            const charCode = evt.which ? evt.which : evt.keyCode;
+            if (charCode < 48 || charCode > 57) {
+                return false; // Prevent input if it's not a number
+            }
+            return true; // Allow input if it's a number
+        }
+        
+        function limitInput(input) {
+            // Limit input to 10 digits
+            if (input.value.length > 10) {
+                input.value = input.value.slice(0, 10);
+            }
+        }
+        </script>
+    <script>
+        // Set a timer to hide the alert after 5 seconds (5000 milliseconds)
+        setTimeout(function() {
+            var alertContainer = document.getElementById('alert-container');
+            if (alertContainer) {
+                alertContainer.style.display = 'none';
+            }
+        }, 5000); // 5000 milliseconds = 5 seconds
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js'%}"></script>
+    <script src="{% static 'lib/easing/easing.min.js'%}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js'%}"></script>
+    <script src="{% static 'lib/counterup/counterup.min.js'%}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js'%}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment.min.js'%}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js'%}"></script>
+    <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js'%}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js'%}"></script>
+</body>
+</html>

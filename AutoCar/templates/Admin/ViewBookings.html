@@ -1,0 +1,296 @@
+{% extends 'Admin/Base.html' %}
+
+{% block content %}
+{% load static %}
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 75px;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-content {
+        position: relative;
+        margin: auto;
+        padding: 20px;
+        width: 80%;
+        max-width: 600px;
+        background-color: #fff;
+        border-radius: 10px;
+    }
+
+    .modal-content img {
+        display: block;
+        margin: auto;
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+    }
+</style>
+
+<!-- Orders Listing -->
+<div class="container mt-4">
+    <div class="row col-12">
+        <div class="col-4 d-flex flex-row-reverse">
+            <label for="search-input">Search :</label>
+        </div>
+
+        <div class="col-md-8 d-flex ">
+            <input type="text" style="width:50%;" id="search-input" onkeyup="searchTable()" placeholder="Search...">
+        </div>
+    </div>
+</div>
+
+<!-- Toggle Buttons -->
+<div class="row col-12 justify-content-center mt-2">
+    <div class="col-6 btn-group mb-3" role="group">
+        <button id="btn-upcoming" class="btn btn-success active m-2" onclick="filterTable('upcoming')">Upcoming</button>
+        <button id="btn-completed" class="btn btn-warning m-2" onclick="filterTable('completed')">Completed</button>
+        <button id="btn-cancelled" class="btn btn-danger m-2" onclick="filterTable('cancelled')">Cancelled</button>
+    </div>
+</div>
+
+<div class="container-fluid col-md-12 border border-danger rounded shadow-lg p-3 mb-5 bg-white">
+    <div class="row col-md-12">
+        <div class="col-md-12 table-responsive">
+            <table id="booking-table" class="table table-hover">
+                <thead class="text-uppercase text-center">
+                    <tr style="color: #D81324;">
+                        <th scope="col">Profile</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Selected Services</th>
+                        <th scope="col">Car Model</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">phone No</th>
+                        <th scope="col">date</th>
+                        <th scope="col">timeslot</th>
+                        <th scope="col">Payment Amount</th>
+                        <th scope="col">Payment Status</th>
+                        <th scope="col">Service Status</th>
+                    </tr>
+                </thead>
+
+                <!-- Upcoming Orders -->
+                <tbody id="upcoming" class="text-align-center" style="color: #000000; display: table-row-group;">
+                    {% if upcomming %}
+                        {% for booking in upcomming %}
+                            <tr>
+                                <td>
+                                    {% if booking.user.user_image and booking.user.user_image.url %}
+                                        <img src="{{ booking.user.user_image.url }}" alt="Profile Picture" width="100px" height="auto">
+                                    {% else %}
+                                        No image
+                                    {% endif %}
+                                </td>
+                                <td>{{ booking.name }}</td>
+                                <td>{{ booking.services }}</td>
+                                <td>{{ booking.car_model }}</td>
+                                <td class="text-lowercase">{{ booking.user.email }}</td>
+                                <td>{{ booking.user.phone_no }}</td>
+                                <td>{{ booking.date }}</td>
+                                <td>{{ booking.time_slot }}</td>
+                                <td>{{ booking.payment_amount }}</td>
+                                <td>
+                                    {%if booking.payment_status == 'Pending' %}
+                                    <form action="AdminPaymentOrderStatus" method="post">
+                                        {%csrf_token%}
+                                        
+                                        <input type="hidden" name="order_id" value="{{ booking.pk }}">
+                                            <select name="status"  class="form-select" required>
+                                                <option value="pending" selected>Pending</option>
+                                                <option value="completed" >completed</option>
+                                                
+                                            </select>
+                                            <input type="submit" class="btn btn-sm btn-primary mt-2"value='Save'>
+                                    </form>
+                                    {%else %}
+                                    {{ booking.payment_status }}
+                                    {%endif %}
+                                
+                                </td>
+                                
+                                <td>
+                                    <form action="UpdateBookingStatus" method="post">
+                                        {%csrf_token%}
+                                        
+                                        <input type="hidden" name="order_id" value="{{ booking.pk }}">
+                                            <select name="status"  class="form-select" required>
+                                                <option value="pending" selected>Upcomming</option>
+                                                <option value="completed" >Completed</option>
+                                            </select>
+                                            <input type="submit" class="btn btn-sm btn-primary mt-2"value='Save'>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="10">No upcoming records available.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+
+                <!-- Completed Orders -->
+                <tbody id="completed" class="text-align-center" style="color: #000000; display: none;">
+                    {% if completed %}
+                        {% for booking in completed %}
+                            <tr>
+                                <td>
+                                    {% if booking.user.user_image and booking.user.user_image.url %}
+                                        <img src="{{ booking.user.user_image.url }}" alt="Profile Picture" width="100px" height="auto">
+                                    {% else %}
+                                        No image
+                                    {% endif %}
+                                </td>
+                                <td>{{ booking.name }}</td>
+                                <td>{{ booking.services }}</td>
+                                <td>{{ booking.car_model }}</td>
+                                <td class="text-lowercase">{{ booking.user.email }}</td>
+                                <td>{{ booking.user.phone_no }}</td>
+                                <td>{{ booking.date }}</td>
+                                <td>{{ booking.time_slot }}</td>
+                                <td>{{ booking.payment_amount }}</td>
+                                <td>{{ booking.payment_status }}</td>
+                                <td>{{ booking.status }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="10">No completed records available.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+
+                <!-- Cancelled Orders -->
+                <tbody id="cancelled" class="text-align-center" style="color: #000000; display: none;">
+                    {% if cancelled %}
+                        {% for booking in cancelled %}
+                            <tr>
+                                <td>
+                                    {% if booking.user.user_image and booking.user.user_image.url %}
+                                        <img src="{{ booking.user.user_image.url }}" alt="Profile Picture" width="100px" height="auto">
+                                    {% else %}
+                                        No image
+                                    {% endif %}
+                                </td>
+                                <td>{{ booking.name }}</td>
+                                <td>{{ booking.services }}</td>
+                                <td>{{ booking.car_model }}</td>
+                                <td class="text-lowercase">{{ booking.user.email }}</td>
+                                <td>{{ booking.user.phone_no }}</td>
+                                <td>{{ booking.date }}</td>
+                                <td>{{ booking.time_slot }}</td>
+                                
+                                <td>
+                                    ₹{{ booking.payment_amount }}
+                                    {% if booking.refund_status == 'pending'%}
+                                    <form action="../RefundSuccess" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="booking_id" value="{{booking.pk}}">
+
+                                        {%for j in amount %}
+                                            {% if j.pk == booking.pk %}
+                                            
+                                    <script
+                                        src="https://checkout.razorpay.com/v1/checkout.js"
+                                        data-key="rzp_test_SROSnyInFv81S4"
+                                        data-amount={{j.amount}}
+                                        data-currency="INR"
+                                        data-order_id="{{payment.id}}"
+                                        data-buttontext="Refund"
+                                        data-name="django payment"
+                                        data-description="this is test payment"
+                                        data-image="https://example.com/your_logo.jpg"
+                                        data-prefill.name="Gaurav Kumar"
+                                        data-prefill.email="django@test.com"
+                                        data-theme.color="#4CAF50"
+                                        
+                                    ></script>
+                                    
+                                    {%endif%}
+                                    {%endfor%}
+
+                                        <input type="hidden" custom="Hidden Element" name="hidden" class="">
+                                    </form>
+                                    {%else%}
+                                     <p>Refunded</p>
+                                    {%endif%}
+                                </td>
+                                <td>
+                                    {{ booking.payment_status }}
+
+                                </td>
+                                <td>{{ booking.status }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="10">No cancelled records available.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function to toggle table display
+    function filterTable(status) {
+        // Hide all tbody sections
+        document.getElementById('upcoming').style.display = 'none';
+        document.getElementById('completed').style.display = 'none';
+        document.getElementById('cancelled').style.display = 'none';
+
+        // Remove active class from all buttons
+        document.getElementById('btn-upcoming').classList.remove('active');
+        document.getElementById('btn-completed').classList.remove('active');
+        document.getElementById('btn-cancelled').classList.remove('active');
+
+        // Show the selected tbody and add active class to corresponding button
+        document.getElementById(status).style.display = 'table-row-group';
+        document.getElementById('btn-' + status).classList.add('active');
+    }
+
+    // Search function
+    function searchTable() {
+        const input = document.getElementById("search-input").value.toUpperCase();
+        const table = document.getElementById("booking-table");
+        const rows = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) { // Skip the header row
+            const row = rows[i];
+            const cells = row.getElementsByTagName("td");
+            let match = false;
+
+            for (let j = 0; j < cells.length; j++) {
+                if (cells[j] && cells[j].innerText.toUpperCase().includes(input)) {
+                    match = true;
+                    break;
+                }
+            }
+
+            row.style.display = match ? "" : "none";
+        }
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'user/order_product/Base.html' %}
+
+    {% block content %}
+        {% load static %}
+<style>
+    .image-st{
+        background-image: url("{% static 'img/carousel-bg-1.jpg' %}");
+        box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
+    }
+    input{
+        background-color: green;
+        color: white;
+        border-radius: 20px;
+        width: 156px;
+        margin-bottom: 20px;
+    }
+    .border-box{
+        border: 2px solid green;
+        border-radius: 20px;
+    }
+
+</style>
+    {%if flag == 0 %}
+    <div class="container mt-4">
+        <div class="row col-12 border-box">
+            <div class="col-12 d-flex justify-content-center mt-4">
+                <h2>Payment Method </h2>
+    
+                
+            </div>
+            <div class="col-12 d-flex justify-content-center max-auto">
+                <h3>Amount : ₹{{p}}</h3>
+            </div>
+            <div class="col-12 d-flex justify-content-center mt-3">
+                <form action="../OrderSuccess" method="POST">
+                    {% csrf_token %}
+                <script
+                    src="https://checkout.razorpay.com/v1/checkout.js"
+                    data-key="rzp_test_SROSnyInFv81S4"
+                    data-amount={{price}}
+                    data-currency="INR"
+                    data-order_id="{{payment.id}}"
+                    data-buttontext="Pay with Razorpay"
+                    data-name="django payment"
+                    data-description="this is test payment"
+                    data-image="https://example.com/your_logo.jpg"
+                    data-prefill.name="Gaurav Kumar"
+                    data-prefill.email="django@test.com"
+                    data-theme.color="#4CAF50"
+                    
+                ></script>
+                    <input type="hidden" custom="Hidden Element" name="hidden" class="">
+                </form>
+            </div>
+            
+        </div>
+    </div>
+    {%else %}
+    <div class="row">
+        
+        <form action="../ProductsPayment/{{p}}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row d-flex justify-content-center align-items-center mt-2">
+                <div class="row d-flex justify-content-center align-items-center mt-2">
+                    <h2 class="text-uppercase text-center "> Your address</h2>
+                </div>
+            
+                <div class="col-md-8">
+                    
+                    <div class="col-12 mt-2 text-center">
+                        <label for="">HOUSENAME</label>
+                    </div>
+                    <div class="col-12 mt-2 text-center">
+                        <!-- {{ products.product_name.label_tag }} -->
+                        {{ details.housename }}
+                    </div>
+                    <div class="col-12 mt-2 text-center">
+                        <label for="">LANDMARK</label>
+                    </div>
+                    <div class="col-12 mt-2 text-center">
+                        <!-- {{ products.product_name.label_tag }} -->
+                        {{ details.landmark }}
+                    </div>
+                    <div class="col-12 mt-2 text-center">
+                        <label for="">AREA</label>
+                    </div>
+                    <div class="col-12 mt-2 text-center">
+                        <!-- {{ products.product_name.label_tag }} -->
+                        {{ details.area }}
+                    </div>
+                    <div class="col-12 mt-2 text-center">
+                        <label for="">PINCODE</label>
+                    </div>
+                    <div class="col-12 mt-2  text-center">
+                        <!-- {{ products.product_price.label_tag }} -->
+                        {{ details.pincode }}
+                    </div>
+                        
+                        
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <input type="submit" value="Confirm" class="btn btn-danger">
+                        </div>
+                    
+                </div>
+            </div>
+        {%endif %}
+
+        {% endblock %}

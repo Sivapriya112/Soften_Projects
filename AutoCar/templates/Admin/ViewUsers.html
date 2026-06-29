@@ -1,0 +1,120 @@
+{% extends 'Admin/Base.html' %}
+
+    {% block content %}
+
+   
+     
+    <!-- orders listing -->
+     <div class="container">
+        <div class="row col-12">
+            <div class="col-4 ">
+                <label for="search-input">Search :</label>
+            </div>
+            
+            <div class="col-md-8 d-flex flex-row-reverse">
+                
+                <input type="text" style="width:50%;" id="search-input" onkeyup="searchTable()" placeholder="Search......" >
+            </div>
+         </div> 
+     </div>
+     
+
+     <div class="container border border-danger rounded shadow-lg p-3 mb-5 bg-white">
+        <div class="row">
+            <div class="col-md-12 table-responsive">
+                <table id="booking-table" class="table table-hover">
+                    <thead class="text-uppercase">
+                        <tr style="color: #D81324;">
+                            <th scope="col">Image</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">username</th>
+                            <th scope="col">email</th>
+                            <th scope="col">phone no</th>
+                            <th scope="col">address</th>
+                            <th scope="col">pincode</th>
+                            <th scope="col">Status</th>
+                            
+                            
+                            
+                        </tr>
+                    </thead>
+                    <tbody class="text-uppercase" style="color: #000000;">
+                        {% for i in users %}
+                        
+                        
+                        <tr>
+                            <td>
+                                {% if i.user_image and i.user_image.url %}
+                                    <img src="{{ i.user_image.url }}" alt="Current Image" width="100px" height="auto">
+                                {% else %}
+                                    No image
+                                {% endif %}
+                            </td>
+                            
+                            <td>{{ i.name }}</td>
+                            <td>{{ i.username }}</td>
+                            <td class="text-lowercase">{{ i.email }}</td>
+                            <td>{{ i.phone_no }}</td>
+                            <td>{{ i.address }}</td>
+                            <td>{{ i.pincode }}</td>
+                            <td>
+                                <form action="UserStatusUpdate" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="user_id" value="{{ i.id }}">
+                                    <select name="status" class="form-select" required>
+                                        <option value="{{ i.status }}" {% if i.status == 'active' %}selected{% endif %}>{{ i.status }}</option>
+                                        <option value="active" {% if i.status == 'active' %}selected{% endif %}>Active</option>
+                                        <option value="rejected" {% if i.status == 'deactive' %}selected{% endif %}>Deactive</option>
+                                    </select>
+                                    
+                                    <button type="submit" class="btn btn-sm btn-primary mt-2">Submit</button>
+                                </form>
+                            </td>
+                           
+                            
+                            
+                        </tr>
+
+                        
+                       
+                        
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+               
+    
+   
+    
+    <!-- orders listing end-->
+   
+
+         <!-- JavaScript start -->
+           <!-- JavaScript start -->
+         <script>
+            function searchTable() {
+                // Get the search input and table
+                const input = document.getElementById("search-input").value.toUpperCase();
+                const table = document.getElementById("booking-table");
+                const rows = table.getElementsByTagName("tr");
+    
+                // Loop through table rows and filter
+                for (let i = 1; i < rows.length; i++) { // Start from 1 to skip the header row
+                    const row = rows[i];
+                    const cells = row.getElementsByTagName("td");
+                    let match = false;
+    
+                    // Check each cell for a match
+                    for (let j = 0; j < cells.length; j++) {
+                        if (cells[j] && cells[j].innerText.toUpperCase().includes(input)) {
+                            match = true;
+                            break;
+                        }
+                    }
+    
+                    // Show or hide row based on match
+                    row.style.display = match ? "" : "none";
+                }
+            }
+        </script>
+         {% endblock %}

@@ -1,0 +1,312 @@
+{% extends 'Admin/Base.html' %}
+
+    {% block content %}
+
+    
+
+        
+
+        <style>
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 75px;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0, 0, 0, 0.8);
+            }
+        
+            .modal-content {
+                position: relative;
+                margin: auto;
+                padding: 20px;
+                width: 80%;
+                max-width: 600px;
+                background-color: #fff;
+                border-radius: 10px;
+            }
+        
+            .modal-content img {
+                display: block;
+                margin: auto;
+            }
+        
+            .close {
+                position: absolute;
+                top: 10px;
+                right: 20px;
+                color: #aaa;
+                font-size: 28px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+        
+            .close:hover,
+            .close:focus {
+                color: black;
+            }
+        </style>
+    <!-- orders listing -->
+     <div class="container mt-4">
+        <div class="row col-12">
+            <div class="col-4 d-flex flex-row-reverse">
+                <label for="search-input">Search :</label>
+            </div>
+            
+            <div class="col-md-8 d-flex ">
+                
+                <input type="text" style="width:50%;" id="search-input" onkeyup="searchTable()" placeholder="Search......" >
+            </div>
+         </div> 
+     </div>
+     
+     <!-- Toggle Buttons -->
+     <div class="row col-12 justify-content-center mt-2">
+        <div class="col-6 btn-group mb-3" role="group">
+            <button id="btn-approved" class="btn btn-success active m-2" onclick="filterTable('approved')">Approved</button>
+            <button id="btn-not-approved" class="btn btn-warning m-2" onclick="filterTable('not-approved')">Not Approved</button>
+            <button id="btn-rejected" class="btn btn-danger m-2" onclick="filterTable('rejected')">Rejected</button>
+        </div>
+     </div> 
+     <div class="container-fluid col-md-12 border border-danger rounded shadow-lg p-3 mb-5 bg-white">
+        <div class="row col-md-12">
+            <div class="col-md-12 table-responsive">
+                <table id="booking-table" class=" table-responsive table table-hover">
+                    <thead class="text-uppercase text-center">
+                        <tr style="color: #D81324;">
+                            <th scope="col">Profile </th>
+                            <th scope="col">License</th>
+                            <th scope="col">License number</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">username</th>
+                            <th scope="col">email</th>
+                            <th scope="col">phone no</th>
+                            <th scope="col">address</th>
+                            <th scope="col">points</th>
+                            <th scope="col">Status</th>
+                            
+                            
+                        </tr>
+                    </thead>
+                            <tbody id="approved" class="text-align-center" style="color: #000000; display: table-row-group;">
+                                {% if approved_dboy %}
+                                {% for i in approved_dboy %}
+                                <tr>
+                                    <td>
+                                        {% if i.profile_picture and i.profile_picture.url %}
+                                            <img src="{{ i.profile_picture.url }}" alt="Profile Picture" width="100px" height="auto">
+                                        {% else %}
+                                            No image
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if i.license_image and i.license_image.url %}
+                                            <img src="{{ i.license_image.url }}" alt="License Image" 
+                                                 width="100px" height="auto" 
+                                                 class="license-image" 
+                                                 onclick="showImageModal('{{ i.license_image.url }}')">
+                                        {% else %}
+                                            No image
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ i.license_number }}</td>
+                                    <td>{{ i.name }}</td>
+                                    <td>{{ i.username }}</td>
+                                    <td class="text-lowercase">{{ i.email }}</td>
+                                    <td>{{ i.phone }}</td>
+                                    <td>{{ i.address }}</td>
+                                    <td>{{ i.points }}</td>
+                                    <td>
+                                        <form action="DboyStatusUpdate" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="deliveryboy_id" value="{{ i.id }}">
+                                            <select name="status"  class="form-select" required>
+                                                <option value="not approved" {% if i.status == "not_approved" %}selected{% endif %}>Not Approved</option>
+                                                <option value="approved" {% if i.status == "approved" %}selected{% endif %}>Approved</option>
+                                                <option value="rejected" {% if i.status == "rejected" %}selected{% endif %}>Rejected</option>
+                                            </select>
+                                            <button type="submit" class="btn btn-sm btn-primary mt-2">Submit</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td colspan="10">No approved records available.</td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                            <tbody id="not-approved" class="text-align-center" style="color: #000000; display: none;">
+                                {% if not_approved %}
+                                {% for i in not_approved %}
+                                <tr>
+                                    <td>
+                                        {% if i.profile_picture and i.profile_picture.url %}
+                                            <img src="{{ i.profile_picture.url }}" alt="Profile Picture" width="100px" height="auto">
+                                        {% else %}
+                                            No image
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if i.license_image and i.license_image.url %}
+                                            <img src="{{ i.license_image.url }}" alt="License Image" 
+                                                width="100px" height="auto" 
+                                                class="license-image" 
+                                                onclick="showImageModal('{{ i.license_image.url }}')">
+                                        {% else %}
+                                            No image
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ i.license_number }}</td>
+                                    <td>{{ i.name }}</td>
+                                    <td>{{ i.username }}</td>
+                                    <td class="text-lowercase">{{ i.email }}</td>
+                                    <td>{{ i.phone }}</td>
+                                    <td>{{ i.address }}</td>
+                                    <td>{{ i.points }}</td>
+                                    <td>
+                                        <form action="DboyStatusUpdate" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="deliveryboy_id" value="{{ i.id }}">
+                                            <select name="status"  class="form-select" required>
+                                                <option value="not_approved" {% if i.status == "not approved" %}selected{% endif %}>Not Approved</option>
+                                                <option value="approved" {% if i.status == "approved" %}selected{% endif %}>Approved</option>
+                                                <option value="rejected" {% if i.status == "rejected" %}selected{% endif %}>Rejected</option>
+                                            </select>
+                                            <button type="submit" class="btn btn-sm btn-primary mt-2">Submit</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                                {% else %}
+                                <tr>
+                                    <td colspan="10">No approved records available.</td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                            <tbody id="rejected" class="text-align-center" style="color: #000000; display: none;">
+                                {% if rejected %}
+                                {% for i in rejected %}
+                                <tr>
+                                    <td>
+                                        {% if i.profile_picture and i.profile_picture.url %}
+                                            <img src="{{ i.profile_picture.url }}" alt="Profile Picture" width="100px" height="auto">
+                                        {% else %}
+                                            No image
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if i.license_image and i.license_image.url %}
+                                            <img src="{{ i.license_image.url }}" alt="License Image" 
+                                                 width="100px" height="auto" 
+                                                 class="license-image" 
+                                                 onclick="showImageModal('{{ i.license_image.url }}')">
+                                        {% else %}
+                                            No image
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ i.license_number }}</td>
+                                    <td>{{ i.name }}</td>
+                                    <td>{{ i.username }}</td>
+                                    <td class="text-lowercase">{{ i.email }}</td>
+                                    <td>{{ i.phone }}</td>
+                                    <td>{{ i.address }}</td>
+                                    <td>{{ i.points }}</td>
+                                    <td>{{ i.status }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td colspan="10">No approved records available.</td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    
+                    
+                    <script>
+                        // Function to toggle table display
+                        function filterTable(status) {
+                            // Hide all tbody sections
+                            document.getElementById('approved').style.display = 'none';
+                            document.getElementById('not-approved').style.display = 'none';
+                            document.getElementById('rejected').style.display = 'none';
+                    
+                            // Remove active class from all buttons
+                            document.getElementById('btn-approved').classList.remove('active');
+                            document.getElementById('btn-not-approved').classList.remove('active');
+                            document.getElementById('btn-rejected').classList.remove('active');
+                    
+                            // Show the selected tbody and add active class to corresponding button
+                            document.getElementById(status).style.display = 'table-row-group';
+                            document.getElementById('btn-' + status).classList.add('active');
+                        }
+                    </script>
+                    
+                    
+                    <!-- Modal for displaying the license image -->
+                    <div id="imageModal" class="modal" style="display: none;">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeImageModal()">&times;</span>
+                            <img id="modalImage" src="" alt="License Image" style="max-width: 100%; height: 75%;">
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <!-- Modal JavaScript -->
+                    <script>
+                        function showImageModal(imageUrl) {
+                            const modal = document.getElementById('imageModal');
+                            const modalImage = document.getElementById('modalImage');
+                            modalImage.src = imageUrl;
+                            modal.style.display = 'block';
+                        }
+                    
+                        function closeImageModal() {
+                            const modal = document.getElementById('imageModal');
+                            modal.style.display = 'none';
+                        }
+                    </script>
+                    
+                </table>
+                
+               
+    
+   
+    
+    <!-- orders listing end-->
+   
+
+         <!-- JavaScript start -->
+         <script>
+            function searchTable() {
+                // Get the search input and table
+                const input = document.getElementById("search-input").value.toUpperCase();
+                const table = document.getElementById("booking-table");
+                const rows = table.getElementsByTagName("tr");
+    
+                // Loop through table rows and filter
+                for (let i = 1; i < rows.length; i++) { // Start from 1 to skip the header row
+                    const row = rows[i];
+                    const cells = row.getElementsByTagName("td");
+                    let match = false;
+    
+                    // Check each cell for a match
+                    for (let j = 0; j < cells.length; j++) {
+                        if (cells[j] && cells[j].innerText.toUpperCase().includes(input)) {
+                            match = true;
+                            break;
+                        }
+                    }
+    
+                    // Show or hide row based on match
+                    row.style.display = match ? "" : "none";
+                }
+            }
+        </script>
+        {% endblock %}
