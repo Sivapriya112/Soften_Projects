@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .update{
+    background: #fff;
+    }
+    .titlepage h2 {
+       text-align: center;
+       color: #555;
+       margin-bottom: 20px;
+    }
+    .update h1 {
+       text-align: center;
+       color: #007bff;
+       margin-bottom: 10px;
+    }
+    form {
+       margin: 20px 0;
+       display: flex;
+       flex-direction: column;
+       gap: 15px;
+    }
+    input[type="file"], input[type="text"] {
+       width: 100%;
+       padding: 10px;
+       border: 1px solid #ccc;
+       border-radius: 5px;
+       font-size: 16px;
+       background: #f9f9f9;
+       transition: border-color 0.3s ease;
+    }
+    input[type="file"]:focus, input[type="text"]:focus {
+       border-color: #007bff;
+       outline: none;
+    }
+    .btn-primary {
+       padding: 10px 15px;
+       font-size: 20px;
+       color: #fff;
+       background-color: #007bff;
+       border: none;
+       border-radius: 5px;
+       cursor: pointer;
+       transition: background-color 0.3s ease;
+    }
+    .btn-primary:hover {
+       background-color: #0056b3;
+    }
+    @media (max-width: 500px) {
+       .container {
+          padding: 15px;
+       }
+    }
+</style>
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>2rings</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- style css -->
+    <link rel="stylesheet" href="{% static 'css/new.css' %}">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <!-- fevicon -->
+    <link rel="icon" href="{% static 'images/fevicon.png" type="image/gif"/>
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.min.css' %}">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+          media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+          integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<!-- body -->
+<!--   <body class="main-layout inner_page">-->
+<!-- loader  -->
+<!--      <div class="loader_bg">-->
+<!--         <div class="loader"><img src="{% static 'images/loading.gif' %}" alt="#"/></div>-->
+<!--      </div>-->
+<!-- end loader -->
+<!-- header -->
+<!--      duply-->
+<body class="main-layout">
+<header class="full_bg4 ">
+    <!-- header inner -->
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                    <div class="full">
+                        <div class="center-desk">
+                            <div class="logo">
+                                <a href="index">2Rings</a>
+                                <img src="{% static 'images/ring.png' %}" alt="#"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                    <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarsExample04">
+                            <ul class="navbar-nav mr-auto">
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end header inner -->
+    <!-- end header -->
+    <!-- banner -->
+    <section class="banner_po">
+        <header class="banner_main ">
+            <div id="myCarousel" class="carousel slide banner" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner ">
+                    <div class="carousel-item active">
+                        <div class="container">
+                            <div class="carousel-caption  banner_po">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-9 ">
+                                        <div class="build_box">
+                                            <h2>2Rings Update<span class="orang">Section</span></h2>
+                                            <a class="read_more quote_btn" href="contact" role="button">Lets talk</a>
+                                            <a class="whatsapp-btn"
+                                               href="https://wa.me/9946108607?text=Hello!%20I%20am%20interested%20in%20your%20event%20planning%20services"
+                                               role="button"><img
+                                                    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                                                    alt="WhatsApp Icon" style="width: 20px; vertical-align: middle;">
+                                                Whatsapp
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container">
+                            <div class="carousel-caption banner_po">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-9 ">
+                                        <div class="build_box">
+                                            <h2>2Rings Update<span class="orang">Section</span></h2>
+                                            <a class="read_more quote_btn" href="contact" role="button">Lets Talk</a>
+                                            <a class="whatsapp-btn"
+                                               href="https://wa.me/9946108607?text=Hello!%20I%20am%20interested%20in%20your%20event%20planning%20services"
+                                               role="button"><img
+                                                    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                                                    alt="WhatsApp Icon" style="width: 20px; vertical-align: middle;">
+                                                Whatsapp
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container">
+                            <div class="carousel-caption banner_po">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-9 ">
+                                        <div class="build_box">
+                                            <h2>2Rings Update<span class="orang">Section</span></h2>
+                                            <a class="read_more quote_btn" href="contact" role="button">Lets Talk</a>
+                                            <a class="whatsapp-btn"
+                                               href="https://wa.me/9946108607?text=Hello!%20I%20am%20interested%20in%20your%20event%20planning%20services"
+                                               role="button"><img
+                                                    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                                                    alt="WhatsApp Icon" style="width: 20px; vertical-align: middle;">
+                                                Whatsapp
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </header>
+    </section>
+</header>
+<!-- play -->
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2 col-sm-8 offset-sm-2">
+                <div class="play_btn text_align_center">
+                    <img src="{% static 'images/play.png' %}" alt="#"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end play -->
+<div class="plane">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="titlepage">
+                    <h2>Update the Details </h2>
+                </div>
+            </div>
+        </div>
+        <div class="update">
+            <h1>Update Resort</h1>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" value="{{data.image}}" name="image">
+                <input type="text" value="{{data.name}}" name="name">
+                <button type="submit" class="btn btn-primary">submit</button>
+            </form>
+            <h1>Gallery Update</h1>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" value="{{data.image1}}" name="image1"/>
+                <input type="file" value="{{data.image2}}" name="image2"/>
+                <input type="file" value="{{data.image3}}" name="image3"/>
+                <input type="file" value="{{data.image4}}" name="image4"/>
+                <input type="file" value="{{data.image5}}" name="image5"/>
+                <input type="file" value="{{data.image6}}" name="image6"/>
+                <button type="submit" class="btn btn-primary">submit</button>
+            </form>
+            <h1>Video Update</h1>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text" value="{{video.title}}" name="title"/>
+                <input type="text" value="{{video.description}}" name="description"/>
+                <input type="file" value="{{video.video_file}}" name="video_file"/>
+                <button type="submit" class="btn btn-primary">submit</button>
+            </form>
+            <h1>Shorts Update</h1>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text" value="{{shorts.title}}" name="title"/>
+                <input type="text" value="{{shorts.description}}" name="description"/>
+                <input type="file" value="{{shorts.video_file}}" name="video_file"/>
+                <button type="submit" class="btn btn-primary">submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="footerbottom">
+        <p>+918484729282--gmail:<a href="#">rahul@gmail.com</a></p>
+    </div>
+    <!--          </div>-->
+    <!--      </footer>-->
+    <!-- end footer -->
+    <!-- Javascript files-->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+    <!-- sidebar -->
+    <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+</body>
+</html>

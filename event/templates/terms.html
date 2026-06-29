@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<style>
+
+    h1 {
+        text-align: center;
+        color: #4CAF50;
+        margin-bottom: 20px;
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        color: #333;
+        border-left: 4px solid #4CAF50;
+        padding-left: 10px;
+        margin-top: 20px;
+        font-size: 1.8rem;
+        padding: 15px;
+    }
+
+    p, ul {
+        line-height: 1.6;
+        font-size: 1rem;
+        margin-bottom: 15px;
+    }
+
+    ul {
+        list-style-type: disc;
+        padding-left: 40px;
+    }
+
+    a {
+        color: #4CAF50;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .container p:last-of-type {
+        text-align: center;
+        font-weight: bold;
+    }
+               .whatsapp-btn {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+background-color: #25D366;
+color: white;
+font-size: 16px;
+font-weight: bold;
+text-decoration: none;
+padding: 10px 20px;
+border-radius: 50px;
+transition: all 0.3s ease;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.whatsapp-btn:hover {
+background-color: #1ebe5d;
+box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+text-decoration: none;
+}
+.whatsapp-btn i {
+margin-right: 8px;
+font-size: 20px;
+}
+
+
+</style>
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>2rings</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- style css -->
+    <link rel="stylesheet" href="{% static 'css/new.css' %}">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <!-- fevicon -->
+    <link rel="icon" href="{% static 'images/fevicon.png' %}" type="image/gif"/>
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.min.css' %}">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+          media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+          integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<!-- body -->
+<!--   <body class="main-layout inner_page">-->
+
+<!-- loader  -->
+<!--      <div class="loader_bg">-->
+<!--         <div class="loader"><img src="{% static 'images/loading.gif' %}" alt="#"/></div>-->
+<!--      </div>-->
+<!-- end loader -->
+<!-- header -->
+<!--      duply-->
+<body class="main-layout">
+<header class="full_bg3">
+    <!-- header inner -->
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                    <div class="full">
+                        <div class="center-desk">
+                            <div class="logo">
+                                <a href="index">2Rings</a>
+                                <img src="{% static 'images/ring.png' %}" alt="#"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                    <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarsExample04">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="about">About Us </a>
+                                    <ul class="dropdown">
+                                        <li><a href="stories">stories by 2Rings</a></li>
+                                        <li><a href="resorts">wedding venues</a></li>
+                                        <li><a href="testimonial">Testimonial</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="gallery">Gallery</a>
+                                    <ul class="dropdown">
+                                        <li><a href="gallery">Photo Gallery</a></li>
+                                        <li><a href="video_gallery">Video Gallery</a></li>
+                                        <li><a href="shorts">Shots Gallery</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="service">Service</a>
+                                    <ul class="dropdown">
+                                        <li><a href="corp">Corporate Event Management</a></li>
+                                        <li><a href="beach">Beach Wedding</a></li>
+                                        <li><a href="stitching">Home Stitching</a></li>
+                                        <li><a href="catering">Catering Services</a></li>
+                                        <li><a href="wed">wedding planner</a></li>
+                                        <li><a href="parties">Private Parties</a></li>
+                                        <li><a href="music">Music & Entertainments</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="contact">Lets Talk</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="register">Register</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end header inner -->
+    <!-- end header -->
+    <!-- banner -->
+    <section class="banner_po">
+        <header class="banner_main ">
+            <div id="myCarousel" class="carousel slide banner" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner ">
+                    <div class="carousel-item active">
+                        <div class="container">
+                            <div class="carousel-caption  banner_po">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-9 ">
+                                        <div class="build_box">
+                                            <h2>2Rings Event<span class="orang"> Management</span></h2>
+                                            <a class="read_more quote_btn" href="contact" role="button">Lets talk</a><br>
+                                            <a class="whatsapp-btn"
+                                               href="https://wa.me/9946108607?text=Hello!%20I%20am%20interested%20in%20your%20event%20planning%20services"
+                                               role="button"><img
+                                                    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                                                    alt="WhatsApp Icon" style="width: 20px; vertical-align: middle;">
+                                                Whatsapp
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container">
+                            <div class="carousel-caption banner_po">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-9 ">
+                                        <div class="build_box">
+                                            <h2>2Rings Event <span class="orang">Management</span></h2>
+                                            <a class="read_more quote_btn" href="contact" role="button">Lets Talk</a><br>
+                                            <a class="whatsapp-btn"
+                                               href="https://wa.me/9946108607?text=Hello!%20I%20am%20interested%20in%20your%20event%20planning%20services"
+                                               role="button"><img
+                                                    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                                                    alt="WhatsApp Icon" style="width: 20px; vertical-align: middle;">
+                                                Whatsapp
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container">
+                            <div class="carousel-caption banner_po">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-9 ">
+                                        <div class="build_box">
+                                            <h2>2Rings Event <span class="orang">Management</span></h2>
+                                            <a class="read_more quote_btn" href="contact" role="button">Lets Talk</a><br>
+                                            <a class="whatsapp-btn"
+                                               href="https://wa.me/9946108607?text=Hello!%20I%20am%20interested%20in%20your%20event%20planning%20services"
+                                               role="button"><img
+                                                    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                                                    alt="WhatsApp Icon" style="width: 20px; vertical-align: middle;">
+                                                Whatsapp
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </header>
+    </section>
+</header>
+<!-- play -->
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2 col-sm-8 offset-sm-2">
+                <div class="play_btn text_align_center">
+                    <img src="{% static 'images/play.png' %}" alt="#"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end play -->
+<!--about-->
+<div class="container">
+    <h1>Terms and Conditions</h1>
+    <p>Welcome to 2Rings Event Management! These terms and conditions outline the rules and regulations for the use of
+        our website and services. By accessing or using our website, you agree to comply with and be bound by the
+        following terms.</p>
+
+    <h2>1. Services</h2>
+    <p>2Rings Event Management offers event planning, catering, entertainment, and related services. Specific details of
+        each service will be agreed upon in individual contracts.</p>
+
+    <h2>2. User Responsibilities</h2>
+    <p>By using our website and services, you agree to:</p>
+    <ul>
+        <li>Provide accurate and up-to-date information when requested.</li>
+        <li>Ensure timely payments for services as per the agreed terms.</li>
+        <li>Refrain from using our website for illegal or unauthorized purposes.</li>
+    </ul>
+
+    <h2>3. Payment Terms</h2>
+    <p>All payments must be made according to the payment schedule outlined in your contract. Late payments may incur
+        additional fees or penalties.</p>
+
+    <h2>4. Cancellations and Refunds</h2>
+    <p>Cancellations must be communicated in writing. Refunds, if applicable, will be processed based on the terms
+        outlined in your agreement. Deposits may be non-refundable.</p>
+
+    <h2>5. Intellectual Property</h2>
+    <p>All content, logos, and materials on our website are the property of 2Rings Event Management. Unauthorized use or
+        reproduction is prohibited.</p>
+
+    <h2>6. Limitation of Liability</h2>
+    <p>We strive to provide the best service possible, but 2Rings Event Management is not liable for unforeseen
+        circumstances, including but not limited to natural disasters, technical failures, or third-party
+        disruptions.</p>
+
+    <h2>7. Changes to Terms</h2>
+    <p>We reserve the right to modify these terms and conditions at any time. Changes will be effective immediately upon
+        posting on our website.</p>
+
+    <h2>8. Contact Us</h2>
+    <p>If you have any questions or concerns about these terms, please contact us at <a href="mailto:info@2rings.com">info@2rings.com</a>.
+    </p>
+
+    <p>Thank you for choosing 2Rings Event Management. We look forward to making your events unforgettable!</p>
+</div>
+<!-- end about -->
+<!--  footer -->
+<footer>
+    <div class="colo">
+        <h1>2Rings</h1>
+        <img src="{% static 'images/ring.png' %}" alt="#" class="logo1"/>
+        <p>Planning a full event has never been easier!</p>
+        <p>2Rings® Events is an ISO 9001:2015 Certified Event Management Company based in Kerala, India, offering
+            various services to make your events stress-free and memorable. From premium corporate events and
+            destination wedding planning to small-scale birthday parties and private gatherings, you can be sure we have
+            it all covered. With offices in Kochi, Thrissur, Calicut, and Trivandrum, we specialize in weddings,
+            corporate events, private parties, and occasions specifically for Keralites and Malayalees.</p>
+    </div>
+    <div class="footercontainer">
+        <p style="color:red; text-align:center;">follow us on social medias</p>
+        <div class="socialicons">
+            <a href="https://www.facebook.com/rahul.raaghu.37?mibextid=ZbWKwL"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://www.instagram.com/_rahul._.pr_?igsh=MWRzc3JtYTRldnVzbA=="><i
+                    class="fa-brands fa-instagram"></i></a>
+            <a href=""><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://youtube.com/@rahulpr2003?si=yrbQb7di1dg6qOq8"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.linkedin.com/in/rahul-pr-163567344?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i
+                    class="fa-brands fa-linkedin"></i></a>
+        </div>
+        <div class="footer_nav">
+            <ul>
+                <li><a href="index">Home</a></li>
+                <li><a href="about">about us</a></li>
+                <li><a href="service">service</a></li>
+                <li><a href="stories">blog</a></li>
+                <li><a href="contact">contact us</a></li>
+                <li><a href="terms">Terms and conditions</a></li>
+            </ul>
+        </div>
+        <div class="footerbottom">
+            <p>+918484729282--gmail:<a href="raaghurahul4@gmail.com">2ringseventmanagement@gmail.com</a></p>
+        </div>
+    </div>
+</footer>
+<!-- end footer -->
+<!-- Javascript files-->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+<!-- sidebar -->
+<script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+</body>
+</html>

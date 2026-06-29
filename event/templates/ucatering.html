@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .whatsapp-btn {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+background-color: #25D366;
+color: white;
+font-size: 16px;
+font-weight: bold;
+text-decoration: none;
+padding: 10px 20px;
+border-radius: 50px;
+transition: all 0.3s ease;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.whatsapp-btn:hover {
+background-color: #1ebe5d;
+box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+text-decoration: none;
+}
+.whatsapp-btn i {
+margin-right: 8px;
+font-size: 20px;
+}
+
+</style>
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>2rings</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- style css -->
+    <link rel="stylesheet" href="{% static 'css/new.css' %}">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <!-- fevicon -->
+    <link rel="icon" href="{% static 'images/fevicon.png' %}" type="image/gif"/>
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.min.css' %}">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+          media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+          integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<!-- body -->
+<!--   <body class="main-layout inner_page">-->
+<!-- loader  -->
+<!--      <div class="loader_bg">-->
+<!--         <div class="loader"><img src="{% static 'images/loading.gif' %}" alt="#"/></div>-->
+<!--      </div>-->
+<!-- end loader -->
+<!-- header -->
+<!--      duply-->
+<body class="main-layout">
+<header class="full_bg11">
+    <!-- header inner -->
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                    <div class="full">
+                        <div class="center-desk">
+                            <div class="logo">
+                                <a href="index">2Rings</a>
+                                <img src="{% static 'images/ring.png' %}" alt="#"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                    <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarsExample04">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="account">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="uabout">About Us </a>
+                                    <ul class="dropdown">
+                                        <li><a href="ustories">stories by 2Rings</a></li>
+                                        <li><a href="uresorts">wedding venues</a></li>
+                                        <li><a href="utestimonial">Testimonial</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="ugallery">Gallery</a>
+                                    <ul class="dropdown">
+                                        <li><a href="ugallery">Photo Gallery</a></li>
+                                        <li><a href="uvideo">Video Gallery</a></li>
+                                        <li><a href="ushorts">Shorts Gallery</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="uservice">Service</a>
+                                    <ul class="dropdown">
+                                        <li><a href="ucorp">Corporate Event Management</a></li>
+                                        <li><a href="ubeach">Beach Wedding</a></li>
+                                        <li><a href="ustitching">Home Stitching</a></li>
+                                        <li><a href="ucatering">Catering services</a></li>
+                                        <li><a href="uwed">wedding planner</a></li>
+                                        <li><a href="uparties">Private Parties</a></li>
+                                        <li><a href="umusic">Music & Entertainments</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="booking">Booking</a>
+                                </li>
+                                <li class="head"><a class="nav-link" href="profile">
+                                    <ion-icon class="fas fa-user" name="person"></ion-icon>
+                                    </i></a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end header inner -->
+    <!-- end header -->
+    <!-- banner -->
+    <section class="banner_po">
+        <header class="banner_main ">
+            <div id="myCarousel" class="carousel slide banner" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner ">
+                    <div class="carousel-item active">
+                        <div class="container">
+                            <div class="carousel-caption  banner_po">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-9 ">
+                                        <div class="build_box">
+                                            <h2>Catering <span class="orang">Services </span></h2>
+                                            <a class="read_more quote_btn" href="ucontact" role="button">Lets talk</a><br>
+                                            <a class="whatsapp-btn"
+                                               href="https://wa.me/9946108607?text=Hello!%20I%20am%20interested%20in%20your%20event%20planning%20services"
+                                               role="button"><img
+                                                    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                                                    alt="WhatsApp Icon" style="width: 20px; vertical-align: middle;">
+                                                Whatsapp
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container">
+                            <div class="carousel-caption banner_po">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-9 ">
+                                        <div class="build_box">
+                                            <h2>Catering <span class="orang">Services </span></h2>
+                                            <a class="read_more quote_btn" href="ucontact" role="button">Lets Talk</a><br>
+                                            <a class="whatsapp-btn"
+                                               href="https://wa.me/9946108607?text=Hello!%20I%20am%20interested%20in%20your%20event%20planning%20services"
+                                               role="button"><img
+                                                    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                                                    alt="WhatsApp Icon" style="width: 20px; vertical-align: middle;">
+                                                Whatsapp
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container">
+                            <div class="carousel-caption banner_po">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-9 ">
+                                        <div class="build_box">
+                                            <h2>Catering <span class="orang">Services </span></h2>
+                                            <a class="read_more quote_btn" href="ucontact" role="button">Lets Talk</a><br>
+                                            <a class="whatsapp-btn"
+                                               href="https://wa.me/9946108607?text=Hello!%20I%20am%20interested%20in%20your%20event%20planning%20services"
+                                               role="button"><img
+                                                    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                                                    alt="WhatsApp Icon" style="width: 20px; vertical-align: middle;">
+                                                Whatsapp
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </header>
+    </section>
+</header>
+<!-- play -->
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2 col-sm-8 offset-sm-2">
+                <div class="play_btn text_align_center">
+                    <img src="{% static 'images/play.png' %}" alt="#"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end play -->
+<div class="plane">
+    <div class="containers">
+        <div class="heading1">
+            <h3 style="text-align:center; ">Best Catering Services in Kerala</h3>
+            <p style="color:black; font-size:17px; weight:400;">Our catering services in Kerala elevate any event to a
+                gourmet experience, with expertly crafted menus and exceptional service. From intimate gatherings to
+                grand celebrations, we cater to your every need, leaving a lasting impression on your guests.</p>
+        </div>
+        <div class="beach_img text_align_center">
+            <figure><img src="{% static 'images/catering.jpg' %}" alt="#"/></figure>
+            <p style="padding-bottom:20px; color:black; font-size:17px; weight:400;">A Sadhya is a traditional
+                vegetarian feast served on a banana leaf. It typically includes rice, sambar, rasam, aviyal, thoran,
+                pachadi, pickles, papadam, and a variety of desserts. This is a must-have for any traditional event in
+                Kerala and is sure to leave your guests satisfied and happy.</p>
+        </div>
+        <!--            plan-->
+        <div>
+            <h2 style="text-align:center; weight:800; font-size:40px; color:black;">Unforgettable events through
+                delicious catering services in kerala</h2>
+            <p style="text-align:center; weight:800; font-size:20px; color:black; padding-bottom:20px;">Business
+                meetings and corporate events are the best and most novel ways to stimulate the team and get them
+                thinking creatively and outside the box. If your team members are new, then it enables them to interact
+                with other existing employees, which can even result in a new fantastic business idea.With 2Rings,
+                corporate event management companies in Kochi, Kerala goes beyond just planning a meeting. Besides
+                arranging meetings and conferences, we also plan and execute corporate hospitality, conventions,
+                exhibitions, client entertainment, incentive travel reward programmes, motivational events,
+                team-building activities, and more.</p>
+            <div class="container ">
+                <div class="row d_flex">
+                    <!--               <div class="col-md-5">-->
+                    <div class="titlepage1">
+                        <h2>Different types of events</h2>
+                        <span>Business events might include team outings, client hospitality, and internal seminars. Consequently, we also evaluate business events in terms of their scale when making planning decisions. 2Rings Event Management Company in Kochi, Kerala, specializes in various types of corporate events.</span>
+                        <h2>Conferences</h2>
+                        <span>People within similar industries can exchange ideas and interact at conferences. These gatherings span several days and feature innumerable workshops and guest speakers. Frequently, conferences involve guest lectures, networking opportunities and breakout sessions. For large events, we get you a complete convention center or a big space to conduct the event.</span>
+                        <div class="col-md-7">
+                            <div class="corp_img">
+                                <figure><img src="{% static 'images/catering2.jpg' %}" alt="#"/></figure>
+                            </div>
+                        </div>
+
+                        <h2>Budget:</h2>
+                        <span>The first thing is the budget when selecting catering services. You must understand that catering costs primarily depend upon the type of food you order, the quantity and number of times you require meals and tiffin. Rely on 2Ring’s catering services in Kerala, you can trust the experts to negotiate the best prices for you.</span>
+                        <h2>Guest preferences: </h2>
+                        <span> We also take into consideration the dietary restrictions and preferences of your guests. This will help you choose a menu that accommodates all gastronomical needs.</span>
+                        <h2>Service style:</h2>
+                        <span>There are various service styles that caterers offer, including buffet style, plated service, and family style. We help you make informed decisions about the service style – for instance if you are having a traditional wedding, then plated services are best, when guests are seated at the table. And when it’s a reception, a colourful buffet style meal is best. These choices also depend upon the number of people you are expecting.</span>
+                        <h2>Drinks and beverages:</h2>
+                        <span> There are various beverage varieties you can choose. It could be alcoholic, for a section of the audience and non-alcoholic for everyone. Besides, there are also children to consider where milk-based shakes and soft drinks might be preferred. We can take decisions depending upon accessibility.</span>
+                        <div class="col-md-7">
+                            <div class="corp_img">
+                                <figure><img src="{% static 'images/catering1.jpg' %}" alt="#"/></figure>
+                            </div>
+                        </div>
+                        <h2>Logistics, supply and transportation:</h2>
+                        <span> Setting up the tables, managing the guests, serving them the right food, in the right quantity, giving quality suggestions, bringing the food to the premises and clean-ups are all done by the caterers. 2Rings only deals with experienced hands who know what goes into catering.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <div class="heading1">
+            <h3 style="text-align:center; ">Catering Services – Let Us Create Your Own Food</h3>
+        </div>
+        <div class="row">
+
+            <div class="col-sm-12">
+                <div class="row">
+                    {% for i in data %}
+                    <div class="col-md-4">
+                        <div class="plan_bax1 text_align_center">
+                            <figure><img src="{{i.image.url}}"></figure>
+                            <div id="ho_plan" class="plan_text3">
+                                <h3><a href="login">{{i.name}}</a></h3>
+                                <p>{{i.desc}}</p>
+                                <!--                        <p>Splashes of Tradition: Kerala Haldi Stage Decoration Haldi decoration is an essential and cherished</p>-->
+                                <a class="read_more" href="login">works</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end blog -->
+<!--  footer -->
+<footer>
+    <div class="colo">
+        <h1>2Rings</h1>
+        <img src="{% static 'images/ring.png' %}" alt="#" class="logo1"/>
+        <p>Planning a full event has never been easier!</p>
+        <p>2Rings® Events is an ISO 9001:2015 Certified Event Management Company based in Kerala, India, offering
+            various services to make your events stress-free and memorable. From premium corporate events and
+            destination wedding planning to small-scale birthday parties and private gatherings, you can be sure we have
+            it all covered. With offices in Kochi, Thrissur, Calicut, and Trivandrum, we specialize in weddings,
+            corporate events, private parties, and occasions specifically for Keralites and Malayalees.</p>
+    </div>
+    <div class="footercontainer">
+        <p style="color:red; text-align:center;">follow us on social medias</p>
+        <div class="socialicons">
+            <a href="https://www.facebook.com/rahul.raaghu.37?mibextid=ZbWKwL"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://www.instagram.com/_rahul._.pr_?igsh=MWRzc3JtYTRldnVzbA=="><i
+                    class="fa-brands fa-instagram"></i></a>
+            <a href=""><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://youtube.com/@rahulpr2003?si=yrbQb7di1dg6qOq8"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.linkedin.com/in/rahul-pr-163567344?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i
+                    class="fa-brands fa-linkedin"></i></a>
+        </div>
+        <div class="footer_nav">
+            <ul>
+                <li><a href="account">Home</a></li>
+                <li><a href="uabout">about us</a></li>
+                <li><a href="uservice">service</a></li>
+                <li><a href="ustories">blog</a></li>
+                <li><a href="ucontact">contact us</a></li>
+                <li><a href="uterms">Terms and conditions</a></li>
+            </ul>
+        </div>
+        <div class="footerbottom">
+            <p>+918484729282--gmail:<a href="raaghurahul4@gmail.com">2ringseventmanagement@gmail.com</a></p>
+        </div>
+    </div>
+</footer>
+<!-- end footer -->
+<!-- Javascript files-->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
+<!-- sidebar -->
+<script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+</body>
+</html>
