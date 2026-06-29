@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+        }
+
+        .chat-header {
+            background: #075e54;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+        }
+
+        .chat-container {
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 10px;
+            background: #ece5dd;
+        }
+
+        .message {
+            max-width: 60%;
+            padding: 8px 10px;
+            margin: 5px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .sent {
+            background: #dcf8c6;
+            align-self: flex-end;
+        }
+
+        .received {
+            background: white;
+            align-self: flex-start;
+        }
+
+        .name {
+            font-weight: bold;
+            font-size: 12px;
+            color: #555;
+        }
+
+        .time {
+            font-size: 10px;
+            color: gray;
+            text-align: right;
+        }
+
+        .chat-input {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            background: white;
+            padding: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 8px;
+        }
+
+        .chat-input button {
+            padding: 8px 15px;
+            background: #075e54;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="chat-header">{{ project.title }}</div>
+
+<div id="chat-box" class="chat-container"></div>
+
+<div class="chat-input">
+    <input type="text" id="msg" placeholder="Type message...">
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+const projectId = "{{ project.id }}";
+
+function loadMessages() {
+    fetch(`/get-messages/${projectId}/`)
+    .then(res => res.json())
+    .then(data => {
+
+        let chatBox = document.getElementById("chat-box");
+        chatBox.innerHTML = "";
+
+        data.messages.forEach(msg => {
+
+            let div = document.createElement("div");
+
+            if (msg.is_me) {
+                div.className = "message sent";
+                div.innerHTML = `
+                    <div>${msg.message}</div>
+                    <div class="time">${msg.time}</div>
+                `;
+            } else {
+                div.className = "message received";
+                div.innerHTML = `
+                    <div class="name">${msg.sender}</div>
+                    <div>${msg.message}</div>
+                    <div class="time">${msg.time}</div>
+                `;
+            }
+
+            chatBox.appendChild(div);
+        });
+
+        chatBox.scrollTop = chatBox.scrollHeight;
+    });
+}
+
+setInterval(loadMessages, 1500);
+loadMessages();
+
+function sendMessage() {
+    let msg = document.getElementById("msg").value;
+
+    if (msg.trim() === "") return;
+
+    fetch("", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "message=" + msg
+    }).then(() => {
+        document.getElementById("msg").value = "";
+        loadMessages();
+    });
+}
+</script>
+
+</body>
+</html>
+
+
+
+.......
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Developer Chat - Code Art</title>
+
+  <!-- Vendor CSS -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+  <style>
+
+    /* =========================
+       HERO SECTION
+    ========================= */
+
+    .hero{
+        position: relative;
+        min-height: 100vh;
+        overflow: hidden;
+    }
+
+    .hero img{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+    }
+
+    body{
+        font-family: 'Poppins', sans-serif;
+        background: #000;
+    }
+
+    /* =========================
+       TRANSPARENT NAVBAR DROPDOWN
+    ========================= */
+
+    .navmenu .dropdown ul{
+        background: rgba(255,255,255,0.08);
+
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+
+        border: 1px solid rgba(255,255,255,0.15);
+
+        border-radius: 14px;
+
+        box-shadow:
+            0 8px 25px rgba(0,0,0,0.35);
+
+        padding: 10px 0;
+    }
+
+    .navmenu .dropdown ul li a{
+        color: #fff;
+
+        padding: 12px 20px;
+
+        transition: 0.3s ease;
+
+        background: transparent;
+    }
+
+    .navmenu .dropdown ul li a:hover{
+        background: rgba(255,255,255,0.12);
+
+        color: #60a5fa;
+
+        border-radius: 8px;
+    }
+
+    /* =========================
+       CHAT CONTAINER
+    ========================= */
+
+    .chat-container{
+
+        position: relative;
+
+        z-index: 10;
+
+        width: 75%;
+
+        margin: auto;
+
+        margin-top: -520px;
+
+        background: rgba(255,255,255,0.08);
+
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+
+        border-radius: 24px;
+
+        overflow: hidden;
+
+        border: 1px solid rgba(255,255,255,0.15);
+
+        box-shadow:
+            0 10px 35px rgba(0,0,0,0.35);
+    }
+
+    /* =========================
+       CHAT HEADER
+    ========================= */
+
+    .chat-header{
+
+        background: linear-gradient(
+            135deg,
+            #ff6a00,
+            #ee0979,
+            #8e2de2,
+            #4a00e0
+        );
+
+        background-size: 300% 300%;
+
+        animation: gradientMove 6s ease infinite;
+
+        padding: 20px;
+
+        color: white;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 15px;
+    }
+
+    .chat-profile{
+
+        width: 60px;
+
+        height: 60px;
+
+        border-radius: 50%;
+
+        background: rgba(255,255,255,0.2);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 24px;
+
+        font-weight: 700;
+
+        color: white;
+
+        border: 2px solid rgba(255,255,255,0.3);
+    }
+
+    .chat-header-details h3{
+
+        margin: 0;
+
+        font-size: 22px;
+
+        font-weight: 700;
+    }
+
+    .chat-header-details p{
+
+        margin: 0;
+
+        font-size: 14px;
+
+        opacity: 0.8;
+    }
+
+    /* =========================
+       CHAT BODY
+    ========================= */
+
+    .messages{
+
+        height: 520px;
+
+        overflow-y: auto;
+
+        padding: 25px;
+
+        background: rgba(255,255,255,0.04);
+    }
+
+    .messages::-webkit-scrollbar{
+        width: 6px;
+    }
+
+    .messages::-webkit-scrollbar-thumb{
+        background: rgba(255,255,255,0.25);
+        border-radius: 10px;
+    }
+
+    /* =========================
+       MESSAGE ALIGNMENT
+    ========================= */
+
+    .message{
+        margin-bottom: 18px;
+        display: flex;
+    }
+
+    .sent{
+        justify-content: flex-end;
+    }
+
+    .received{
+        justify-content: flex-start;
+    }
+
+    /* =========================
+       MESSAGE BOX
+    ========================= */
+
+    .bubble{
+
+        max-width: 65%;
+
+        padding: 14px 18px;
+
+        border-radius: 18px;
+
+        position: relative;
+
+        font-size: 15px;
+
+        line-height: 1.5;
+
+        word-wrap: break-word;
+
+        box-shadow:
+            0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    /* SENT MESSAGE */
+
+    .sent .bubble{
+
+        background: linear-gradient(
+            135deg,
+            #4facfe,
+            #00f2fe
+        );
+
+        color: white;
+
+        border-bottom-right-radius: 5px;
+    }
+
+    /* RECEIVED MESSAGE */
+
+    .received .bubble{
+
+        background: rgba(255,255,255,0.12);
+
+        backdrop-filter: blur(10px);
+
+        color: white;
+
+        border: 1px solid rgba(255,255,255,0.12);
+
+        border-bottom-left-radius: 5px;
+    }
+
+    /* =========================
+       MESSAGE TIME
+    ========================= */
+
+    .time{
+
+        font-size: 11px;
+
+        margin-top: 8px;
+
+        color: rgba(255,255,255,0.75);
+
+        text-align: right;
+    }
+
+    /* =========================
+       CHAT FOOTER
+    ========================= */
+
+    .chat-form{
+
+        padding: 18px;
+
+        background: rgba(255,255,255,0.05);
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+    }
+
+    .chat-form input{
+
+        flex: 1;
+
+        border-radius: 50px;
+
+        padding: 14px 18px;
+
+        border: 1px solid rgba(255,255,255,0.15);
+
+        background: rgba(255,255,255,0.08);
+
+        color: white;
+
+        outline: none;
+
+        transition: 0.3s ease;
+    }
+
+    .chat-form input::placeholder{
+        color: rgba(255,255,255,0.7);
+    }
+
+    .chat-form input:focus{
+
+        border-color: #60a5fa;
+
+        box-shadow:
+            0 0 12px rgba(96,165,250,0.35);
+    }
+
+    /* =========================
+       SEND BUTTON
+    ========================= */
+
+    .chat-form button{
+
+        border: none;
+
+        border-radius: 50px;
+
+        padding: 13px 24px;
+
+        font-weight: 600;
+
+        color: white;
+
+        background: linear-gradient(
+            135deg,
+            #ff6a00,
+            #ee0979,
+            #8e2de2
+        );
+
+        background-size: 300% 300%;
+
+        animation: gradientMove 6s ease infinite;
+
+        transition: 0.3s ease;
+    }
+
+    .chat-form button:hover{
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 8px 20px rgba(238,9,121,0.4);
+    }
+
+    /* =========================
+       ANIMATION
+    ========================= */
+
+    @keyframes gradientMove {
+
+        0%{
+            background-position: 0% 50%;
+        }
+
+        50%{
+            background-position: 100% 50%;
+        }
+
+        100%{
+            background-position: 0% 50%;
+        }
+    }
+
+    /* =========================
+       MOBILE RESPONSIVE
+    ========================= */
+
+    @media(max-width:768px){
+
+        .chat-container{
+
+            width: 95%;
+
+            margin-top: -450px;
+        }
+
+        .bubble{
+            max-width: 85%;
+        }
+
+        .chat-header{
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .chat-form{
+            flex-direction: column;
+        }
+
+        .chat-form button{
+            width: 100%;
+        }
+
+        .messages{
+            height: 450px;
+        }
+    }
+
+  </style>
+
+</head>
+
+<body class="index-page">
+
+<!-- HEADER -->
+
+<header id="header" class="header d-flex align-items-center fixed-top">
+
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+        <a href="#" class="logo d-flex align-items-center me-auto">
+
+            <h1 class="sitename">Code Art</h1>
+
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="userhome" class="active">Home</a></li>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="ProjectDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+             Project
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="ProjectDropdown">
+            <li>
+          <a class="dropdown-item" href="createproject">Create Project</a>
+          </li>
+          <li>
+          <a class="dropdown-item" href="userviewownprojects">My projects</a>
+          </li>
+         </ul>
+         </li>
+           <li><a href="browsefreelancers">Developers</a></li>
+          <li><a href="userviewallprojects">Search</a></li>
+          <li><a href="userviewproposal">Proposals</a></li>
+<!--          <li><a href="userreviewrating">Review/Rating</a></li>-->
+          <li><a href="logout">Logout</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+
+</header>
+
+<!-- MAIN -->
+
+<main class="main">
+
+    <!-- HERO -->
+
+    <section id="hero" class="hero section dark-background">
+
+        <img src="{% static 'assets/img/hero-bg.jpg' %}" alt="">
+
+    </section>
+
+    <!-- CHAT CONTAINER -->
+
+    <div class="chat-container">
+
+        <!-- HEADER -->
+
+        <div class="chat-header">
+
+            <div class="chat-profile">
+
+                {{ room.student.username|slice:":1"|upper }}
+
+            </div>
+
+            <div class="chat-header-details">
+
+                <h3>
+
+                    {{ room.project.project_title }}
+
+                </h3>
+
+                <p>
+
+                    Chat with {{ room.student.username }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- CHAT BODY -->
+
+        <div class="messages">
+
+            {% for msg in messages %}
+
+                {% if msg.sender == request.session.developer %}
+
+                    <!-- SENT -->
+
+                    <div class="message sent">
+
+                        <div class="bubble">
+
+                            {{ msg.message }}
+
+                            <div class="time">
+
+                                {{ msg.timestamp|date:"h:i A" }}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% else %}
+
+                    <!-- RECEIVED -->
+
+                    <div class="message received">
+
+                        <div class="bubble">
+
+                            {{ msg.message }}
+
+                            <div class="time">
+
+                                {{ msg.timestamp|date:"h:i A" }}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+        <!-- CHAT FORM -->
+
+        <form method="POST"
+              action="/developersendmessage/{{ room.id }}/"
+              class="chat-form">
+
+            {% csrf_token %}
+
+            <input type="text"
+                   name="message"
+                   placeholder="Type your message..."
+                   required>
+
+            <button type="submit">
+
+                <i class="bi bi-send-fill"></i>
+                Send
+
+            </button>
+
+        </form>
+
+    </div>
+
+</main>
+
+<!-- SCROLL TOP -->
+
+<a href="#"
+   id="scroll-top"
+   class="scroll-top d-flex align-items-center justify-content-center">
+
+    <i class="bi bi-arrow-up-short"></i>
+
+</a>
+
+<!-- JS FILES -->
+
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+
+<script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+
+<script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+<script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+</html>

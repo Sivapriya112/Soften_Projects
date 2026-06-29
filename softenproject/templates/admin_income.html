@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Total Website Income : ₹{{ total_income }}</h2>
+
+<table border="1">
+
+<tr>
+    <th>Project</th>
+    <th>Total</th>
+    <th>Admin Commission</th>
+    <th>Developer Amount</th>
+</tr>
+
+{% for i in data %}
+
+<tr>
+
+    <td>{{ i.project.title }}</td>
+
+    <td>{{ i.total_amount }}</td>
+
+    <td>{{ i.admin_amount }}</td>
+
+    <td>{{ i.developer_amount }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+</body>
+</html>

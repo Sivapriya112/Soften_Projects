@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+{%  load static %}
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Index - Dewi Bootstrap Template</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Dewi
+  * Template URL: https://bootstrapmade.com/dewi-free-multi-purpose-html-template/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+   <style>
+       /* =========================
+   GLOBAL BACKGROUND
+========================= */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+}
+
+/* =========================
+   HERO IMAGE
+========================= */
+.hero {
+    position: relative;
+    height: 500px;
+    overflow: hidden;
+}
+
+.hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* =========================
+   CENTER FORM OVER HERO
+========================= */
+.contact {
+    margin-top: -600px;
+    z-index: 10;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* =========================
+   GLASS CARD (MAIN FORM)
+========================= */
+.form-box {
+    width: 100%;
+    max-width: 650px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 25px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.35);
+    transition: 0.4s ease;
+    color: #fff;
+}
+
+/* Hover effect */
+.form-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+}
+
+/* =========================
+   TITLE
+========================= */
+.form-box h4 {
+    font-size: 28px;
+    font-weight: 800;
+    text-align: center;
+    background: linear-gradient(90deg, #00c6ff, #0072ff, #00ffcc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 25px;
+}
+
+/* =========================
+   LABELS
+========================= */
+label {
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+}
+
+/* =========================
+   INPUT / TEXTAREA / SELECT (GLASS STYLE)
+========================= */
+.form-box input,
+.form-box textarea,
+.form-box select {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(255,255,255,0.08) !important;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 14px;
+    color: #fff !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.08),
+        0 4px 15px rgba(0,0,0,0.15);
+    margin-bottom: 15px;
+}
+
+/* Placeholder text */
+.form-box input::placeholder,
+.form-box textarea::placeholder,
+.form-box select::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+
+/* Focus Effect */
+.form-box input:focus,
+.form-box textarea:focus,
+.form-box select:focus {
+    background: rgba(255,255,255,0.14) !important;
+    border: 1px solid rgba(0,198,255,0.7);
+    box-shadow:
+        0 0 15px rgba(0,198,255,0.35),
+        inset 0 1px 1px rgba(255,255,255,0.08);
+    outline: none;
+}
+
+/* Select dropdown options */
+.form-box select option {
+    background: #203a43;
+    color: white;
+}
+
+/* =========================
+   BUTTON (MODERN GRADIENT)
+========================= */
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border: none;
+    border-radius: 14px;
+    color: white;
+    transition: 0.3s ease;
+    box-shadow: 0 8px 20px rgba(102,126,234,0.35);
+}
+
+/* Hover effect */
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(102,126,234,0.55);
+}
+
+/* =========================
+   ALERT BOX
+========================= */
+.alert {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #fff;
+}
+
+/* =========================
+   ROW SPACING
+========================= */
+.row {
+    margin-bottom: 15px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    .form-box {
+        padding: 25px;
+    }
+    .form-box h4 {
+        font-size: 22px;
+    }
+}
+   </style>
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="{% static 'assets/img/logo.png' %}" alt=""> -->
+        <h1 class="sitename">Code Art</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li>Hi {{request.session.developer}}</li>
+          <li><a href="developerhome" class="active">Home</a></li>
+          <li><a href="developerprofile">Profile</a></li>
+          <li><a href="developerchatlist">Chat</a></li>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="ProjectDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           Projects
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="ProjectDropdown">
+          <li>
+          <a class="dropdown-item" href="developerviewproject">All Projects</a>
+          </li>
+          <li>
+          <a class="dropdown-item" href="developerviewacceptedprojects">Accepted Projects</a>
+          </li>
+           <li>
+          <a class="dropdown-item" href="developerviewrejectedprojects">Rejected Projects</a>
+          </li>
+            <li>
+          <a class="dropdown-item" href="developerviewuploadedprojects">Uploaded Projects</a>
+          </li>
+         </ul>
+         </li>
+
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="portfolioDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           Portfolio
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="portfolioDropdown">
+          <li>
+          <a class="dropdown-item" href="developerportfolio">Add Portfolio</a>
+          </li>
+          <li>
+          <a class="dropdown-item" href="developerviewportfolio">View Portfolio</a>
+          </li>
+         </ul>
+         </li>
+        <li><a href="/developeravgrating/{{developer_id}}">My rating</a></li>
+<!--          <li><a href="#contact">Earnings</a></li>-->
+<!--          <li><a href="developerviewreviewrating">Review/Rating</a></li>-->
+          <li><a href="logout">Logout</a></li>
+        </ul>
+        </nav>
+
+
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section id="hero" class="hero section dark-background">
+  <img src="{% static 'assets/img/hero-bg.jpg' %}" alt="">
+</section>
+
+<!--<div class="contact">-->
+<!--      &lt;!&ndash; Section Title &ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="container section-title " data-aos="fade-up">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h2>Sign Up</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&lt;!&ndash; End Section Title &ndash;&gt;&ndash;&gt;-->
+
+<!--        <div class="row justify-content-center">-->
+<!--         <div class="col-lg-6 bg-white">-->
+<!--        <div class="p-4 bg-white shadow rounded">-->
+<!--            <form action="" method="post" class="php-email-form bg-white">-->
+<!--&lt;!&ndash;            <form action="" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="500">&ndash;&gt;-->
+<!--              <div class="row gy-4">-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12 ">-->
+<!--                  <input type="text" class="form-control" name="phone" placeholder="Your Phone number" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12 ">-->
+<!--                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="username" placeholder="username" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="password" placeholder="password" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="confirmpassword" placeholder="confirmpassword" required="">-->
+<!--                </div>-->
+
+<!--&lt;!&ndash;                <div class="col-md-12">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <textarea class="form-control" name="message" rows="4" placeholder="Message" required=""></textarea>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--                <div class="col-md-12 text-center">-->
+<!--                  <div class="loading">Loading</div>-->
+<!--                  <div class="error-message"></div>-->
+<!--                  <div class="sent-message">Your message has been sent. Thank you!</div>-->
+
+<!--                  <button type="submit">Register</button>-->
+<!--                </div>-->
+
+<!--              </div>-->
+<!--            </form>-->
+
+<!--         </div>-->
+<!--        </div>-->
+<!--        </div>-->
+<!--        </div>-->
+{% if messages %}
+    <div class="alert alert-success alert-dismissible">
+      {% for message in messages %}
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>{{message}}!</strong>
+      {% endfor %}
+</div>
+    {% endif %}
+
+<div class="contact d-flex justify-content-center">
+
+  <div class="form-box p-3 shadow rounded">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+<!--      &lt;!&ndash; Profile Image &ndash;&gt;-->
+<!--      <div class="text-center mb-3">-->
+<!--        <div class="profile-wrapper">-->
+
+<!--          {% if data.instance.image %}-->
+<!--            <img src="{{ data.instance.image.url }}" id="previewImage">-->
+<!--          {% else %}-->
+<!--            <img src="{% static 'assets/img/default-user.png' %}" id="previewImage">-->
+<!--          {% endif %}-->
+
+<!--          &lt;!&ndash; Camera Icon &ndash;&gt;-->
+<!--          <label for="imageUpload" class="edit-icon">-->
+<!--            <i class="bi bi-camera"></i>-->
+<!--          </label>-->
+
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      &lt;!&ndash; Hidden File Input &ndash;&gt;-->
+<!--      {{ data.image }}-->
+
+<!--      <script>-->
+<!--document.getElementById('imageUpload').onchange = function (e) {-->
+<!--  const reader = new FileReader();-->
+<!--  reader.onload = function () {-->
+<!--    document.getElementById('previewImage').src = reader.result;-->
+<!--  }-->
+<!--  reader.readAsDataURL(e.target.files[0]);-->
+<!--};-->
+<!--</script>-->
+
+      <!-- Name -->
+      <div class="mb-2">
+{{data.project_title}}
+      </div>
+
+      <!-- Email -->
+      <div class="mb-2">
+        {{ data.project_description }}
+<!--        <div class="text-danger small">{{ data.email.errors }}</div>-->
+      </div>
+
+      <!-- Phone -->
+      <div class="mb-2">
+        {{ data.project_type }}
+<!--        <div class="text-danger small">{{ data.phone.errors }}</div>-->
+      </div>
+
+      <!-- Skills -->
+      <div class="mb-2">
+        {{ data.project_technology }}
+      </div>
+
+      <!-- Experience -->
+      <div class="mb-2">
+        {{ data.project_duration}}
+      </div>
+
+      <!-- Bio -->
+      <div class="mb-2">
+        {{ data.project_demo }}
+      </div>
+
+
+      <!-- Submit -->
+      <button type="submit" class="btn btn-primary w-100 mt-2">
+        Update
+      </button>
+
+    </form>
+  </div>
+
+</div>
+
+
+
+  </main>
+
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+<!--  <div id="preloader"></div>-->
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+<div id="imageModal" class="image-modal" onclick="closeModal()">
+  <span class="close-btn">&times;</span>
+  <img id="modalImage">
+</div>
+
+
+</body>
+
+</html>

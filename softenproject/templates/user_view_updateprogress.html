@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+{%  load static %}
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <title>Index - Dewi Bootstrap Template</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Dewi
+  * Template URL: https://bootstrapmade.com/dewi-free-multi-purpose-html-template/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+    <style>
+/* Center form over hero */
+.hero {
+  position: relative;
+}
+
+.contact {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: 10;
+}
+
+/* Form box */
+.form-box {
+  background: #ffffff;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Fix dark input issue */
+.custom-input {
+  background-color: #fff !important;
+  color: #000 !important;
+  border: 1px solid #ccc;
+}
+
+/* Input focus style */
+.custom-input:focus {
+  border-color: #0d6efd;
+  box-shadow: none;
+}
+
+/* Button style */
+.btn-primary {
+  padding: 10px;
+  font-weight: 500;
+}
+
+
+  .custom-table {
+    background-color: #f2f2f2; /* light grey */
+  }
+        /* SAME HERO STYLE AS YOUR CARD PAGE */
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* CENTER CARD LIKE YOUR PROJECT CARDS */
+.form-container {
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  z-index: 10;
+}
+
+/* CARD STYLE SAME AS PROJECT CARD */
+.progress-card {
+  border-radius: 15px;
+  background: #fff;
+  padding: 25px;
+  box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
+}
+
+/* INPUT + BUTTON */
+input[type="range"] {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+    /* Dark overlay like other page */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* adjust darkness here */
+  z-index: 2;
+}
+    </style>
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="{% static 'assets/img/logo.png' %}" alt=""> -->
+        <h1 class="sitename">Code Art</h1>
+      </a>
+
+    <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="userhome" class="active">Home</a></li>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="ProjectDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+             Project
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="ProjectDropdown">
+            <li>
+          <a class="dropdown-item" href="createproject">Create Project</a>
+          </li>
+          <li>
+          <a class="dropdown-item" href="userviewownprojects">My projects</a>
+          </li>
+         </ul>
+         </li>
+           <li><a href="browsefreelancers">Developers</a></li>
+          <li><a href="userviewallprojects">Search</a></li>
+          <li><a href="userviewproposal">Proposals</a></li>
+<!--          <li><a href="userreviewrating">Review/Rating</a></li>-->
+          <li><a href="logout">Logout</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+<!--      <a class="cta-btn" href="index.html#about">Get Started</a>-->
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section id="hero" class="hero section dark-background">
+
+      <img src="{% static 'assets/img/hero-bg.jpg' %}" alt="" data-aos="fade-in">
+
+<!--<div class="contact">-->
+<!--      &lt;!&ndash; Section Title &ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="container section-title " data-aos="fade-up">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h2>Sign Up</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&lt;!&ndash; End Section Title &ndash;&gt;&ndash;&gt;-->
+
+<!--        <div class="row justify-content-center">-->
+<!--         <div class="col-lg-6 bg-white">-->
+<!--        <div class="p-4 bg-white shadow rounded">-->
+<!--            <form action="" method="post" class="php-email-form bg-white">-->
+<!--&lt;!&ndash;            <form action="" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="500">&ndash;&gt;-->
+<!--              <div class="row gy-4">-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12 ">-->
+<!--                  <input type="text" class="form-control" name="phone" placeholder="Your Phone number" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12 ">-->
+<!--                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="username" placeholder="username" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="password" placeholder="password" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="confirmpassword" placeholder="confirmpassword" required="">-->
+<!--                </div>-->
+
+<!--&lt;!&ndash;                <div class="col-md-12">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <textarea class="form-control" name="message" rows="4" placeholder="Message" required=""></textarea>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--                <div class="col-md-12 text-center">-->
+<!--                  <div class="loading">Loading</div>-->
+<!--                  <div class="error-message"></div>-->
+<!--                  <div class="sent-message">Your message has been sent. Thank you!</div>-->
+
+<!--                  <button type="submit">Register</button>-->
+<!--                </div>-->
+
+<!--              </div>-->
+<!--            </form>-->
+
+<!--         </div>-->
+<!--        </div>-->
+<!--        </div>-->
+<!--        </div>-->
+
+<!--<div class="contact d-flex justify-content-center align-items-center">-->
+
+<!--  <div class="form-box p-4 shadow rounded">-->
+<!--    <form action="" method="POST">-->
+<!--     {% csrf_token %}-->
+<!--      <h3 class="text-center mb-4">Sign Up</h3>-->
+
+<!--      <div class="mb-3">-->
+<!--        <input type="text" name="name" class="form-control custom-input" placeholder="Your Name" required>-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--        <input type="text" name="phone" class="form-control custom-input" placeholder="Phone Number" required>-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--        <input type="email" name="email" class="form-control custom-input" placeholder="Email" required>-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--        <input type="text" name="username" class="form-control custom-input" placeholder="Username" required>-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--      <input type="password"-->
+<!--         name="password"-->
+<!--         class="form-control custom-input"-->
+<!--         placeholder="Password"-->
+<!--         pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{8,}$"-->
+<!--         title="Password must be at least 8 characters long, include a letter, a number, and a special character"-->
+<!--         required>-->
+<!--      </div>-->
+<!--      <div class="mb-3">-->
+<!--        <input type="password" name="confirmpassword" class="form-control custom-input" placeholder="Confirm Password" required>-->
+<!--      </div>-->
+
+<!--      <div class="text-center">-->
+<!--        <button type="submit" class="btn btn-primary w-100">Register</button>-->
+<!--      </div>-->
+
+<!--    </form>-->
+<!--  </div>-->
+
+<!--</div>-->
+
+<div class="form-container">
+
+  <div class="progress-card">
+
+    <h5 class="text-primary text-center mb-3">
+      Project Progress
+    </h5>
+
+    <label><strong>Progress</strong></label>
+
+    <!-- ✅ ONLY PROGRESS BAR (NO INPUT) -->
+    <div style="width:100%; height:25px; background:#e0e0e0; border-radius:15px; overflow:hidden; margin-top:10px;">
+      <div style="height:100%; width: {{ project.progress }}%; background:green;
+                  display:flex; align-items:center; justify-content:center;
+                  color:white; font-weight:bold;">
+        {{ project.progress }}%
+      </div>
+    </div>
+
+    <!-- OPTIONAL MESSAGE -->
+    <p class="text-center text-muted mt-3">
+      Progress is updated by developer
+    </p>
+
+  </div>
+
+</div>
+
+    </section> /Hero Section -->
+
+
+
+
+  </main>
+
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+<!--  <div id="preloader"></div>-->
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+
+<script>
+function updateProgress(value) {
+  let bar = document.getElementById("progressBar");
+  bar.style.width = value + "%";
+  bar.innerHTML = value + "%";
+}
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+{%  load static %}
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <title>Index - Dewi Bootstrap Template</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Dewi
+  * Template URL: https://bootstrapmade.com/dewi-free-multi-purpose-html-template/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+
+  <style>
+
+/* GOOGLE FONT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body{
+  font-family: 'Poppins', sans-serif;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.hero img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  inset: 0;
+  z-index: 1;
+}
+
+/* DARK OVERLAY */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.60);
+  z-index: 2;
+}
+
+/* CARD SECTION */
+.cards-container {
+  position: relative;
+  z-index: 10;
+  padding-top: 120px;
+  padding-bottom: 70px;
+}
+
+/* CARD COLUMN */
+.project-col {
+  display: flex;
+  justify-content: center;
+}
+
+/* MODERN EQUAL CARD */
+.project-card {
+  width: 450px;
+  height: 360px; /* EQUAL HEIGHT & WIDTH LOOK */
+  border: none;
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+
+  background: rgba(255,255,255,0.13);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.35),
+    inset 0 1px 1px rgba(255,255,255,0.18);
+
+  transition: all 0.4s ease;
+}
+
+/* GLOW BORDER */
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 28px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.6),
+    rgba(255,255,255,0.05)
+  );
+
+  -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+}
+
+/* HOVER */
+.project-card:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.45),
+    0 0 25px rgba(255,255,255,0.15);
+}
+
+/* CARD BODY */
+.project-card .card-body {
+  position: relative;
+  z-index: 5;
+  padding: 28px;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* TITLE */
+.project-card .card-title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.4;
+  margin-bottom: 14px;
+  letter-spacing: 0.4px;
+}
+
+/* USER */
+.project-user {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 14px;
+}
+
+/* DESCRIPTION */
+.project-card .description {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.82);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* BADGES */
+.custom-badge {
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* BUDGET */
+.budget-badge {
+  background: rgba(59,130,246,0.18);
+  color: #dbeafe;
+  border: 1px solid rgba(96,165,250,0.18);
+
+  backdrop-filter: blur(8px);
+}
+
+/* DEADLINE */
+.deadline-badge {
+  background: rgba(59,130,246,0.18);
+  color: #dbeafe;
+  border: 1px solid rgba(96,165,250,0.18);
+
+  backdrop-filter: blur(8px);
+}
+
+/* STATUS */
+.status-box {
+  margin-top: 18px;
+  padding: 10px;
+  border-radius: 14px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+/* PENDING */
+.status-pending {
+  background: rgba(245,158,11,0.10);
+  color: #fcd34d;
+  border-color: rgba(245,158,11,0.18);
+}
+
+/* ACCEPTED */
+.status-accepted {
+  background: rgba(34,197,94,0.10);
+  color: #86efac;
+  border-color: rgba(34,197,94,0.18);
+}
+
+/* REJECTED */
+.status-rejected {
+  background: rgba(255,255,255,0.08);
+  color: #cbd5e1;
+  border-color: rgba(255,255,255,0.10);
+}
+
+
+  /* Transparent Dropdown Menu */
+.navmenu .dropdown ul {
+  background: rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255,255,255,0.15);
+
+  border-radius: 14px;
+
+  box-shadow:
+      0 8px 25px rgba(0,0,0,0.35);
+
+  padding: 10px 0;
+}
+
+/* Dropdown Links */
+.navmenu .dropdown ul li a {
+  color: #fff;
+
+  padding: 12px 20px;
+
+  transition: 0.3s ease;
+
+  background: transparent;
+}
+
+/* Hover Effect */
+.navmenu .dropdown ul li a:hover {
+  background: rgba(255,255,255,0.12);
+
+  color: #60a5fa;
+
+  border-radius: 8px;
+}
+
+/* Dropdown Arrow */
+.navmenu .dropdown > a i {
+  transition: 0.3s ease;
+}
+
+/* Optional hover animation */
+.navmenu .dropdown:hover > a i {
+  transform: rotate(180deg);
+}
+
+    /* INFO BOX */
+.info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* LABEL */
+.info-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.70);
+
+  letter-spacing: 0.5px;
+
+  padding-left: 4px;
+}
+
+    /* APPLY BUTTON */
+.apply-btn {
+  margin-top: 18px;
+  border: none;
+  border-radius: 16px;
+
+  padding: 12px 20px;
+
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+
+  color: #fff !important;
+
+  background: linear-gradient(
+    135deg,
+    #ff6b6b,
+    #ff8e53,
+    #ff4ecd,
+    #7b61ff
+  );
+
+  background-size: 300% 300%;
+
+  box-shadow:
+      0 10px 25px rgba(255, 78, 205, 0.35),
+      0 5px 15px rgba(123, 97, 255, 0.25);
+
+  transition: all 0.4s ease;
+
+  animation: gradientMove 6s ease infinite;
+}
+
+/* HOVER EFFECT */
+.apply-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+
+  color: #fff !important;
+
+  box-shadow:
+      0 15px 30px rgba(255, 78, 205, 0.45),
+      0 8px 18px rgba(123, 97, 255, 0.35);
+}
+
+/* CLICK EFFECT */
+.apply-btn:active {
+  transform: scale(0.98);
+}
+
+/* ANIMATED GRADIENT */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+</style>
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="{% static 'assets/img/logo.png' %}" alt=""> -->
+        <h1 class="sitename">Code Art</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li>Hi {{request.session.developer}}</li>
+          <li><a href="developerhome" class="active">Home</a></li>
+          <li><a href="developerprofile">Profile</a></li>
+          <li><a href="developerchatlist">Chat</a></li>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="ProjectDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           Projects
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="ProjectDropdown">
+          <li>
+          <a class="dropdown-item" href="developerviewproject">All Projects</a>
+          </li>
+          <li>
+          <a class="dropdown-item" href="developerviewacceptedprojects">Accepted Projects</a>
+          </li>
+           <li>
+          <a class="dropdown-item" href="developerviewrejectedprojects">Rejected Projects</a>
+          </li>
+            <li>
+          <a class="dropdown-item" href="developerviewuploadedprojects">Uploaded Projects</a>
+          </li>
+         </ul>
+         </li>
+
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="portfolioDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           Portfolio
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="portfolioDropdown">
+          <li>
+          <a class="dropdown-item" href="developerportfolio">Add Portfolio</a>
+          </li>
+          <li>
+          <a class="dropdown-item" href="developerviewportfolio">View Portfolio</a>
+          </li>
+         </ul>
+         </li>
+        <li><a href="/developeravgrating/{{developer_id}}">My rating</a></li>
+<!--          <li><a href="#contact">Earnings</a></li>-->
+<!--          <li><a href="developerviewreviewrating">Review/Rating</a></li>-->
+          <li><a href="logout">Logout</a></li>
+        </ul>
+        </nav>
+
+
+
+    </div>
+  </header>
+
+  <main class="main">
+
+<!--    <section id="hero" class="hero section dark-background">-->
+
+<!--      <img src="{% static 'assets/img/hero-bg.jpg' %}" alt="" data-aos="fade-in">-->
+
+<!--<div class="contact">-->
+<!--      &lt;!&ndash; Section Title &ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="container section-title " data-aos="fade-up">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h2>Sign Up</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&lt;!&ndash; End Section Title &ndash;&gt;&ndash;&gt;-->
+
+<!--        <div class="row justify-content-center">-->
+<!--         <div class="col-lg-6 bg-white">-->
+<!--        <div class="p-4 bg-white shadow rounded">-->
+<!--            <form action="" method="post" class="php-email-form bg-white">-->
+<!--&lt;!&ndash;            <form action="" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="500">&ndash;&gt;-->
+<!--              <div class="row gy-4">-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12 ">-->
+<!--                  <input type="text" class="form-control" name="phone" placeholder="Your Phone number" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12 ">-->
+<!--                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="username" placeholder="username" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="password" placeholder="password" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="confirmpassword" placeholder="confirmpassword" required="">-->
+<!--                </div>-->
+
+<!--&lt;!&ndash;                <div class="col-md-12">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <textarea class="form-control" name="message" rows="4" placeholder="Message" required=""></textarea>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--                <div class="col-md-12 text-center">-->
+<!--                  <div class="loading">Loading</div>-->
+<!--                  <div class="error-message"></div>-->
+<!--                  <div class="sent-message">Your message has been sent. Thank you!</div>-->
+
+<!--                  <button type="submit">Register</button>-->
+<!--                </div>-->
+
+<!--              </div>-->
+<!--            </form>-->
+
+<!--         </div>-->
+<!--        </div>-->
+<!--        </div>-->
+<!--        </div>-->
+
+<!--<div class="contact d-flex justify-content-center align-items-center">-->
+
+<!--  <div class="form-box p-4 shadow rounded">-->
+<!--    <form action="" method="POST">-->
+<!--     {% csrf_token %}-->
+<!--      <h3 class="text-center mb-4">Sign Up</h3>-->
+
+<!--      <div class="mb-3">-->
+<!--        <input type="text" name="name" class="form-control custom-input" placeholder="Your Name" required>-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--        <input type="text" name="phone" class="form-control custom-input" placeholder="Phone Number" required>-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--        <input type="email" name="email" class="form-control custom-input" placeholder="Email" required>-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--        <input type="text" name="username" class="form-control custom-input" placeholder="Username" required>-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--      <input type="password"-->
+<!--         name="password"-->
+<!--         class="form-control custom-input"-->
+<!--         placeholder="Password"-->
+<!--         pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{8,}$"-->
+<!--         title="Password must be at least 8 characters long, include a letter, a number, and a special character"-->
+<!--         required>-->
+<!--      </div>-->
+<!--      <div class="mb-3">-->
+<!--        <input type="password" name="confirmpassword" class="form-control custom-input" placeholder="Confirm Password" required>-->
+<!--      </div>-->
+
+<!--      <div class="text-center">-->
+<!--        <button type="submit" class="btn btn-primary w-100">Register</button>-->
+<!--      </div>-->
+
+<!--    </form>-->
+<!--  </div>-->
+
+
+<!--    <div class="card" style="width:600px;float:left;" >-->
+<!--      <div class="card-body">-->
+<!--        {%for i in data%}-->
+<!--        <h4 class="card-title">User Name :{{i.user.username}}</h4>-->
+<!--&lt;!&ndash;          <div class="card-body"><img src="{{i.product_image.url}}" width="200"height="200"></div>&ndash;&gt;-->
+<!--          <div class="card-body">Project Title :{{i.title}}</div>-->
+<!--          <div class="card-body">Project Description :{{i.description}}</div>-->
+<!--        <div class="card-body">Project Budget :{{i.budget}}</div>-->
+<!--        <div class="card-body">Project Deadline :{{i.deadline}}</div>-->
+<!--          <a href="addtocart/{{i.pk}}" class="btn btn-primary">Apply</a>-->
+<!--        {% endfor %}-->
+<!--      </div>-->
+<!--        </div>-->
+
+
+
+
+
+<!--&lt;!&ndash;-->
+
+
+<!--    </section> /Hero Section &ndash;&gt;-->
+
+<section id="hero" class="hero section dark-background">
+
+  <img src="{% static 'assets/img/hero-bg.jpg' %}" alt="">
+
+  <!-- CARDS -->
+  <div class="cards-container">
+    <div class="container">
+      <div class="row justify-content-center">
+
+        {% if data %}
+
+        {% for i in data %}
+
+        <div class="col-md-6 col-lg-4 mb-4 project-col">
+
+          <div class="card project-card">
+
+            <div class="card-body">
+
+              <div>
+
+                <!-- TITLE -->
+                <h5 class="card-title text-capitalize">
+                  {{ i.title }}
+                </h5>
+
+                <!-- USER -->
+                <div class="project-user">
+                  <i class="bi bi-person-circle"></i>
+                  {{ i.user.username }}
+                </div>
+
+                <!-- DESCRIPTION -->
+                <p class="description">
+                  {{ i.description }}
+                </p>
+
+              </div>
+
+              <div>
+
+                <!-- BUDGET + DEADLINE -->
+                <!-- BUDGET + DEADLINE -->
+<div class="d-flex justify-content-between align-items-center mt-3">
+
+  <!-- BUDGET -->
+  <div class="info-box">
+    <small class="info-label"><center>Budget</center></small>
+
+    <span class="custom-badge budget-badge">
+      ₹ {{ i.budget }}
+    </span>
+  </div>
+
+  <!-- DEADLINE -->
+  <div class="info-box text-right">
+    <small class="info-label"><center>Deadline</center></small>
+
+    <span class="custom-badge deadline-badge">
+      {{ i.deadline }}
+    </span>
+  </div>
+
+</div>
+
+                <!-- STATUS / BUTTONS -->
+                {% if i.status == 'assigned' %}
+
+                  <div class="status-box status-closed">
+                    Closed
+                  </div>
+
+                {% else %}
+
+                  {% if i.my_proposal %}
+
+                    {% if i.my_proposal.project_status == 'pending' %}
+
+                      <div class="status-box status-pending">
+                        Proposal Sent
+                      </div>
+
+                    {% elif i.my_proposal.project_status == 'Accepted' %}
+
+                      <div class="status-box status-accepted">
+                        Accepted
+                      </div>
+
+                    {% elif i.my_proposal.project_status == 'Rejected' %}
+
+                      <div class="status-box status-rejected">
+                        Rejected
+                      </div>
+
+                    {% endif %}
+
+                  {% else %}
+
+                    <a href="developerproposalsubmit/{{i.pk}}"
+                       class="btn apply-btn btn-block mt-3">
+                       Apply Now
+                    </a>
+
+                  {% endif %}
+
+                {% endif %}
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {% endfor %}
+
+        {% else %}
+
+        <div class="col-12 text-center mt-5">
+          <h4 class="text-white">No projects found</h4>
+        </div>
+
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+</section>
+
+  </main>
+
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+<!--  <div id="preloader"></div>-->
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

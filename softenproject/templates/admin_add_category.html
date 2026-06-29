@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+{%  load static %}
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <title>Index - Dewi Bootstrap Template</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Dewi
+  * Template URL: https://bootstrapmade.com/dewi-free-multi-purpose-html-template/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+    <style>
+/* Center form over hero */
+.hero {
+  position: relative;
+}
+
+.contact {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: 10;
+}
+
+.form-box {
+
+  width: 100%;
+
+  max-width: 550px;
+
+  padding: 30px;
+
+  background: rgba(255,255,255,0.08);
+
+  border-radius: 20px;
+
+  backdrop-filter: blur(12px);
+
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255,255,255,0.15);
+
+  box-shadow:
+      0 8px 32px rgba(0,0,0,0.35);
+}
+
+/* Fix dark input issue */
+.custom-input {
+  background-color: #fff !important;
+  color: #000 !important;
+  border: 1px solid #ccc;
+}
+
+/* Input focus style */
+.custom-input:focus {
+  border-color: #0d6efd;
+  box-shadow: none;
+}
+
+/* Button style */
+.btn-primary {
+  padding: 10px;
+  font-weight: 500;
+}
+
+/* =========================
+   🌫 GLASS INPUT FIELD (TRANSPARENT)
+========================= */
+.custom-input {
+  background: rgba(255, 255, 255, 0.10) !important;
+
+  color: #fff !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  border-radius: 14px;
+
+  padding: 10px 12px;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  transition: 0.3s ease;
+}
+
+/* placeholder */
+.custom-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* focus glow */
+.custom-input:focus {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: #60a5fa;
+  box-shadow: 0 0 12px rgba(96,165,250,0.5);
+  outline: none;
+  color: #fff !important;
+}
+
+/* =========================
+   🌫 GLASS CATEGORY TABLE
+========================= */
+.form-box table {
+  width: 100%;
+  margin-top: 20px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255,255,255,0.15);
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+/* table header */
+.form-box table th {
+  background: rgba(255, 255, 255, 0.12);
+
+  color: #fff;
+
+  padding: 12px;
+
+  text-align: center;
+
+  font-weight: 600;
+
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+/* table rows */
+.form-box table td {
+  padding: 10px;
+
+  text-align: center;
+
+  color: rgba(255,255,255,0.85);
+
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+
+  background: rgba(255, 255, 255, 0.04);
+
+  transition: 0.3s ease;
+}
+
+/* hover row */
+.form-box table tr:hover td {
+  background: rgba(255,255,255,0.10);
+}
+
+/* =========================
+   BUTTON (keep glass style consistent)
+========================= */
+.btn-primary {
+  background: linear-gradient(135deg, #60a5fa, #8b5cf6);
+  border: none;
+
+  border-radius: 14px;
+
+  font-weight: 600;
+
+  transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
+        /* =========================
+   🌸🔵 PINK + BLUE BUTTON
+========================= */
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+
+  font-weight: 600;
+
+  border: none;
+  border-radius: 14px;
+
+  color: #fff;
+
+  /* pink + blue gradient */
+  background: linear-gradient(
+    135deg,
+    #60a5fa,   /* soft blue */
+    #a78bfa,   /* light purple blend */
+    #f472b6    /* pink */
+  );
+
+  box-shadow:
+    0 10px 22px rgba(0,0,0,0.25),
+    0 0 12px rgba(96,165,250,0.25),
+    0 0 12px rgba(244,114,182,0.20);
+
+  transition: 0.3s ease;
+}
+
+/* hover effect */
+.btn-primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+    </style>
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="{% static 'assets/img/logo.png' %}" alt=""> -->
+        <h1 class="sitename">Code Art</h1>
+      </a>
+
+       <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="adminhome" class="active">Home</a></li>
+          <li><a href="manageuser">Manage User</a></li>
+          <li><a href="managedeveloper">Manage Developer</a></li>
+          <li class="dropdown"><a href="#"><span>Projects</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="adminviewproject">View Projects</a></li>
+              <li><a href="addcategory">Add Category</a></li>
+              <li><a href="addtechnology">Add Technology</a></li>
+            </ul>
+          </li>
+          <li><a href="adminviewproposals">Proposals</a></li>
+          <li><a href="adminviewcommission">Earnings</a></li>
+          <li><a href="#">Complaints</a></li>
+          <li><a href="adminreviewrating">Reviews</a></li>
+          <li><a href="logout">Logout</a></li>
+<!--          <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>-->
+<!--            <ul>-->
+<!--              <li><a href="#">Dropdown 1</a></li>-->
+<!--              <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>-->
+<!--                <ul>-->
+<!--                  <li><a href="#">Deep Dropdown 1</a></li>-->
+<!--                  <li><a href="#">Deep Dropdown 2</a></li>-->
+<!--                  <li><a href="#">Deep Dropdown 3</a></li>-->
+<!--                  <li><a href="#">Deep Dropdown 4</a></li>-->
+<!--                  <li><a href="#">Deep Dropdown 5</a></li>-->
+<!--                </ul>-->
+<!--              </li>-->
+<!--              <li><a href="#">Dropdown 2</a></li>-->
+<!--              <li><a href="#">Dropdown 3</a></li>-->
+<!--              <li><a href="#">Dropdown 4</a></li>-->
+<!--            </ul>-->
+<!--          </li>-->
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="cta-btn" href="index.html#about">Get Started</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section id="hero" class="hero section dark-background">
+
+      <img src="{% static 'assets/img/hero-bg.jpg' %}" alt="" data-aos="fade-in">
+
+<!--<div class="contact">-->
+<!--      &lt;!&ndash; Section Title &ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="container section-title " data-aos="fade-up">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h2>Sign Up</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&lt;!&ndash; End Section Title &ndash;&gt;&ndash;&gt;-->
+
+<!--        <div class="row justify-content-center">-->
+<!--         <div class="col-lg-6 bg-white">-->
+<!--        <div class="p-4 bg-white shadow rounded">-->
+<!--            <form action="" method="post" class="php-email-form bg-white">-->
+<!--&lt;!&ndash;            <form action="" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="500">&ndash;&gt;-->
+<!--              <div class="row gy-4">-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12 ">-->
+<!--                  <input type="text" class="form-control" name="phone" placeholder="Your Phone number" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12 ">-->
+<!--                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="username" placeholder="username" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="password" placeholder="password" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="confirmpassword" placeholder="confirmpassword" required="">-->
+<!--                </div>-->
+
+<!--&lt;!&ndash;                <div class="col-md-12">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <textarea class="form-control" name="message" rows="4" placeholder="Message" required=""></textarea>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--                <div class="col-md-12 text-center">-->
+<!--                  <div class="loading">Loading</div>-->
+<!--                  <div class="error-message"></div>-->
+<!--                  <div class="sent-message">Your message has been sent. Thank you!</div>-->
+
+<!--                  <button type="submit">Register</button>-->
+<!--                </div>-->
+
+<!--              </div>-->
+<!--            </form>-->
+
+<!--         </div>-->
+<!--        </div>-->
+<!--        </div>-->
+<!--        </div>-->
+
+<!--<div class="contact d-flex justify-content-center align-items-center">-->
+
+<!--  <div class="form-box p-4 shadow rounded">-->
+<!--    <form action="" method="POST">-->
+<!--     {% csrf_token %}-->
+<!--      <h3 class="text-center mb-4">Sign Up</h3>-->
+
+<!--      <div class="mb-3">-->
+<!--        <input type="text" name="name" class="form-control custom-input" placeholder="Your Name" required>-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--        <input type="text" name="phone" class="form-control custom-input" placeholder="Phone Number" required>-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--        <input type="email" name="email" class="form-control custom-input" placeholder="Email" required>-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--        <input type="text" name="username" class="form-control custom-input" placeholder="Username" required>-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--      <input type="password"-->
+<!--         name="password"-->
+<!--         class="form-control custom-input"-->
+<!--         placeholder="Password"-->
+<!--         pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{8,}$"-->
+<!--         title="Password must be at least 8 characters long, include a letter, a number, and a special character"-->
+<!--         required>-->
+<!--      </div>-->
+<!--      <div class="mb-3">-->
+<!--        <input type="password" name="confirmpassword" class="form-control custom-input" placeholder="Confirm Password" required>-->
+<!--      </div>-->
+
+<!--      <div class="text-center">-->
+<!--        <button type="submit" class="btn btn-primary w-100">Register</button>-->
+<!--      </div>-->
+
+<!--    </form>-->
+<!--  </div>-->
+
+<!--</div>-->
+
+
+<div class="contact d-flex justify-content-center align-items-center">
+
+    <div class="form-box p-4 shadow rounded">
+
+        <h3 class="text-center mb-4">
+
+            Add Category
+
+        </h3>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="mb-3">
+
+                <input type="text"
+                       name="category"
+                       class="form-control custom-input"
+                       placeholder="Enter Category"
+                       required>
+
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary w-100">
+
+                Add Category
+
+            </button>
+
+        </form>
+
+
+        <!-- CATEGORY TABLE -->
+
+        <table class="table mt-4">
+
+            <tr>
+
+                <th>Category</th>
+
+            </tr>
+
+            {% for i in categories %}
+
+            <tr>
+
+                <td>
+
+                    {{ i.category_name }}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</div>
+
+    </section><!-- /Hero Section -->
+
+
+
+
+  </main>
+
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+<!--  <div id="preloader"></div>-->
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

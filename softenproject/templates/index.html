@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+{%  load static %}
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Index - Dewi Bootstrap Template</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Dewi
+  * Template URL: https://bootstrapmade.com/dewi-free-multi-purpose-html-template/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+<style>
+  /* Transparent Dropdown Menu */
+.navmenu .dropdown ul {
+  background: rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255,255,255,0.15);
+
+  border-radius: 14px;
+
+  box-shadow:
+      0 8px 25px rgba(0,0,0,0.35);
+
+  padding: 10px 0;
+}
+
+/* Dropdown Links */
+.navmenu .dropdown ul li a {
+  color: #fff;
+
+  padding: 12px 20px;
+
+  transition: 0.3s ease;
+
+  background: transparent;
+}
+
+/* Hover Effect */
+.navmenu .dropdown ul li a:hover {
+  background: rgba(255,255,255,0.12);
+
+  color: #60a5fa;
+
+  border-radius: 8px;
+}
+
+/* Dropdown Arrow */
+.navmenu .dropdown > a i {
+  transition: 0.3s ease;
+}
+
+/* Optional hover animation */
+.navmenu .dropdown:hover > a i {
+  transform: rotate(180deg);
+}
+</style>
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="{% static 'assets/img/logo.png' %}" alt=""> -->
+        <h1 class="sitename">Code Art</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+<!--          <li><a href="#services">Services</a></li>-->
+<!--          <li><a href="#team">Team</a></li>-->
+          <li><a href="#contact">Contact</a></li>
+<!--          <li><a href="registration">Register</a></li>-->
+          <li><a href="login">Login</a></li>
+          <li class="dropdown"><a href="#"><span>Register</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="userregister">User</a></li>
+<!--              <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>-->
+<!--                <ul>-->
+<!--                  <li><a href="#">Deep Dropdown 1</a></li>-->
+<!--                  <li><a href="#">Deep Dropdown 2</a></li>-->
+<!--                  <li><a href="#">Deep Dropdown 3</a></li>-->
+<!--                  <li><a href="#">Deep Dropdown 4</a></li>-->
+<!--                  <li><a href="#">Deep Dropdown 5</a></li>-->
+<!--                </ul>-->
+<!--              </li>-->
+              <li><a href="developerregister">Developer</a></li>
+<!--              <li><a href="#">Dropdown 3</a></li>-->
+<!--              <li><a href="#">Dropdown 4</a></li>-->
+            </ul>
+          </li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+
+      <img src="{% static 'assets/img/hero-bg.jpg' %}" alt="" data-aos="fade-in">
+
+    <div class="container d-flex flex-column align-items-center">
+
+  <h2 data-aos="fade-up" data-aos-delay="100">
+    CODE. COLLABORATE. CREATE.
+  </h2>
+
+ <p data-aos="fade-up" data-aos-delay="200">
+  CodeArt is a smart developer collaboration platform connecting clients and developers to build innovative digital solutions.
+  Empowering teamwork, creativity, and seamless project management for successful software development.
+</p>
+
+  <div class="d-flex mt-4" data-aos="fade-up" data-aos-delay="300">
+
+    <a href="#about" class="btn-get-started">
+      Explore More
+    </a>
+
+    <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+       class="glightbox btn-watch-video d-flex align-items-center">
+
+      <i class="bi bi-play-circle"></i>
+      <span>Watch Demo</span>
+
+    </a>
+
+  </div>
+
+</div>
+
+    </section><!-- /Hero Section -->
+
+ <!-- About Section -->
+<section id="about" class="about section">
+
+  <div class="container">
+
+    <div class="row gy-4">
+
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+        <h3>Empowering Innovation Through Smart Developer Collaboration</h3>
+
+        <img src="{% static 'assets/img/about.jpg' %}"
+             class="img-fluid rounded-4 mb-4" alt="About CodeArt">
+
+        <p>
+          CodeArt is a modern developer collaboration platform designed to connect
+          clients with talented developers for innovative software solutions.
+          Our platform simplifies project management, communication, and secure
+          collaboration in one place.
+        </p>
+
+        <p>
+          We help businesses and individuals bring their ideas to life by providing
+          a trusted environment where developers can showcase their skills,
+          clients can post projects, and both can work together efficiently.
+          From web applications to custom software solutions, CodeArt supports
+          creativity, productivity, and seamless digital transformation.
+        </p>
+      </div>
+
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="250">
+
+        <div class="content ps-0 ps-lg-5">
+
+          <p class="fst-italic">
+            CodeArt bridges the gap between creative ideas and powerful technology
+            by providing a secure and user-friendly collaboration platform.
+          </p>
+
+          <ul>
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              <span>Connect clients with skilled developers for project collaboration.</span>
+            </li>
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              <span>Manage projects, communication, and payments efficiently.</span>
+            </li>
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              <span>Ensure secure workflows with authentication, reviews, and transparent interactions.</span>
+            </li>
+          </ul>
+
+          <p>
+            Our mission is to create a reliable digital workspace where innovation,
+            teamwork, and technology come together to build impactful solutions.
+            CodeArt encourages developers to grow professionally while helping
+            clients achieve high-quality project outcomes.
+          </p>
+
+          <div class="position-relative mt-4">
+            <img src="{% static 'assets/img/about-2.jpg' %}"
+                 class="img-fluid rounded-4" alt="CodeArt Team">
+
+            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+               class="glightbox pulsating-play-btn"></a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+<!--        <p>Your ideas, our code — together we create innovation.</p>-->
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+          <div class="col-lg-6 ">
+            <div class="row gy-4">
+
+              <div class="col-lg-12">
+                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
+                  <i class="bi bi-geo-alt"></i>
+                  <h3>Address</h3>
+                  <p>X872+VXM,Cheruparambath RD, Tagore Nagar,
+                  Giri Nagar, Kadavanthra,
+                  Ernakulam, Kerala
+                  682020</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="col-md-6">
+                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
+                  <i class="bi bi-telephone"></i>
+                  <h3>Call Us</h3>
+                  <p>9897785643</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="col-md-6">
+                <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
+                  <i class="bi bi-envelope"></i>
+                  <h3>Email Us</h3>
+                  <p>revathyshinoj12@gmail.com</p>
+                </div>
+              </div><!-- End Info Item -->
+
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <form action="" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="500">
+              <div class="row gy-4">
+
+                <div class="col-md-6">
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                </div>
+
+                <div class="col-md-6 ">
+                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                </div>
+
+                <div class="col-md-12">
+                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                </div>
+
+                <div class="col-md-12">
+                  <textarea class="form-control" name="message" rows="4" placeholder="Message" required=""></textarea>
+                </div>
+
+                <div class="col-md-12 text-center">
+                  <div class="loading">Loading</div>
+                  <div class="error-message"></div>
+                  <div class="sent-message">Your message has been sent. Thank you!</div>
+
+                  <button type="submit">Send Message</button>
+                </div>
+
+              </div>
+            </form>
+          </div><!-- End Contact Form -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer dark-background">
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Dewi</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you've purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        Designed by <a href="https://bootstrapmade.com/">Revathy Shinoj</a> Distributed by <a href=“https://themewagon.com>CodeArt
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+<!--  <div id="preloader"></div>-->
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

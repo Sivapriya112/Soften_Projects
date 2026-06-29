@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Success</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+<!-- ✅ SUCCESS MODAL -->
+
+<div class="modal fade show" id="successModal" tabindex="-1" style="display:block; background: rgba(0,0,0,0.5);">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+
+      <h3 class="text-success">✔ Payment Successful</h3>
+      <p>Your advance payment has been completed successfully.</p>
+
+      <a href="../index" class="btn btn-success mt-3">OK</a>
+
+    </div>
+  </div>
+</div>
+
+<!-- ✅ AUTO SHOW MODAL -->
+{% if payment_success %}
+<script>
+    $(document).ready(function(){
+        $('#successModal').modal('show');
+    });
+</script>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+{%  load static %}
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <title>Index - Dewi Bootstrap Template</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Dewi
+  * Template URL: https://bootstrapmade.com/dewi-free-multi-purpose-html-template/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+ <style>
+     /* =========================
+   HERO SECTION
+========================= */
+
+.hero {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.hero img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* NEW WRAPPER */
+.chat-overlay{
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+/* CHAT CONTAINER (FIXED CENTERING) */
+.chat-container{
+    width: 75%;
+    max-width: 950px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(18px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 10px 35px rgba(0,0,0,0.35);
+    overflow: hidden;
+}
+
+/* REMOVE THIS (IMPORTANT) */
+/* ❌ DELETE THIS FROM YOUR OLD CSS:
+   margin-top: -520px;
+*/
+/* PAGE */
+
+body {
+    background: transparent;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* =========================
+   CHAT CONTAINER
+========================= */
+
+.chat-container {
+
+    position: relative;
+
+    z-index: 10;
+
+    width: 70%;
+
+    margin: auto;
+
+    margin-top: 120px;
+
+    background: rgba(255,255,255,0.08);
+
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,0.35);
+}
+
+/* =========================
+   CHAT HEADER
+========================= */
+
+.chat-header {
+
+    background: linear-gradient(
+        135deg,
+        #ff6a00,
+        #ee0979,
+        #8e2de2,
+        #4a00e0
+    );
+
+    background-size: 300% 300%;
+
+    animation: gradientMove 6s ease infinite;
+
+    color: white;
+
+    padding: 18px;
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    text-align: center;
+
+    letter-spacing: 1px;
+}
+
+/* =========================
+   CHAT BODY
+========================= */
+
+.chat-body {
+
+    height: 500px;
+
+    overflow-y: auto;
+
+    padding: 25px;
+
+    background: rgba(255,255,255,0.05);
+}
+
+/* SCROLLBAR */
+
+.chat-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-body::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.25);
+    border-radius: 10px;
+}
+
+/* =========================
+   MESSAGE ALIGNMENT
+========================= */
+
+.message {
+
+    margin-bottom: 18px;
+
+    display: flex;
+}
+
+.sender {
+    justify-content: flex-end;
+}
+
+.receiver {
+    justify-content: flex-start;
+}
+
+/* =========================
+   MESSAGE BOX
+========================= */
+
+.message-box {
+
+    max-width: 65%;
+
+    padding: 12px 18px;
+
+    border-radius: 18px;
+
+    position: relative;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+    word-wrap: break-word;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.15);
+}
+
+/* =========================
+   SENDER MESSAGE
+========================= */
+
+.sender .message-box {
+
+    background: linear-gradient(
+        135deg,
+        #4facfe,
+        #00f2fe
+    );
+
+    color: white;
+
+    border-bottom-right-radius: 4px;
+}
+
+/* =========================
+   RECEIVER MESSAGE
+========================= */
+
+.receiver .message-box {
+
+    background: rgba(255,255,255,0.12);
+
+    backdrop-filter: blur(10px);
+
+    color: white;
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    border-bottom-left-radius: 4px;
+}
+
+/* =========================
+   TIME
+========================= */
+
+.time {
+
+    font-size: 11px;
+
+    color: rgba(255,255,255,0.75);
+
+    margin-top: 6px;
+
+    text-align: right;
+}
+
+/* =========================
+   CHAT FOOTER
+========================= */
+
+.chat-footer {
+
+    padding: 18px;
+
+    background: rgba(255,255,255,0.05);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+/* =========================
+   INPUT FIELD
+========================= */
+
+.chat-footer input {
+
+    flex: 1;
+
+    border-radius: 50px;
+
+    padding: 12px 18px;
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    background: rgba(255,255,255,0.08);
+
+    color: white;
+
+    outline: none;
+
+    transition: 0.3s ease;
+}
+
+/* INPUT PLACEHOLDER */
+
+.chat-footer input::placeholder {
+
+    color: rgba(255,255,255,0.7);
+}
+
+/* INPUT FOCUS */
+
+.chat-footer input:focus {
+
+    border-color: #60a5fa;
+
+    box-shadow:
+        0 0 12px rgba(96,165,250,0.35);
+}
+
+/* =========================
+   SEND BUTTON
+========================= */
+
+.chat-footer button {
+
+    border: none;
+
+    border-radius: 50px;
+
+    padding: 12px 24px;
+
+    font-weight: 600;
+
+    color: white;
+
+    background: linear-gradient(
+        135deg,
+        #ff6a00,
+        #ee0979,
+        #8e2de2
+    );
+
+    background-size: 300% 300%;
+
+    animation: gradientMove 6s ease infinite;
+
+    transition: 0.3s ease;
+}
+
+/* BUTTON HOVER */
+
+.chat-footer button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(238,9,121,0.4);
+}
+
+/* =========================
+   GRADIENT ANIMATION
+========================= */
+
+@keyframes gradientMove {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .chat-container {
+
+        width: 95%;
+
+        margin-top: 100px;
+    }
+
+    .message-box {
+
+        max-width: 85%;
+    }
+
+    .chat-header {
+
+        font-size: 18px;
+    }
+
+    .chat-footer {
+
+        flex-direction: column;
+    }
+
+    .chat-footer button {
+
+        width: 100%;
+    }
+}
+ </style>
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="{% static 'assets/img/logo.png' %}" alt=""> -->
+        <h1 class="sitename">Code Art</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="#about">Manage User</a></li>
+          <li><a href="managedeveloper">Manage Developer</a></li>
+          <li><a href="adminviewproject">Projects</a></li>
+          <li><a href="#contact">Proposals</a></li>
+          <li><a href="#">Complaints</a></li>
+          <li><a href="#">Reports</a></li>
+          <li><a href="logout">Logout</a></li>
+<!--          <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>-->
+<!--            <ul>-->
+<!--              <li><a href="#">Dropdown 1</a></li>-->
+<!--              <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>-->
+<!--                <ul>-->
+<!--                  <li><a href="#">Deep Dropdown 1</a></li>-->
+<!--                  <li><a href="#">Deep Dropdown 2</a></li>-->
+<!--                  <li><a href="#">Deep Dropdown 3</a></li>-->
+<!--                  <li><a href="#">Deep Dropdown 4</a></li>-->
+<!--                  <li><a href="#">Deep Dropdown 5</a></li>-->
+<!--                </ul>-->
+<!--              </li>-->
+<!--              <li><a href="#">Dropdown 2</a></li>-->
+<!--              <li><a href="#">Dropdown 3</a></li>-->
+<!--              <li><a href="#">Dropdown 4</a></li>-->
+<!--            </ul>-->
+<!--          </li>-->
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="cta-btn" href="index.html#about">Get Started</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section id="hero" class="hero section dark-background">
+
+      <img src="{% static 'assets/img/hero-bg.jpg' %}" alt="" data-aos="fade-in">
+
+<!--<div class="contact">-->
+<!--      &lt;!&ndash; Section Title &ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="container section-title " data-aos="fade-up">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h2>Sign Up</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&lt;!&ndash; End Section Title &ndash;&gt;&ndash;&gt;-->
+
+<!--        <div class="row justify-content-center">-->
+<!--         <div class="col-lg-6 bg-white">-->
+<!--        <div class="p-4 bg-white shadow rounded">-->
+<!--            <form action="" method="post" class="php-email-form bg-white">-->
+<!--&lt;!&ndash;            <form action="" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="500">&ndash;&gt;-->
+<!--              <div class="row gy-4">-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12 ">-->
+<!--                  <input type="text" class="form-control" name="phone" placeholder="Your Phone number" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12 ">-->
+<!--                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="username" placeholder="username" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="password" placeholder="password" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="confirmpassword" placeholder="confirmpassword" required="">-->
+<!--                </div>-->
+
+<!--&lt;!&ndash;                <div class="col-md-12">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <textarea class="form-control" name="message" rows="4" placeholder="Message" required=""></textarea>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--                <div class="col-md-12 text-center">-->
+<!--                  <div class="loading">Loading</div>-->
+<!--                  <div class="error-message"></div>-->
+<!--                  <div class="sent-message">Your message has been sent. Thank you!</div>-->
+
+<!--                  <button type="submit">Register</button>-->
+<!--                </div>-->
+
+<!--              </div>-->
+<!--            </form>-->
+
+<!--         </div>-->
+<!--        </div>-->
+<!--        </div>-->
+<!--        </div>-->
+
+<!--<div class="contact d-flex justify-content-center align-items-center">-->
+
+<!--  <div class="form-box p-4 shadow rounded">-->
+<!--    <form action="" method="POST">-->
+<!--     {% csrf_token %}-->
+<!--      <h3 class="text-center mb-4">Sign Up</h3>-->
+
+<!--      <div class="mb-3">-->
+<!--        <input type="text" name="name" class="form-control custom-input" placeholder="Your Name" required>-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--        <input type="text" name="phone" class="form-control custom-input" placeholder="Phone Number" required>-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--        <input type="email" name="email" class="form-control custom-input" placeholder="Email" required>-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--        <input type="text" name="username" class="form-control custom-input" placeholder="Username" required>-->
+<!--      </div>-->
+
+<!--      <div class="mb-3">-->
+<!--      <input type="password"-->
+<!--         name="password"-->
+<!--         class="form-control custom-input"-->
+<!--         placeholder="Password"-->
+<!--         pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{8,}$"-->
+<!--         title="Password must be at least 8 characters long, include a letter, a number, and a special character"-->
+<!--         required>-->
+<!--      </div>-->
+<!--      <div class="mb-3">-->
+<!--        <input type="password" name="confirmpassword" class="form-control custom-input" placeholder="Confirm Password" required>-->
+<!--      </div>-->
+
+<!--      <div class="text-center">-->
+<!--        <button type="submit" class="btn btn-primary w-100">Register</button>-->
+<!--      </div>-->
+
+<!--    </form>-->
+<!--  </div>-->
+
+<!--</div>-->
+<main class="main">
+
+  <!-- HERO BACKGROUND -->
+  <section id="hero" class="hero section dark-background">
+
+      <img src="{% static 'assets/img/hero-bg.jpg' %}" alt="">
+
+      <!-- CHAT OVERLAY (IMPORTANT) -->
+      <div class="chat-overlay">
+
+          <div class="chat-container">
+
+              <!-- HEADER -->
+              <div class="chat-header">
+                  <div class="chat-profile">
+                      {{ room.student.username|slice:":1"|upper }}
+                  </div>
+
+                  <div class="chat-header-details">
+                      <h3>{{ room.project.project_title }}</h3>
+                      <p>Chat with {{ room.student.username }}</p>
+                  </div>
+              </div>
+
+              <!-- BODY -->
+              <div class="messages">
+                  {% for msg in messages %}
+                      {% if msg.sender == request.session.developer %}
+
+                          <div class="message sent">
+                              <div class="bubble">
+                                  {{ msg.message }}
+                                  <div class="time">{{ msg.timestamp|date:"h:i A" }}</div>
+                              </div>
+                          </div>
+
+                      {% else %}
+
+                          <div class="message received">
+                              <div class="bubble">
+                                  {{ msg.message }}
+                                  <div class="time">{{ msg.timestamp|date:"h:i A" }}</div>
+                              </div>
+                          </div>
+
+                      {% endif %}
+                  {% endfor %}
+              </div>
+
+              <!-- FOOTER -->
+              <form method="POST"
+                    action="/developersendmessage/{{ room.id }}/"
+                    class="chat-form">
+
+                  {% csrf_token %}
+
+                  <input type="text" name="message" placeholder="Type your message..." required>
+
+                  <button type="submit">
+                      <i class="bi bi-send-fill"></i>
+                      Send
+                  </button>
+
+              </form>
+
+          </div>
+
+      </div>
+
+  </section>
+
+</main>
+
+    </section>
+
+
+
+
+  </main>
+
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+<!--  <div id="preloader"></div>-->
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

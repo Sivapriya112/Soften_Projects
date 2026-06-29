@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Final Payment</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <style>
+
+        body{
+            background:#f5f5f5;
+        }
+
+        .payment-box{
+            max-width:500px;
+            margin:120px auto;
+            background:#fff;
+            padding:40px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .payment-box h3{
+            margin-bottom:25px;
+            text-align:center;
+        }
+
+        .amount-box{
+            background:#f8f9fa;
+            padding:15px;
+            border-radius:8px;
+            margin-bottom:20px;
+        }
+
+        .amount-box h5{
+            margin:8px 0;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="payment-box">
+
+        <h3>Final Payment</h3>
+
+        <div class="amount-box">
+
+            <h5>Total Project Amount :
+                ₹ {{ total_amount }}
+            </h5>
+
+            <h5>Advance Paid :
+                ₹ {{ advance_amount }}
+            </h5>
+
+            <h4 class="text-success">
+                Balance Amount :
+                ₹ {{ balance_amount }}
+            </h4>
+
+        </div>
+
+        <form action="{% url 'final_pay_success' %}" method="POST">
+
+            {% csrf_token %}
+
+            <script
+                src="https://checkout.razorpay.com/v1/checkout.js"
+                data-key="rzp_test_SROSnyInFv81S4"
+                data-amount="{{ balance_amount }}00"
+                data-currency="INR"
+                data-order_id="{{ order.id }}"
+                data-buttontext="Pay Final Amount"
+                data-name="Code Art"
+                data-description="Final Project Payment"
+                data-theme.color="#0d6efd">
+            </script>
+
+            <input type="hidden" name="hidden">
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

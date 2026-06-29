@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+{%  load static %}
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Index - Dewi Bootstrap Template</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Dewi
+  * Template URL: https://bootstrapmade.com/dewi-free-multi-purpose-html-template/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+    <style>
+/* =======================================================
+   HERO SECTION
+======================================================= */
+
+.hero {
+  position: relative;
+
+  min-height: 100vh;
+
+  padding-top: 140px;
+  padding-bottom: 80px;
+
+  overflow: hidden;
+}
+
+/* =======================================================
+   CONTACT WRAPPER
+======================================================= */
+
+.contact {
+  position: relative;
+
+  z-index: 10;
+
+  width: 100%;
+}
+
+/* =======================================================
+   MAIN LARGE GLASS CONTAINER
+======================================================= */
+
+.main-project-box {
+
+  width: 100%;
+
+  padding: 50px;
+
+  border-radius: 32px;
+
+  background: rgba(255,255,255,0.10);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,0.14);
+
+  box-shadow:
+      0 10px 40px rgba(0,0,0,0.35);
+
+  transition: 0.4s ease;
+}
+
+.main-project-box:hover {
+
+  box-shadow:
+      0 14px 50px rgba(0,0,0,0.45);
+}
+
+/* =======================================================
+   SECTION TITLE
+======================================================= */
+
+.main-project-box h2 {
+
+  font-size: 42px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  margin-bottom: 40px;
+}
+
+/* =======================================================
+   INPUTS
+======================================================= */
+
+.custom-input {
+
+  background: rgba(255,255,255,0.95) !important;
+
+  color: #000 !important;
+
+  border: none;
+
+  height: 52px;
+
+  border-radius: 14px;
+
+  padding-left: 16px;
+
+  font-size: 15px;
+
+  transition: 0.3s ease;
+}
+
+/* INPUT PLACEHOLDER */
+
+.custom-input::placeholder {
+
+  color: #777;
+}
+
+/* INPUT FOCUS */
+
+.custom-input:focus {
+
+  box-shadow: none !important;
+
+  border: 2px solid #3b82f6;
+
+  background: #fff !important;
+}
+
+/* =======================================================
+   SEARCH BUTTON
+======================================================= */
+
+.btn-primary {
+
+  height: 52px;
+
+  border-radius: 14px;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+
+  transform: translateY(-2px);
+}
+
+/* =======================================================
+   PROJECT GRID
+======================================================= */
+
+.project-grid {
+
+  margin-top: 50px;
+}
+
+/* =======================================================
+   PROJECT CARD
+======================================================= */
+
+.project-card {
+
+  height: 100%;
+
+  padding: 28px;
+
+  border-radius: 24px;
+
+  background: rgba(255,255,255,0.12);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255,255,255,0.10);
+
+  box-shadow:
+      0 6px 24px rgba(0,0,0,0.25);
+
+  transition: 0.4s ease;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  overflow: hidden;
+}
+
+/* CARD HOVER */
+
+.project-card:hover {
+
+  transform: translateY(-10px);
+
+  box-shadow:
+      0 16px 40px rgba(0,0,0,0.40);
+}
+
+/* =======================================================
+   PROJECT TITLE
+======================================================= */
+
+.project-title {
+
+  color: #fff;
+
+  font-size: 24px;
+
+  font-weight: 700;
+
+  margin-bottom: 18px;
+
+  line-height: 1.4;
+}
+
+/* =======================================================
+   PROJECT DESCRIPTION
+======================================================= */
+
+.project-description {
+
+  color: rgba(255,255,255,0.82);
+
+  font-size: 15px;
+
+  line-height: 1.9;
+
+  margin-bottom: 24px;
+
+  display: -webkit-box;
+
+  -webkit-line-clamp: 4;
+
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+
+  min-height: 110px;
+}
+
+/* =======================================================
+   FOOTER
+======================================================= */
+
+.project-footer {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-top: auto;
+}
+
+/* =======================================================
+   BUDGET BADGE
+======================================================= */
+
+.budget-box {
+
+  padding: 10px 20px;
+
+  border-radius: 30px;
+
+  background: rgba(59,130,246,0.18);
+
+  border: 1px solid rgba(96,165,250,0.20);
+
+  color: #dbeafe;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+/* =======================================================
+   CATEGORY BADGE
+======================================================= */
+
+.category-box {
+
+  padding: 8px 18px;
+
+  border-radius: 30px;
+
+  background: rgba(34,197,94,0.16);
+
+  border: 1px solid rgba(34,197,94,0.20);
+
+  color: #bbf7d0;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+/* =======================================================
+   TECHNOLOGY TAG
+======================================================= */
+
+.tech-box {
+
+  margin-top: 18px;
+
+  display: inline-block;
+
+  padding: 8px 18px;
+
+  border-radius: 30px;
+
+  background: rgba(168,85,247,0.18);
+
+  border: 1px solid rgba(192,132,252,0.18);
+
+  color: #f3e8ff;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+/* =======================================================
+   NAVBAR DROPDOWN
+======================================================= */
+
+.navmenu .dropdown ul {
+
+  background: rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255,255,255,0.15);
+
+  border-radius: 14px;
+
+  box-shadow:
+      0 8px 25px rgba(0,0,0,0.35);
+
+  padding: 10px 0;
+}
+
+/* DROPDOWN LINKS */
+
+.navmenu .dropdown ul li a {
+
+  color: #fff;
+
+  padding: 12px 20px;
+
+  transition: 0.3s ease;
+
+  background: transparent;
+}
+
+/* HOVER EFFECT */
+
+.navmenu .dropdown ul li a:hover {
+
+  background: rgba(255,255,255,0.12);
+
+  color: #60a5fa;
+
+  border-radius: 8px;
+}
+
+/* DROPDOWN ICON */
+
+.navmenu .dropdown > a i {
+
+  transition: 0.3s ease;
+}
+
+.navmenu .dropdown:hover > a i {
+
+  transform: rotate(180deg);
+}
+
+/* =======================================================
+   RESPONSIVE
+======================================================= */
+
+@media(max-width: 991px){
+
+  .main-project-box {
+
+    padding: 35px;
+  }
+
+  .project-title {
+
+    font-size: 22px;
+  }
+
+  .main-project-box h2 {
+
+    font-size: 34px;
+  }
+}
+
+@media(max-width: 767px){
+
+  .hero {
+
+    padding-top: 120px;
+  }
+
+  .main-project-box {
+
+    padding: 25px;
+  }
+
+  .main-project-box h2 {
+
+    font-size: 28px;
+  }
+
+  .project-title {
+
+    font-size: 20px;
+  }
+
+  .project-description {
+
+    min-height: auto;
+  }
+}
+
+        /* Transparent Dropdown Menu */
+.navmenu .dropdown ul {
+  background: rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255,255,255,0.15);
+
+  border-radius: 14px;
+
+  box-shadow:
+      0 8px 25px rgba(0,0,0,0.35);
+
+  padding: 10px 0;
+}
+
+/* Dropdown Links */
+.navmenu .dropdown ul li a {
+  color: #fff;
+
+  padding: 12px 20px;
+
+  transition: 0.3s ease;
+
+  background: transparent;
+}
+
+/* Hover Effect */
+.navmenu .dropdown ul li a:hover {
+  background: rgba(255,255,255,0.12);
+
+  color: #60a5fa;
+
+  border-radius: 8px;
+}
+
+/* Dropdown Arrow */
+.navmenu .dropdown > a i {
+  transition: 0.3s ease;
+}
+
+/* Optional hover animation */
+.navmenu .dropdown:hover > a i {
+  transform: rotate(180deg);
+}
+
+    </style>
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="{% static 'assets/img/logo.png' %}" alt=""> -->
+        <h1 class="sitename">Code Art</h1>
+      </a>
+
+     <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="userhome" class="active">Home</a></li>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="ProjectDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+             Project
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="ProjectDropdown">
+            <li>
+          <a class="dropdown-item" href="createproject">Create Project</a>
+          </li>
+          <li>
+          <a class="dropdown-item" href="userviewownprojects">My projects</a>
+          </li>
+         </ul>
+         </li>
+           <li><a href="browsefreelancers">Developers</a></li>
+          <li><a href="userviewallprojects">Search</a></li>
+          <li><a href="userviewproposal">Proposals</a></li>
+<!--          <li><a href="userreviewrating">Review/Rating</a></li>-->
+          <li><a href="logout">Logout</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <section id="hero" class="hero section dark-background">
+
+      <img src="{% static 'assets/img/hero-bg.jpg' %}" alt="" data-aos="fade-in">
+
+<!--<div class="contact">-->
+<!--      &lt;!&ndash; Section Title &ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="container section-title " data-aos="fade-up">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h2>Sign Up</h2>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&lt;!&ndash; End Section Title &ndash;&gt;&ndash;&gt;-->
+
+<!--        <div class="row justify-content-center">-->
+<!--         <div class="col-lg-6 bg-white">-->
+<!--        <div class="p-4 bg-white shadow rounded">-->
+<!--            <form action="" method="post" class="php-email-form bg-white">-->
+<!--&lt;!&ndash;            <form action="" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="500">&ndash;&gt;-->
+<!--              <div class="row gy-4">-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12 ">-->
+<!--                  <input type="text" class="form-control" name="phone" placeholder="Your Phone number" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12 ">-->
+<!--                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="username" placeholder="username" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="password" placeholder="password" required="">-->
+<!--                </div>-->
+
+<!--                <div class="col-md-12">-->
+<!--                  <input type="text" class="form-control" name="confirmpassword" placeholder="confirmpassword" required="">-->
+<!--                </div>-->
+
+<!--&lt;!&ndash;                <div class="col-md-12">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <textarea class="form-control" name="message" rows="4" placeholder="Message" required=""></textarea>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--                <div class="col-md-12 text-center">-->
+<!--                  <div class="loading">Loading</div>-->
+<!--                  <div class="error-message"></div>-->
+<!--                  <div class="sent-message">Your message has been sent. Thank you!</div>-->
+
+<!--                  <button type="submit">Register</button>-->
+<!--                </div>-->
+
+<!--              </div>-->
+<!--            </form>-->
+
+<!--         </div>-->
+<!--        </div>-->
+<!--        </div>-->
+<!--        </div>-->
+
+<div class="contact">
+
+  <div class="container">
+
+    <!-- LARGE MAIN CONTAINER -->
+
+    <div class="main-project-box">
+
+      <!-- HEADING -->
+
+      <h2 class="text-center text-white mb-5">
+
+        Explore Projects
+
+      </h2>
+
+      <!-- SEARCH FILTERS -->
+
+      <form method="GET">
+
+        <div class="row g-3 justify-content-center">
+
+          <!-- SEARCH -->
+
+          <div class="col-lg-3 col-md-6">
+
+            <input type="text"
+                   name="search"
+                   class="form-control custom-input"
+                   placeholder="Search Projects">
+
+          </div>
+
+          <!-- CATEGORY -->
+
+          <div class="col-lg-2 col-md-6">
+
+            <select name="category"
+                    class="form-control custom-input">
+
+              <option value="">Category</option>
+
+              <option value="Web">Web</option>
+
+              <option value="AI">AI</option>
+
+              <option value="Mobile">Mobile</option>
+
+            </select>
+
+          </div>
+
+          <!-- TECHNOLOGY -->
+
+          <div class="col-lg-2 col-md-6">
+
+            <select name="technology"
+                    class="form-control custom-input">
+
+              <option value="">Technology</option>
+
+              <option value="Python">Python</option>
+
+              <option value="Django">Django</option>
+
+              <option value="React">React</option>
+
+            </select>
+
+          </div>
+
+          <!-- BUDGET -->
+
+          <div class="col-lg-2 col-md-6">
+
+            <select name="budget"
+                    class="form-control custom-input">
+
+              <option value="">Budget</option>
+
+              <option value="5000">Below 10000</option>
+
+              <option value="10000">Below 20000</option>
+
+              <option value="20000">Below 30000</option>
+
+            </select>
+
+          </div>
+
+          <!-- BUTTON -->
+
+          <div class="col-lg-2 col-md-6">
+
+            <button type="submit"
+                    class="btn btn-primary w-100">
+
+              Search
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </form>
+
+      <!-- PROJECTS GRID -->
+
+      <div class="row mt-5">
+
+        {% for i in projects %}
+
+        <div class="col-lg-4 col-md-6 mb-4">
+
+          <div class="project-card">
+
+            <!-- TITLE -->
+
+            <h4 class="project-title">
+
+              {{ i.title }}
+
+            </h4>
+
+            <!-- DESCRIPTION -->
+
+            <p class="project-description">
+
+              {{ i.description }}
+
+            </p>
+
+            <!-- BOTTOM -->
+
+            <div class="project-footer">
+
+              <span class="budget-box">
+
+                ₹ {{ i.budget }}
+
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+    </section><!-- /Hero Section -->
+
+
+
+
+  </main>
+
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+<!--  <div id="preloader"></div>-->
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>
