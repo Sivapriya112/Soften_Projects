@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if messages %}
+ <div id="alert-container" >
+     {% for m in messages %}
+         <div class="alert alert-danger" role="alert">
+             <a href="#" class="alert-link">{{ m }}</a>
+         </div>
+     {% endfor %}
+ </div>
+
+ {% endif %}
+
+ <!-- alert-messages-end -->
+  <div class="container">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <div class="container col-md-6">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <h1>Forgot Password</h1>
+                    </div>
+                </div>
+                <form action="forgot" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="email" name="email" class="form-control form-manual" placeholder="Enter Your Email Address" required>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12 d-flex justify-content-center">
+                            <input type="submit" class="btn btn-success ">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+  </div>
+</body>
+</html>

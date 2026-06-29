@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap.min.css' %}">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/font-awesome.css' %}">
+    <!-- Fontawesome Star -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/fontawesome-stars.css' %}">
+    <!-- Ion Icon -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/ion-fonts.css' %}">
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/slick.css' %}">
+    <!-- Animation -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/animate.css' %}">
+    <!-- jQuery Ui -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/jquery-ui.min.css' %]">
+    <!-- Lightgallery -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/lightgallery.min.css'%}">
+    <!-- Nice Select -->
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/nice-select.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .success-container {
+            margin-top: 50px;
+        }
+        .success-image {
+            width: 150px;
+            height: auto;
+        }
+        .success-message {
+            font-size: 50px;
+            color: #4CAF50;
+            margin-top: 20px;
+        }
+        .success-message1 {
+            font-size: 50px;
+            color: black;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+
+        <div class="success-message">Payment Successful!</div>
+        <div class="success-message1">Your order has been placed</div><br>
+        <a href="userhome" class="btn btn-primary">Back to home</a>
+        <a href="myorder" class="btn btn-primary">My Order</a>
+    </div>
+</body>
+</html>
