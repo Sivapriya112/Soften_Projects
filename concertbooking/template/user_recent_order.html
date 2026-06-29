@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <title>Concert Booking</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Flaticon Font -->
+    <link href="{% static 'lib/flaticon/font/flaticon.css' %}" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <style>
+
+        #num-tickets{
+          display:none;
+
+
+        }
+             #box1{
+          display:none;
+
+
+        }
+            #a1{
+          display:none;
+
+
+        }
+            #a2{
+          display:none;
+
+
+        }
+            #a3{
+          display:none;
+
+
+        }
+
+        #num-tickets1{
+          display:none;
+
+
+        }
+         #num-tickets2{
+          display:none;
+
+
+        }
+
+
+     #c1{
+        display:none;
+
+
+        }
+          #c2{
+        display:none;
+
+        }
+
+            #c3{
+        display:none;
+
+
+        }
+          #c4{
+        display:none;
+
+        }
+            #c5{
+        display:none;
+
+
+        }
+          #c6{
+        display:none;
+
+        }
+          #d1{
+        display:none;
+
+        }
+
+
+
+</style>
+</head>
+
+<body>
+    <!-- Topbar Start -->
+
+                         <div class="row py-3 px-lg-5">
+            <div class="col-lg-4">
+                <a href="" class="navbar-brand d-none d-lg-block">
+                    <h1 class="m-0 display-5 text-capitalize"><span class="text-primary">Book your </span>EVENT</h1>
+                </a>
+            </div>
+            <div class="col-lg-8 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <div class="d-inline-flex flex-column text-center px-3 border-right">
+                        <h6 style="font-size:20px;">Email Us</h6>
+                        <p style="font-size:20px;color:black;" class="m-0">concertbooking.com</p>
+                    </div>
+                    <div class="d-inline-flex flex-column text-center pl-3">
+                        <h6 style="font-size:20px;"  >Call Us</h6>
+                        <p style="font-size:20px;color:black;" class="m-0">9744362393</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
+            <a href="" class="navbar-brand d-block d-lg-none">
+                <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">Safety</span>First</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+                <div class="navbar-nav mr-auto py-0">
+                    <a href="../userhome" class="nav-item nav-link ">HOME</a>
+                    <a href="../about" class="nav-item nav-link">ABOUT US</a>
+                    <a href="../contact" class="nav-item nav-link">CONTACT US</a>
+                     <a href="../userconcerts" class="nav-item nav-link">CONCERTS</a>
+                      <a href="../user_recent_orders" class="nav-item nav-link active">BOOKING DETAILS</a>
+
+
+                    <a href="../logout" class="nav-item nav-link">LOGOUT</a>
+
+                </div>
+            </div>
+        </nav>
+
+
+
+ {% if messages %}
+      <div class="alert alert-success alert-dismissible">
+         {% for message in messages %}
+         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+         <strong>{{message}}</strong>
+         {% endfor %}
+      </div>
+      {% endif %}
+
+
+		<div id="breadcrumb" class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12">
+						<h3 class="breadcrumb-header" style="margin-left:400px;margin-top:40px;"><b>RECENT BOOKING</b></h3>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /BREADCRUMB -->
+
+		<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+{% if data %}
+						<table class="table" style="margin-top:30px;">
+    <thead style="font-size: 18px;color:black;">
+    <tr>
+        <th>Event Image</th>
+        <th>Event Details</th>
+        <th>Location</th>
+         <th>Date</th>
+         <th>Time</th>
+         <th style="width:300px;">No of tickets</th>
+
+        <th>Total Price</th>
+        <th>Booked Date</th>
+        <th>Ticket Status</th>
+        <th>Payment Status</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for i in data %}
+	<tr>
+        <td><img src="{{i.ticket_details.Event_image.url}}" style="width:150px;"></td>
+         <td style="width:6000px;color:black;"><p style="font-size:17px;">{{i.ticket_details.Discription}}</p></td>
+        <td style="width:400px;color:black;"><p style="font-size:17px;">{{i.ticket_details.Location}}</p></td>
+        <td style="width:400px;color:black;"><p style="font-size:17px;">{{i.ticket_details.Date}}</p></td>
+        <td style="width:400px;color:black;"><p style="font-size:17px;">{{i.ticket_details.Time}}</p></td>
+<!--	 <td style="width:400px;"><p style="font-size:17px;">{{i.productdetails_2.product_quantity}}</p></td>-->
+
+		<td style="width:300px;color:black;"><p style="font-size:17px;">{{i.no_of_tickets}}</p></td>
+		<td style="width:300px;color:black;"><p style="font-size:17px;">{{i.total_amount}}</p></td>
+		<td style="width:200px;color:black;"><p style="font-size:17px;">{{i.booked_date }}</p></td>
+		<td style="width:200px;color:black;"><p style="font-size:17px;">{{i.ticket_status }}</p></td>
+		<td style="width:200px;color:black;"><p style="font-size:17px;">{{i.payment_status}}</p></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+					{% else %}
+					<center>
+						<h2 style="color:black;margin-top:100px;margin-left:400px;">NO BOOKING</h2>
+						<h3 style="color:black;margin-top:30px;margin-left:400px;">PLEASE BOOK TICKETS</h3>
+					</center>
+					{% endif %}
+
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+
+
+
+
+
+
+
+
+    <!--  footer -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+    <script src="{% static 'mail/contact.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

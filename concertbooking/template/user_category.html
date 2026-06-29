@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <title>Concert Booking</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Flaticon Font -->
+    <link href="{% static 'lib/flaticon/font/flaticon.css' %}" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <style>
+
+        #num-tickets{
+          display:none;
+
+
+        }
+             #box1{
+          display:none;
+
+
+        }
+            #a1{
+          display:none;
+
+
+        }
+            #a2{
+          display:none;
+
+
+        }
+            #a3{
+          display:none;
+
+
+        }
+
+        #num-tickets1{
+          display:none;
+
+
+        }
+         #num-tickets2{
+          display:none;
+
+
+        }
+
+
+     #c1{
+        display:none;
+
+
+        }
+          #c2{
+        display:none;
+
+        }
+
+            #c3{
+        display:none;
+
+
+        }
+          #c4{
+        display:none;
+
+        }
+            #c5{
+        display:none;
+
+
+        }
+          #c6{
+        display:none;
+
+        }
+          #d1{
+        display:none;
+
+        }
+
+
+
+</style>
+</head>
+
+<body>
+    <!-- Topbar Start -->
+
+                         <div class="row py-3 px-lg-5">
+            <div class="col-lg-4">
+                <a href="" class="navbar-brand d-none d-lg-block">
+                    <h1 class="m-0 display-5 text-capitalize"><span class="text-primary">Book your </span>EVENT</h1>
+                </a>
+            </div>
+            <div class="col-lg-8 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <div class="d-inline-flex flex-column text-center px-3 border-right">
+                        <h6 style="font-size:20px;">Email Us</h6>
+                        <p style="font-size:20px;" class="m-0">concertbooking.com</p>
+                    </div>
+                    <div class="d-inline-flex flex-column text-center pl-3">
+                        <h6 style="font-size:20px;"  >Call Us</h6>
+                        <p style="font-size:20px;" class="m-0">9744362393</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
+            <a href="" class="navbar-brand d-block d-lg-none">
+                <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">Safety</span>First</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+               <div class="navbar-nav mr-auto py-0">
+                    <a href="../userhome" class="nav-item nav-link ">HOME</a>
+                    <a href="../about" class="nav-item nav-link">ABOUT US</a>
+                    <a href="../contact" class="nav-item nav-link">CONTACT US</a>
+                     <a href="../userconcerts" class="nav-item nav-link">CONCERTS</a>
+                     <a href="../category" class="nav-item nav-link active">CATEGORY</a>
+
+
+                     <a href="../user_recent_orders" class="nav-item nav-link">BOOKING DETAILS</a>
+
+
+
+
+                    <a href="../logout" class="nav-item nav-link">LOGOUT</a>
+
+                </div>
+                               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+
+
+          </form>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+
+<!--<div style="color:black;-->
+<!--        background-color:gold;-->
+<!--        margin-top:100px;-->
+<!--        margin-bottom:100px;-->
+<!--        margin-left:400px;-->
+<!--        margin-right:400px;-->
+<!--        border style:solid;-->
+<!--        border color:black;-->
+<!--        border-radius:20px;-->
+<!--        padding-left:15px;-->
+<!--        padding-right:15px;-->
+<!--        padding-top:15px;-->
+<!--        padding-bottom:15px;-->
+<!--       width:820px;-->
+<!--        height:100px;">-->
+<!--    <h5 style="color:black;margin-top:20px;">-->
+<!--    GOLD BAND-->
+<!--        </h5>-->
+<!--    <p>999 Onwards</p>-->
+<!--        <div id="c1" style="margin-left:700px;">-->
+<!--            <button type="submit" class="btn btn-outline-primary">-</button>-->
+<!--    </div>-->
+<!--      <div id="c2" style="margin-left:650px;margin-bottom:30px;">-->
+<!--            <button type="submit" class="btn btn-outline-primary">+</button>-->
+<!--    </div>-->
+<!--    <button class="button button2" id="d1">ADD</button>-->
+
+
+
+
+
+<!--<script>-->
+<!--    $(document).ready(function(){-->
+<!--    $("#d1").click(function(){-->
+<!--    $("#c1").show();-->
+<!--    $("#c2").show();-->
+<!--     $("#d1").hide();-->
+<!--    });-->
+<!--    });-->
+<!--</script>-->
+<!--</div>-->
+<!--        <div style="-->
+<!--        background-color:silver;-->
+<!--        margin-top:30px;-->
+<!--        margin-bottom:100px;-->
+<!--        margin-left:400px;-->
+<!--        margin-right:400px;-->
+<!--        border style:solid;-->
+<!--        border color:black;-->
+<!--        border-radius:20px;-->
+<!--        padding-left:15px;-->
+<!--        padding-right:15px;-->
+<!--        padding-top:15px;-->
+<!--        padding-bottom:15px;-->
+<!--        width:820px;-->
+<!--        height:100px;">-->
+<!--    <h5 style="color:black;margin-top:20px;">-->
+<!--   Silver BAND-->
+<!--        </h5>-->
+<!--             <p>699 Onwards</p>-->
+<!--              <div style="margin-top:10px;">-->
+<!--                          <div id="c3" style="margin-left:700px;">-->
+<!--            <button type="submit" class="btn btn-outline-primary">-</button>-->
+<!--    </div>-->
+<!--      <div id="c4" style="margin-left:650px;margin-bottom:30px;">-->
+<!--            <button type="submit" class="btn btn-outline-primary">+</button>-->
+<!--    </div>-->
+<!--<button class="button button1 id=d2">ADD</button>-->
+<!--                  <script>-->
+<!--    $(document).ready(function(){-->
+<!--    $("#d2").click(function(){-->
+<!--    $("#c3").show();-->
+<!--    $("#c4").show();-->
+<!--     $("#d2").hide();-->
+<!--    });-->
+<!--    });-->
+<!--</script>-->
+<!--              </div>-->
+
+<!--</div>-->
+<!--    <div style="color:black;-->
+<!--        background-color:#FF5733;-->
+<!--        margin-top:30px;-->
+<!--        margin-bottom:100px;-->
+<!--        margin-left:400px;-->
+<!--        margin-right:400px;-->
+<!--        border style:solid;-->
+<!--        border color:black;-->
+<!--        border-radius:20px;-->
+<!--        padding-left:15px;-->
+<!--        padding-right:15px;-->
+<!--        padding-top:15px;-->
+<!--        padding-bottom:15px;-->
+<!--        width:820px;-->
+<!--        height:100px;">-->
+<!--         <h5 style="color:black;">-->
+<!--    Platinum BAND-->
+<!--        </h5>-->
+<!--        <h6>399 onwards</h6>-->
+<!--        <div style="margin-top:10px;">-->
+<!--                    <div id="c5" style="margin-left:700px;">-->
+<!--            <button type="submit" class="btn btn-outline-primary">-</button>-->
+<!--    </div>-->
+<!--      <div id="c6" style="margin-left:650px;margin-bottom:30px;">-->
+<!--            <button type="submit" class="btn btn-outline-primary">+</button>-->
+<!--    </div>-->
+<!--           <button class="button button3" id="d3">ADD</button>-->
+<!--                              <script>-->
+<!--    $(document).ready(function(){-->
+<!--    $("#d3").click(function(){-->
+<!--    $("#c5").show();-->
+<!--    $("#c6").show();-->
+<!--     $("#d3").hide();-->
+<!--    });-->
+<!--    });-->
+<!--</script>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+
+
+<!--</div>-->
+
+
+
+
+<div  style="width:300px;margin-left:600px;margin-top:90px;">
+    <h1 id="g1">Gold Band</h1>
+    <input type="text" value="{{data.Gold_Ticket_price}}" hidden id="price">
+    <p id="g2">₹{{data.Gold_Ticket_price}}</p>
+{% if data.Gold_Available_tickets <= 0 %}
+    <p style="margin-left:400px;margin-top:-80px;font-size:20px;color:red;">Ticket Sold</p>
+    {% else %}
+    <button class="btn btn-primary" id="i1" style="margin-left:400px;margin-top:-150px;">Add</button>
+{% endif %}
+    <button class="btn btn-primary"  id="c1" style="margin-left:450px;margin-top:-160px;">+</button>
+      <span id="num-tickets" style="margin-left:500px;margin-top:-900px;">1</span>
+
+        <button class="btn btn-primary" id="c2" style="margin-left:550px;margin-top:-255px;">-</button>
+
+    <div>
+
+
+    <h1 id="s1">Silver Band</h1>
+         <input type="text" value="{{data.Silver_Ticket_price}}" hidden id="price1">
+    <p id="s2">₹{{data.Silver_Ticket_price}}</p>
+        {% if data.Silver_Ticket_price <= 0 %}
+    <p style="margin-left:400px;margin-top:-80px;font-size:20px;color:red;">Ticket Sold</p>
+    {% else %}
+    <button class="btn btn-primary" id="i2" style="margin-left:400px;margin-top:-150px;">Add</button>
+        {% endif %}
+            <button class="btn btn-primary"  id="c3" style="margin-left:450px;margin-top:-160px;">+</button>
+      <span id="num-tickets1" style="margin-left:500px;margin-top:-900px;">1</span>
+
+        <button class="btn btn-primary" id="c4" style="margin-left:550px;margin-top:-255px;">-</button>
+
+</div>
+    <div >
+    <h1 id="b1">Bronze Band</h1>
+        <input type="text" value="{{data.Bronze_Ticket_price}}" hidden id="price2">
+    <p id="b2">₹{{data.Bronze_Ticket_price}}</p>
+              {% if data.Bronze_Ticket_price <= 0 %}
+    <p style="margin-left:400px;margin-top:-80px;font-size:20px;color:red;">Ticket Sold</p>
+    {% else %}
+
+    <button class="btn btn-primary" id="i3" style="margin-left:400px;margin-top:-150px;">Add</button>
+        {% endif %}
+         <button class="btn btn-primary"  id="c5" style="margin-left:450px;margin-top:-160px;">+</button>
+      <span id="num-tickets2" style="margin-left:500px;margin-top:-900px;">1</span>
+
+        <button class="btn btn-primary" id="c6" style="margin-left:550px;margin-top:-255px;">-</button>
+
+
+</div>
+    <div style="color:black;width:1000px;height:100px;background-color:pink;margin-left:-220px;" id="box1">
+<form action="../amount1/{{data.pk}}" method="post">
+     {% csrf_token %}
+    Num. of tickets:<input type="text" value="1" id="no1" name="no1" readonly ><br><br>
+    Total Amount :<input type="text" id="n12" name="n1" value="" readonly >
+
+    <input type="text" id="a1" value="{{data.Gold_Ticket_price}}" name="n12"  >
+    <input type="text" id="t1"  name="t1" value="0" hidden>
+    <input type="text" id="a2" value="{{data.Silver_Ticket_price}}" name="n13"  >
+    <input type="text" id="t2"  name="t2" value="0" hidden>
+    <input type="text" id="a3" value="{{data.Bronze_Ticket_price}}" name="n14" >
+    <input type="text" id="t3"  name="t3" value="0" hidden >
+
+
+
+<div style="margin-left:820px;margin-top:-40px;">
+
+ <button class="btn btn-danger" type="submit" >PROCEED</button>
+<!--<a class="btn btn-danger" href="../amount1/{{data.pk}}" >PROCEED</a>-->
+        </div>
+    </form>
+    {{data.total_amount}}
+ <script>
+     document.getElementById('c1').addEventListener('click', function() {
+            var numTicketsElement = document.getElementById('num-tickets');
+            var numTickets = parseInt(numTicketsElement.innerText);
+            numTicketsElement.innerText = numTickets + 1;
+            document.getElementById("no1").value=numTickets+1;
+
+
+        });
+
+        document.getElementById('c2').addEventListener('click', function() {
+            var numTicketsElement = document.getElementById('num-tickets');
+            var numTickets = parseInt(numTicketsElement.innerText);
+            if (numTickets > 1) {
+                numTicketsElement.innerText = numTickets - 1;
+            }
+        });
+
+
+        document.getElementById('c1').addEventListener('click', function() {
+            var numTicketsElement = document.getElementById('num-tickets');
+            var numTickets = parseInt(numTicketsElement.innerText);
+            var price = document.getElementById("price").value;
+            document.getElementById("t1").value=numTickets;
+           document.getElementById("n12").value=numTickets*price;
+
+
+        });
+
+
+
+
+
+             document.getElementById('c3').addEventListener('click', function() {
+            var numTicketsElement = document.getElementById('num-tickets1');
+            var numTickets = parseInt(numTicketsElement.innerText);
+            numTicketsElement.innerText = numTickets + 1;
+             document.getElementById("no1").value=numTickets+1;
+        });
+
+        document.getElementById('c4').addEventListener('click', function() {
+            var numTicketsElement = document.getElementById('num-tickets1');
+            var numTickets = parseInt(numTicketsElement.innerText);
+            if (numTickets > 1) {
+                numTicketsElement.innerText = numTickets - 1;
+            }
+        });
+
+
+        document.getElementById('c3').addEventListener('click', function() {
+            var numTicketsElement = document.getElementById('num-tickets1');
+            var numTickets = parseInt(numTicketsElement.innerText);
+            var price = document.getElementById("price1").value;
+            document.getElementById("t2").value=numTickets;
+           document.getElementById("n12").value=numTickets*price;
+
+
+        });
+
+ document.getElementById('c5').addEventListener('click', function() {
+            var numTicketsElement = document.getElementById('num-tickets2');
+            var numTickets = parseInt(numTicketsElement.innerText);
+            numTicketsElement.innerText = numTickets + 1;
+             document.getElementById("no1").value=numTickets+1;
+        });
+
+        document.getElementById('c6').addEventListener('click', function() {
+            var numTicketsElement = document.getElementById('num-tickets2');
+            var numTickets = parseInt(numTicketsElement.innerText);
+            if (numTickets > 1) {
+                numTicketsElement.innerText = numTickets - 1;
+            }
+        });
+
+
+        document.getElementById('c5').addEventListener('click', function() {
+            var numTicketsElement = document.getElementById('num-tickets2');
+            var numTickets = parseInt(numTicketsElement.innerText);
+            var price = document.getElementById("price2").value;
+            document.getElementById("t3").value=numTickets;
+           document.getElementById("n12").value=numTickets*price;
+
+
+        });
+
+
+
+
+
+
+
+
+    $(document).ready(function(){
+    $("#i1").click(function(){
+
+    $("#c1").show();
+
+    $("#c2").show();
+
+    $("#num-tickets").show();
+
+
+    $("#i1").hide();
+
+ $("#i2").show();
+ $("#i3").show();
+    $("#c3").hide();
+    $("#c4").hide();
+    $("#num-tickets1").hide();
+     $("#c5").hide();
+    $("#c6").hide();
+    $("#num-tickets2").hide();
+  $("#box1").show();
+
+
+
+
+    });
+
+
+     $("#i2").click(function(){
+    $("#c3").show();
+    $("#c4").show();
+     $("#c5").hide();
+    $("#c6").hide();
+    $("#num-tickets1").show();
+    $("#i1").show();
+     $("#i3").show();
+
+    $("#i2").hide();
+
+    $("#c1").hide();
+    $("#c2").hide();
+    $("#num-tickets").hide();
+    $("#num-tickets2").hide();
+    $("#13").show();
+     $("#box1").show();
+
+
+
+
+    });
+     $("#i3").click(function(){
+    $("#c5").show();
+    $("#c6").show();
+
+    $("#num-tickets2").show();
+    $("#i3").hide();
+      $("#i1").show();
+      $("#i2").show();
+
+
+    $("#c1").hide();
+    $("#c2").hide();
+    $("#c3").hide();
+    $("#c4").hide();
+    $("#num-tickets").hide();
+     $("#num-tickets1").hide();
+      $("#box1").show();
+
+
+    });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+    <!--  footer -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+    <script src="{% static 'mail/contact.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

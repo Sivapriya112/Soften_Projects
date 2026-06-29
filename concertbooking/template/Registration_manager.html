@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="static/css/style2.css" />
+
+    <title>Concert booking</title>
+
+     <style>
+         body {
+        margin: 0;
+        padding: 0;
+        background: #d0dcda;
+        font-family: 'Poppins', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        background-image: url('/static/img/new.jpg');
+
+    }
+.buttonhome {
+  background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 15px;
+  padding: 16px;
+  width: 120px;
+  position:absolute;
+  left:1400px;
+  top:70px;
+
+}
+.button3 {
+  background-color: #f44336;
+  color: white;
+  border: 2px solid #f44336;
+}
+
+.button3:hover {
+  background-color: white;
+  color: black;
+}
+.form{
+         margin-top:40px;
+         }
+
+
+    </style>
+
+  </head>
+  <body>
+
+
+
+
+
+      <a href="/"><button class="buttonhome button3">Home</button></a>
+
+<center>
+      {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+      </center>
+
+      <form action="" class="form" method="post">
+          {% csrf_token %}
+        <h1 class="head">Manager Register</h1>
+
+        <div class="content" >
+          <div class="box">
+                <i class="ri-user-3-line login__icon"></i>
+            <div class="box-input">
+              <input
+                type="text"
+                name="n1"
+                required
+                class="input"
+                id="name"
+                placeholder=" "
+              />
+              <label for="name" class="login__label">Name</label>
+            </div>
+          </div>
+        </div>
+
+
+
+
+            <div class="content">
+          <div class="box">
+            <i class="ri-user-3-line login__icon"></i>
+        <div class="box-input">
+              <input
+                type="email"
+                name="n2"
+                required
+                class="input"
+                id="login-email"
+                placeholder=" "
+              />
+              <label for="login-email" class="login__label">Email</label>
+            </div>
+          </div>
+                        <div class="content">
+          <div class="box">
+            <i class="box-input"></i>
+        <div class="box-input"> <i class="fas fa-phone"></i>
+
+              <input
+                type="tel"
+                name="n3"
+                required
+                class="input"
+                id="phone"
+                placeholder=" "
+                pattern="[0-9]{10,10}"
+                title="A valid phone number contains 10 digits"
+              />
+              <label for="phone" class="login__label">Phone</label>
+            </div>
+          </div>
+                            <div class="box">
+<!--            <i class="ri-lock-2-line login__icon"></i>-->
+                                  <i class="ri-user-3-line login__icon"></i>
+            <div class="box-input">
+              <input
+                type="text"
+                name="n4"
+                required
+                class="input"
+                id="experience"
+                placeholder=" "
+              />
+              <label for="login-pass" class="login__label">Experience</label>
+
+            </div>
+          </div>
+
+
+
+          <div class="box">
+            <i class="ri-lock-2-line login__icon"></i>
+            <div class="box-input">
+              <input
+                type="password"
+                name="n5"
+                required
+                class="input"
+                id="login-pass"
+                placeholder=" "
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters"
+              />
+              <label for="login-pass" class="login__label">Password</label>
+              <i class="ri-eye-on-line login__eye" id="login-eye"></i>
+            </div>
+          </div>
+
+             <div class="box">
+            <i class="ri-lock-2-line login__icon"></i>
+            <div class="box-input">
+              <input
+                type="password"
+                name="n6"
+                required
+                class="input"
+                id="confirm-pass"
+                placeholder=" "
+              />
+              <label for="login-pass" class="login__label">Confirm Password</label>
+
+            </div>
+          </div>
+
+
+            </div>
+        </div>
+
+
+        <button type="submit" class="button">Register</button>
+              <p class="register">Already have an account?   <a href="login">Login</a></p>
+        </form>
+    </div>
+
+
+
+    <script src="static/assets/js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <title>Concert booking</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Flaticon Font -->
+    <link href="{% static 'lib/flaticon/font/flaticon.css' %}" rel="stylesheet">
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Topbar Start -->
+
+                        <div class="row py-3 px-lg-5">
+            <div class="col-lg-4">
+                <a href="" class="navbar-brand d-none d-lg-block">
+                    <h1 class="m-0 display-5 text-capitalize"><span class="text-primary">Book your </span>EVENT</h1>
+                </a>
+            </div>
+            <div class="col-lg-8 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <div class="d-inline-flex flex-column text-center px-3 border-right">
+                        <h6 style="font-size:20px;">Email Us</h6>
+                        <p style="font-size:20px;" class="m-0">concertbooking.com</p>
+                    </div>
+                    <div class="d-inline-flex flex-column text-center pl-3">
+                        <h6 style="font-size:20px;"  >Call Us</h6>
+                        <p style="font-size:20px;" class="m-0">9744362393</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
+            <a href="" class="navbar-brand d-block d-lg-none">
+                <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">Safety</span>First</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+           <div class="navbar-nav mr-auto py-0">
+                <a href="../managerhome" class="nav-item nav-link ">HOME</a>
+                    <a href="../addevent" class="nav-item nav-link">ADD EVENT</a>
+                    <a href="../viewevent" class="nav-item nav-link  active">VIEW EVENT</a>
+                       <a href='../manager_order_details' class="nav-item nav-link">BOOKING DETAILS</a>
+
+
+
+                    <a href="../logout" class="nav-item nav-link">LOGOUT</a>
+
+
+                </div>
+
+
+
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+    	<!-- SECTION -->
+<div class="col-md-5 col-md-push-2" style="padding-top:30px;width:550px;height:500px;">
+						<div id="product-main-img">
+{% for i in h %}
+					<div class="col-md-2  col-md-pull-5" style="width:100px;height:500px;">
+						<div id="product-imgs">
+							<div class="product-preview">
+								<img src="{{i.image.url}}" style="left:100px;width:500px;height:500px;" alt="">
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+						</div>
+					</div>
+
+
+					<!-- Product details -->
+<div class="col-md-5" style="margin-left:700px;margin-top:-250px;">
+						<div class="product-details">
+							<h2 class="product-name">{{data.Event_name}}</h2>
+
+							<h5>{{data.Discription}}</h5>
+
+
+
+							<div class="product-options">
+									<h4><box-icon type='solid' name='location-plus'></box-icon> {{data.Location}}</h4>
+                                <h4><box-icon name='calendar'></box-icon>{{data.Date}}</h4>
+                                    <h4><box-icon name='chevron-down-circle'></box-icon>{{data.Time}}</h4>
+
+
+							</div>
+
+
+<!--							<div class="add-to-cart">-->
+<!--								<button class="add-to-cart-btn"><i class="fa fa-edit"></i><a href="../admin_update/{{data.pk}}">Update</a></button><br><br>-->
+<!--								<button type="submit" class="add-to-cart-btn"><i class="fa fa-trash-o"></i><a href="../product_delete/{{data.pk}}">Delete</a></button>-->
+<!--							</div>-->
+<!--						</div>-->
+					</div>
+	</div>
+
+					<!-- /Product details -->
+
+					<!-- Product tab -->
+	<div class="container">
+					<!-- Product tab -->
+					<div class="col-md-12">
+						<div id="product-tab">
+							<!-- product tab nav -->
+<!--							<ul class="tab-nav" style="margin-left:400px;">-->
+<!--								<li class="active"><a data-toggle="tab" href="#tab2"><h4><b>Ticket Price</b></h4></a></li>-->
+<!--							</ul>-->
+<!--								<div id="tab2" class="tab-pane fade in" style="">-->
+<!--									<div class="row">t-->
+<!--										<div class="col-md-12" style="margin-left:500px;margin-top:-60px;">-->
+<!--                                            <p ><h6><b>Gold Ticket price:₹{{data.Gold_Ticket_price}}</b></h6></p>-->
+<!--                                            <p><h6><b>Silver Ticket price:₹{{data.Silver_Ticket_price}}</b></h6></p>-->
+<!--										</div>-->
+<!--									</div>n-->
+<!--								</div>-->
+                            <ul class="tab-nav" style="margin-left:400px;margin-top:-20px;">
+								<li class="active"><a data-toggle="tab" href="#tab3"><h4><b>Ticket Availability</b></h4></a></li>
+							</ul>
+								<div id="tab3" class="tab-pane fade in" style="">
+									<div class="row">
+										<div class="col-md-12"style="margin-left:500px;margin-top:-10px;">
+											<h6><b>Gold Available tickets:{{data.Gold_Available_tickets}}</b></h6></p>
+                                           <h6><b>Silver Available tickets:{{data.Silver_Available_tickets}}</b></h6></p>
+                                             <h6><b>Bronze Available tickets:{{data.Bronze_Ticket_price}}</b></h6></p>
+										</div>
+									</div>
+								</div>
+                            <ul class="tab-nav" style="margin-left:800px;margin-top:-140px;">
+								<li class="active"><a data-toggle="tab" href="#tab4"><h4><b>Ticket Prices</b></h4></a></li>
+							</ul>
+								<div id="tab4" class="tab-pane fade in" style="">
+									<div class="row">
+										<div class="col-md-12"style="margin-left:900px;margin-top:-10px;">
+											<h6><b>Gold Ticket Price:{{data.Gold_Ticket_price}}</b></h6></p>
+                                           <h6><b>Silver Ticket Price:{{data.Silver_Ticket_price}}</b></h6></p>
+                                             <h6><b>Bronze Ticket Price:{{data.Bronze_Ticket_price}}</b></h6></p>
+										</div>
+									</div>
+								</div>
+<!--                            <div  align="center" style="margin-top:40px;margin-left:400px;" ><a class="btn btn-primary" href="../category/{{data.pk}}">BOOK NOW</a></div>-->
+<!--  <div  align="center" style="margin-top:40px;margin-left:300px;" ><a class="btn btn-primary" href="../updateevent/{{data.pk}}">UPDATE</a></div>&ndash;&gt;-->
+<!--  <div  align="center" style="margin-top:-65px;margin-left:650px;" ><a class="btn btn-danger" href="../deleteevent/{{data.pk}}">DELETE</a></div>-->
+                                     <a style="margin-left:650px;" class="btn btn-success" href="../updateevent/{{data.pk}}">UPDATE</a></td>
+
+                 <td><a style="margin-left:50px;" href="../deleteevent/{{data.pk}}"><button onclick="myFunction()" class="btn btn-danger" >DELETE</button></a></td>
+            </div>
+        </div>
+
+          <script>
+function myFunction() {
+  alert("ARE YOU SURE WANT TO DELETE..?");
+}
+</script>
+
+										<div style="margin-left:300px;margin-top:50px;">
+											{% if data.Video %}
+											<video width="1100" height="600" controls ><source src ="{{data.Video.url}}" type="video/mp4"></video>
+											{% endif %}
+										</div>
+
+									</div>
+								</div>
+									</div>
+
+    <div id="demo" class="carousel slide" data-ride="carousel">
+
+  <!-- Indicators -->
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ul>
+
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="la.jpg" alt="Los Angeles" width="1100" height="500">
+    </div>
+    <div class="carousel-item">
+      <img src="chicago.jpg" alt="Chicago" width="1100" height="500">
+    </div>
+    <div class="carousel-item">
+      <img src="ny.jpg" alt="New York" width="1100" height="500">
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--  footer -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+    <script src="{% static 'mail/contact.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <title>Concert booking</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Flaticon Font -->
+    <link href="{% static 'lib/flaticon/font/flaticon.css' %}" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<style>
+body {
+			background-color:white;
+			}
+			</style>
+
+
+<body>
+    <!-- Topbar Start -->
+
+       <div class="row py-3 px-lg-5">
+            <div class="col-lg-4">
+                <a href="" class="navbar-brand d-none d-lg-block">
+                    <h1 style="color:black;" class="m-0 display-5 text-capitalize"><span class="text-primary">Book your </span>EVENT</h1>
+                </a>
+            </div>
+            <div class="col-lg-8 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+
+                    <div class="d-inline-flex flex-column text-center px-3 border-right">
+                        <h6 style="color:black;font-size:20px;">Email Us</h6>
+                        <p style="color:black;font-size:20px;" class="m-0">concertbooking.com</p>
+                    </div>
+                    <div class="d-inline-flex flex-column text-center pl-3">
+                        <h6 style="color:black;font-size:20px;"  >Call Us</h6>
+                        <p style="color:black;font-size:20px;" class="m-0">9744362393</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
+            <a href="" class="navbar-brand d-block d-lg-none">
+                <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">Safety</span>First</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+                <div class="navbar-nav mr-auto py-0">
+                    <a href="../userhome" class="nav-item nav-link ">HOME</a>
+                    <a href="../viewuser" class="nav-item nav-link">ABOUT US</a>
+                    <a href="../contact" class="nav-item nav-link">CONTACT US</a>
+                     <a href="../userconcerts" class="nav-item nav-link active">CONCERTS</a>
+
+ <a href="../user_recent_orders" class="nav-item nav-link">BOOKING DETAILS</a>
+
+                    <a href="../logout" class="nav-item nav-link">LOGOUT</a>
+
+                </div>
+
+
+
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+<div class="container-fluid pt-5">
+        <div class="d-flex flex-column text-center mb-5 pt"  >
+
+        </div>
+      {% if messages %}
+          <div class="container">
+        <div class="alert alert-success alert-dismissible messages">
+            {% for message in messages %}
+            <button type="button" class="close"  data-dismiss="alert">&times;</button>
+            {{message}}
+        </div>
+              {% endfor %}
+    </div>
+        {% endif %}
+{% for i in data %}
+  {{Event_image}}
+
+
+<!--        <div class="card" style="display:inline-block;padding:25px;">-->
+<!--            <img class="card-img-top" src="{{i.Event_image.url}}" style="width:600px;height:300px;">-->
+<!--            <div class="card-body">-->
+<!--  <div style="margin-left:150px;">-->
+
+<!--               <h6 style="margin-left:70px;" class="card-text">Tickets price:{{i.Ticket_price}}</h6>-->
+
+
+<!--            <td><div style="margin-left:70px;"><a class="btn btn-primary" href="booknowmain">BOOK NOW</a></td></div>-->
+
+<!--            </div>-->
+<!--        </div>-->
+
+      <div class="card" style="display:inline-block;padding:50px;">
+                   <h4 align="center"  class="card-tittle"><a href="concertview/{{i.pk}}">{{i.Event_name}}</a></h4>
+          <h4 align="center"  class="card-tittle">     {{i.Location}}|{{i.Time}}</h4>
+            <img class="card-img-top" src="{{i.Event_image.url}}" style="3width:400px;height:300px;">
+            <div class="card-body">
+                <td><div  align="center" style="margin-top:30px;" ><a class="btn btn-primary" href="../category/{{i.pk}}">BOOK NOW</a></td></div>
+
+
+            </div>
+        </div>
+
+      {% endfor %}
+
+
+
+
+
+     <!-- end header inner -->
+    <!-- Navbar End -->
+
+
+    <!-- Carousel Start -->
+
+
+    <!-- Testimonial Start -->
+
+
+
+    <!-- Blog Start -->
+
+
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
+    <script src="{% static 'mail/contact.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+

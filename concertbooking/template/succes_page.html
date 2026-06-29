@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #a8eec2;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .message {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .button:hover {
+    background-color: #45a049;
+  }
+
+  @media (max-width: 768px) {
+    .message {
+      font-size: 20px;
+    }
+
+    .button {
+      padding: 12px 24px;
+      font-size: 14px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="message">Payment Successfull <br></div>
+     <div class="message">YOUR TICKET BOOKING SUCCESSFULLY COMPLETED <br><br>THANK YOU</div>
+  <a href="userconcerts" class="button">Continue Booking</a>
+   <a href="user_recent_orders" class="button">Track Booking</a>
+</div>
+</body>
+</html>
