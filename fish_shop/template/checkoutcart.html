@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+{% load static %}
+   <!-- Basic -->
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <!-- Mobile Metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <!-- Site Metas -->
+   <title>cart payment</title>
+   <meta name="keywords" content="">
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <!-- site icon -->
+   <link rel="icon" href="{% static 'images/fevicon.png' %}" type="image/png" />
+   <!-- Bootstrap core CSS -->
+   <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+   <!-- FontAwesome Icons core CSS -->
+   <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+   <!-- Custom animate styles for this template -->
+   <link href="{% static 'css/animate.css' %}" rel="stylesheet">
+   <!-- Custom styles for this template -->
+   <link href="{% static 'css/new.css' %}" rel="stylesheet">
+   <!-- Responsive styles for this template -->
+   <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+   <!-- Colors for this template -->
+   <link href="{% static 'css/colors.css' %}" rel="stylesheet">
+   <!-- light box gallery -->
+   <link href="{% static 'css/ekko-lightbox.css' %}" rel="stylesheet">
+
+   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<style>
+   .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.card-img-top {
+    width: 100%;
+    height: auto;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    margin-bottom: 5px;
+}
+
+.card-body p {
+    margin-bottom: 15px;
+}
+
+.card-body form {
+    margin-bottom: 10px;
+}
+
+.btn {
+    margin-top: 10px;
+    margin-left: 10px;
+    float: left;
+}
+
+
+.s_container {
+            max-width: 1200px;
+            margin: 50px auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        .item_details {
+            width: 40%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .item_details p {
+            margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+        }
+        .item_details img {
+            max-width: 20%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .total {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+}
+
+.total p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+        .ship_container {
+            width: 55%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2b2b2c;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background-color: #87eea1;
+            color: #242424;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #2cc345;
+        }
+        .btn-increase,
+.btn-decrease {
+    display: inline-block;
+    background-color: #ebe7e7;
+    color: #000000;
+    border: none;
+    padding: 3px 6px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-increase:hover,
+.btn-decrease:hover {
+    background-color: #acaeaf;
+}
+
+.quantity {
+    margin-right: 10px;
+}
+
+</style>
+</head>
+   <body id="home_page" class="home_page">
+      <!-- loader -->
+      <!-- end loader -->
+      <!-- header -->
+      <!-- end header -->
+      <!-- slider -->
+
+     <div class="section ">
+			<!-- container -->
+			<div class="container ">
+				<!-- row -->
+				<div class="row">
+					<div class="form-group">
+						<!-- Billing Details -->
+						<div class="billing-details">
+							<div class="section-title">
+								<h3 class="title">Shipping Address</h3>
+							</div>
+							<form action="" method="POST">
+								{% csrf_token %}
+							<div class="form-group">
+								<input class="form-control"  name="user_name" placeholder="Name" value="{{user.username}}" required type="text">
+							</div>
+								<div class="form-group">
+								<input class="form-control" type="tel" name="user_phone" placeholder="Phone" value="{{user.phoneno}}" pattern="[0-9]{10,10}" title="A valid phone number contains 10 digits" required>
+								</div>
+
+							<div class="form-group">
+								<input class="form-control" type="text" name="user_address" placeholder="Address"  required>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="text" name="user_city" placeholder="City"  required>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="text" name="user_state" placeholder="State"  required>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="tel" name="user_zipcode" placeholder="Pincode" pattern="[0-9]{6,6}" title="A valid pincode contains 6 digits" required>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+				</div>
+					</div>
+						<!-- /Billing Details -->
+
+						<!-- Shiping Details -->
+
+						<!-- /Shiping Details -->
+
+						<!-- Order notes -->
+
+
+
+					<!-- Order Details -->
+					<div class="shipping col-md-6">
+						<div class="section-title text-center">
+							<h3 class="title">Payment</h3>
+						</div>
+						<div class="form-group">
+							<div style="float:left">
+								<div><strong class="text-dark">PRODUCT</strong></div>
+							</div >
+							<div style="float:right">
+								<div><strong class="text-dark">PRICE</strong></div>
+							</div>
+
+						</div>
+<br>
+							{% for i in total1 %}
+							<div class="form-group">
+								<div style="float:left;">
+									<div>
+										<p  class="col-md-9" style="border:hidden;position:absolute;text-align:left;" >{{i.fish.fishname}}</p></div>
+								</div>
+								<div >
+									<div>
+										<p style="border:hidden;text-align:right;">₹{{i.fish.fprice}}</p></div>
+								</div>
+
+							</div>
+						<br>
+								{% endfor %}
+
+						<div class="form-group">
+								<div style="float:left;" >
+									<div><strong class="text-dark">QUANTITY:</strong></div>
+								</div>
+								<div style="float:right;">
+									<div style="padding-left:250px;"><strong class="order-total">
+										<p style="border:hidden;width:150px;text-align:right;">{{quantity}}</p></strong></div>
+								</div>
+							</div>
+						<br>
+							<div class="form-group">
+								<div style="float:left;" >
+									<div><strong class="text-dark">TOTAL:</strong></div>
+								</div>
+								<div style="float:right;">
+									<div style="padding-left:250px;"><strong class="order-total"><input style="border:hidden;width:150px;text-align:right;" value="{{total}}" name="user_total" type="text" readonly></strong></div>
+								</div>
+							</div>
+
+
+						<a href="../payment_cart/{{amount}}" class="text-white"><button type="submit"  class="btn btn-danger col-md-12">Place order</button></a>
+						</form>
+					<!-- /Order Details -->
+
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+			</div>
+      <!-- end section -->
+
+      <!-- Core JavaScript
+         ================================================== -->
+      <script src="{% static 'js/jquery.min.js' %}"></script>
+      <script src="{% static 'js/tether.min.js' %}"></script>
+      <script src="{% static 'js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'js/parallax.js' %}"></script>
+      <script src="{% static 'js/animate.js' %}"></script>
+      <script src="{% static 'js/ekko-lightbox.js' %}"></script>
+      <script src="{% static 'js/custom.js' %}"></script>
+   </body>
+</html>

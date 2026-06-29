@@ -1,0 +1,275 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--       <style>-->
+<!--     body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            background-color: #f8f9fa;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            max-width: 800px;-->
+<!--            margin: 20px auto;-->
+<!--            background-color: #fff;-->
+<!--            padding: 20px;-->
+<!--            border-radius: 8px;-->
+<!--            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);-->
+<!--        }-->
+
+<!--        h2 {-->
+<!--            text-align: center;-->
+<!--            color: #333;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+
+<!--        .form-group {-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+
+<!--        .form-group label {-->
+<!--            font-weight: bold;-->
+<!--            display: block;-->
+<!--            margin-bottom: 5px;-->
+<!--        }-->
+
+<!--        .form-group input[type="text"],-->
+<!--        .form-group input[type="tel"] {-->
+<!--            width: 100%;-->
+<!--            padding: 10px;-->
+<!--            border: 1px solid #ccc;-->
+<!--            border-radius: 5px;-->
+<!--            font-size: 16px;-->
+<!--        }-->
+
+<!--        .text-danger {-->
+<!--            color: #dc3545;-->
+<!--            font-size: 14px;-->
+<!--            margin-top: 5px;-->
+<!--        }-->
+
+<!--        .btn {-->
+<!--            background-color: #007bff;-->
+<!--            color: #fff;-->
+<!--            border: none;-->
+<!--            padding: 10px 20px;-->
+<!--            border-radius: 5px;-->
+<!--            cursor: pointer;-->
+<!--            font-size: 16px;-->
+<!--            transition: background-color 0.3s;-->
+<!--        }-->
+
+<!--        .btn:hover {-->
+<!--            background-color: #0056b3;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!-- {% if messages %}-->
+<!--        <div class="alert alert-success alert-dismissible messages">-->
+<!--            {% for message in messages %}-->
+<!--&lt;!&ndash;            <button type="button" class="close" data-dismiss="alert">x</button>&ndash;&gt;-->
+<!--                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+<!--            {{ message }}-->
+<!--            {% endfor %}-->
+<!-- </div>-->
+<!--        {% endif %}-->
+<!--<div class="container">-->
+<!--    <h2><b>PROFILE</b></h2>-->
+<!--    <form id="contactForm" name="contactForm" class="contactForm" action="update_profile" method="POST" enctype="multipart/form-data">-->
+<!--        {% csrf_token %}-->
+<!--        <div class="form-group">-->
+<!--            <label class="label">USERNAME</label>-->
+<!--            <input type="text" class="form-control" name="username" value="{{data.username}}" readonly>-->
+<!--            <p class="text-danger">You Cannot Change Your Registered Username!!</p>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label class="label" for="email">EMAIL</label>-->
+<!--            <input type="text" class="form-control" name="email" id="email" value="{{data.email}}">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label class="label">PHONE NO</label>-->
+<!--            <input type="tel" class="form-control" pattern="[0-9]{10}" name="number" value="{{data.number}}">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <button type="submit" class="btn">UPDATE PROFILE</button>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div>-->
+
+<!--<div>-->
+
+<!--		 <div class="row no-gutters">-->
+<!--								<div class="col-md-12">-->
+<!--									<div class="contact-wrap w-100 p-md-5 p-4">-->
+<!--										<h2><b>CHANGE PASSWORD</b></h2>-->
+<!--										<form  name="contactForm" class="contactForm" action="change_password" method="POST" enctype="multipart/form-data">-->
+<!--											{% csrf_token %}-->
+<!--											<div class="row">-->
+<!--												<div class="col-md-10">-->
+<!--													<div class="form-group">-->
+<!--														<label class="label" for="name">CURRENT PASSWORD</label>-->
+<!--														<input type="text" class="form-control" name="current_password" >-->
+<!--													</div>-->
+<!--												</div>-->
+<!--												<div class="col-md-10">-->
+<!--													<div class="form-group">-->
+<!--														<label class="label" for="email">NEW PASSWORD</label>-->
+<!--														<input type="text" class="form-control" pattern="(?=.\d)(?=.[a-z])(?=.*[A-Z]).{6,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters" name="new_password" >-->
+<!--													</div>-->
+<!--												</div>-->
+<!--												<div class="col-md-10">-->
+<!--													<div class="form-group">-->
+<!--														<label class="label" >CONFIRM PASSWORD</label>-->
+<!--														<input type="text" class="form-control" pattern="(?=.\d)(?=.[a-z])(?=.*[A-Z]).{6,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters" name="confirm_password" >-->
+<!--													</div>-->
+<!--												</div>-->
+
+<!--											<div class="col-md-12">-->
+<!--													<div class="form-group">-->
+<!--														<input type="submit" value="UPDATE PASSWORD"  class="btn btn-primary">-->
+<!--														<div class="submitting"></div>-->
+<!--													</div>-->
+<!--											</div>-->
+<!--										</form>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</div>-->
+
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box; /* Ensures padding and border are included in element's total width and height */
+        }
+        .text-danger {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            display: block;
+            width: 100%;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+ {% if messages %}
+        <div class="alert alert-success alert-dismissible messages">
+            {% for message in messages %}
+<!--            <button type="button" class="close" data-dismiss="alert">x</button>-->
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{ message }}
+            {% endfor %}
+ </div>
+        {% endif %}
+
+    <div class="container">
+        <h2>Profile</h2>
+        <form id="updateProfileForm" class="contactForm" action="/update_profile" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" name="username" value="{{data.username}}" readonly>
+
+                <p class="text-danger">You Cannot Change Your Registered Username</p>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" name="email" id="email" value="{{data.email}}">
+
+            </div>
+            <div class="form-group">
+                <label for="phoneno">Phone Number</label>
+                <input type="text" class="form-control"  name="phoneno" pattern="[0-9]{10,10}" title="A valid phone number contains 10 digits" maxlength="10" value="{{data.number}}">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn">Update Profile</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="container">
+        <h2>Change Password</h2>
+        <form id="changePasswordForm" class="contactForm" action="/change_password" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="current_password">Current Password</label>
+                <input type="password" class="form-control" name="current_password" id="current_password">
+            </div>
+            <div class="form-group">
+                <label for="new_password">New Password</label>
+                <input type="password" class="form-control" name="new_password" id="new_password" pattern="^(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#$%^&*_=+-]).{8,12}$" title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters">
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" class="form-control" name="confirm_password" id="confirm_password" pattern="^(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#$%^&*_=+-]).{8,12}$" title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn">Change Password</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

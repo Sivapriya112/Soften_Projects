@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Home - D-pot</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Custom CSS -->
+
+    <!-- Add your custom CSS file here if needed -->
+</head>
+<body>
+<div class="container">
+    <h1>Items with Low Stock</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Fish Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for items in item %}
+            <tr>
+                <td><img src="{{ items.fimage.url }}" alt="{{ items.fishname }}" style="width: 40px; height: 40px;"></td>
+                <td>{{ items.fishname }}</td>
+                <td>₹{{ items.fprice }}</td>
+                <td>{{ items.fstock }}</td>
+                <td>
+
+                    <a href="productedit/{{item.pk}}" class="btn btn-primary">Update</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
