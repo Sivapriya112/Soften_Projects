@@ -1,0 +1,595 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Worker Dashboard | EmployIT</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --blue:      #3B4FD8;
+      --blue-dark: #2a3ab5;
+      --blue-light:#6B7FE8;
+      --blue-pale: #EEF0FC;
+      --accent:    #F5A623;
+      --text:      #1a1d2e;
+      --muted:     #6b7280;
+      --bg:        #f7f8ff;
+      --white:     #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
+    em { color: var(--blue); font-style: normal; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      backdrop-filter: blur(14px);
+      background: rgba(247,248,255,0.92) !important;
+      border-bottom: 1px solid rgba(59,79,216,0.08);
+      box-shadow: 0 4px 30px rgba(59,79,216,0.08);
+    }
+    .navbar-brand img { height: 40px; }
+    .btn { border-radius: 50px !important; font-weight: 600; font-family: 'DM Sans', sans-serif; transition: all .25s; }
+    .btn-danger-soft { background: #fff0f0; color: #dc3545; border: 2px solid #ffd0d0; }
+    .btn-danger-soft:hover { background: #dc3545; color: #fff; border-color: #dc3545; }
+    .btn-employit { background: var(--blue); color: #fff; border: 2px solid var(--blue); }
+    .btn-employit:hover { background: var(--blue-dark); color: #fff; border-color: var(--blue-dark); box-shadow: 0 8px 25px rgba(59,79,216,0.35); transform: translateY(-1px); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+      padding: 5rem 0 5rem;
+      margin-top: 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 380px; height: 380px;
+      background: rgba(255,255,255,0.06); border-radius: 50%;
+    }
+    .page-header::after {
+      content: ''; position: absolute; bottom: -80px; left: 5%;
+      width: 260px; height: 260px;
+      background: rgba(245,166,35,0.12); border-radius: 50%;
+    }
+    .page-header h1 { color: #fff; font-size: clamp(2rem, 4vw, 2.8rem); }
+    .page-header p  { color: rgba(255,255,255,.72); font-size: 1rem; margin: 0; }
+
+    .welcome-pill {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.15); color: #fff;
+      padding: .35rem 1rem; border-radius: 50px;
+      font-size: .8rem; font-weight: 600; letter-spacing: .5px;
+      margin-bottom: 1rem; backdrop-filter: blur(6px);
+    }
+    .welcome-pill .dot { width:8px; height:8px; background:var(--accent); border-radius:50%; animation: pulse 1.5s infinite; }
+
+    /* ── TERMINATED BANNER ── */
+    .terminated-banner {
+      background: linear-gradient(135deg, #fee2e2, #fecaca);
+      border: 2px solid #fca5a5;
+      border-radius: 20px;
+      padding: 1.5rem 2rem;
+      display: flex; align-items: center; gap: 1rem;
+      margin-top: -2rem; position: relative; z-index: 10;
+    }
+    .terminated-banner .t-icon { font-size: 2.2rem; flex-shrink: 0; }
+    .terminated-banner h5 { color: #991b1b; margin: 0 0 .3rem; font-family: 'Playfair Display', serif; }
+    .terminated-banner p  { color: #b91c1c; margin: 0; font-size: .9rem; }
+
+    /* ── PANEL CARDS ── */
+    .panel-card {
+      background: var(--white);
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(59,79,216,0.11);
+      overflow: hidden;
+      margin-top: -2.5rem;
+      position: relative; z-index: 10;
+    }
+    .panel-card-body { padding: 2.2rem; }
+    .panel-title { font-size: 1.2rem; margin-bottom: 1.5rem; }
+
+    /* ── SKILL SELECT ── */
+    .skill-select {
+      border: 2px solid var(--blue-pale);
+      border-radius: 16px !important;
+      padding: .8rem 1.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem;
+      color: var(--text);
+      background-color: var(--bg);
+      transition: border-color .2s, box-shadow .2s;
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%233B4FD8' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1.2rem center;
+      padding-right: 3rem; cursor: pointer; width: 100%;
+    }
+    .skill-select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,79,216,.1); outline: none; }
+
+    /* ── AVAILABILITY TOGGLE ── */
+    .availability-wrap {
+      background: var(--bg);
+      border: 2px solid var(--blue-pale);
+      border-radius: 20px;
+      padding: 1.2rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; transition: border-color .2s;
+    }
+    .availability-wrap:hover { border-color: var(--blue-light); }
+
+    .toggle-label { flex: 1; }
+    .toggle-label .tl-title { font-weight: 700; font-size: .98rem; margin: 0; }
+    .toggle-label .tl-sub   { font-size: .8rem; color: var(--muted); margin: 0; }
+
+    /* Custom switch */
+    .custom-switch { position: relative; width: 56px; height: 28px; flex-shrink: 0; }
+    .custom-switch input { opacity: 0; width: 0; height: 0; }
+    .switch-track {
+      position: absolute; inset: 0;
+      background: #d1d5db; border-radius: 28px;
+      cursor: pointer; transition: background .3s;
+    }
+    .switch-track::after {
+      content: ''; position: absolute;
+      top: 3px; left: 3px;
+      width: 22px; height: 22px;
+      background: #fff; border-radius: 50%;
+      transition: transform .3s;
+      box-shadow: 0 2px 6px rgba(0,0,0,.2);
+    }
+    .custom-switch input:checked + .switch-track { background: #16a34a; }
+    .custom-switch input:checked + .switch-track::after { transform: translateX(28px); }
+
+    .online-badge  { display:inline-flex; align-items:center; gap:.4rem; font-size:.82rem; font-weight:700; color:#16a34a; }
+    .offline-badge { display:inline-flex; align-items:center; gap:.4rem; font-size:.82rem; font-weight:700; color:var(--muted); }
+    .status-dot { width:9px; height:9px; border-radius:50%; }
+    .dot-online  { background:#16a34a; animation: pulse 1.5s infinite; }
+    .dot-offline { background:var(--muted); }
+
+    /* ── VERIFICATION CARD ── */
+    .verify-badge-verified { background:#dcfce7; color:#16a34a; padding:.45rem 1rem; border-radius:50px; font-size:.82rem; font-weight:700; display:inline-flex; align-items:center; gap:.4rem; }
+    .verify-badge-pending  { background:#fffbeb; color:#92400e; padding:.45rem 1rem; border-radius:50px; font-size:.82rem; font-weight:700; display:inline-flex; align-items:center; gap:.4rem; }
+
+    .upload-zone {
+      border: 2px dashed var(--blue-light);
+      border-radius: 20px; padding: 2rem;
+      text-align: center; background: var(--blue-pale);
+      transition: border-color .2s, background .2s;
+    }
+    .upload-zone:hover { border-color: var(--blue); background: #e8ecfb; }
+    .upload-zone .upload-icon { font-size: 2.5rem; color: var(--blue-light); margin-bottom: .8rem; }
+    .upload-zone h6 { color: var(--text); font-size: .95rem; margin-bottom: .3rem; }
+    .upload-zone p  { color: var(--muted); font-size: .8rem; margin: 0; }
+
+    .file-input-hidden { display: none; }
+    .btn-upload {
+      background: var(--blue); color: #fff; border: 2px solid var(--blue);
+      margin-top: 1rem;
+    }
+    .btn-upload:hover { background: var(--blue-dark); border-color: var(--blue-dark); color: #fff; }
+
+    /* ── BOOKINGS LIST ── */
+    .section-label { color: var(--blue); font-weight: 600; font-size: .8rem; letter-spacing: 2px; text-transform: uppercase; }
+
+    .booking-card {
+      background: var(--white);
+      border-radius: 22px;
+      padding: 1.4rem 1.8rem;
+      box-shadow: 0 4px 20px rgba(59,79,216,0.07);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+      position: relative; overflow: hidden;
+    }
+    .booking-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 4px; height: 100%;
+      border-radius: 4px 0 0 4px;
+    }
+    .booking-card.bc-pending  { border-color: #fde68a; }
+    .booking-card.bc-pending::before  { background: #f59e0b; }
+    .booking-card.bc-accepted { border-color: #86efac; }
+    .booking-card.bc-accepted::before { background: #16a34a; }
+    .booking-card.bc-rejected { border-color: #fca5a5; }
+    .booking-card.bc-rejected::before { background: #ef4444; }
+    .booking-card:hover { transform: translateY(-4px); box-shadow: 0 16px 45px rgba(59,79,216,0.13); }
+
+    .booking-user {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem; font-weight: 700; margin: 0 0 .3rem;
+    }
+    .booking-meta { font-size: .82rem; color: var(--muted); margin: 0; }
+    .booking-meta i { color: var(--blue); margin-right: .3rem; }
+
+    .user-avatar {
+      width: 44px; height: 44px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-light));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .95rem; color: #fff; flex-shrink: 0;
+    }
+
+    /* Status pill */
+    .bp-pending  { background:#fffbeb; color:#92400e; border:1.5px solid #fde68a; }
+    .bp-accepted { background:#f0fdf4; color:#166534; border:1.5px solid #86efac; }
+    .bp-rejected { background:#fef2f2; color:#991b1b; border:1.5px solid #fca5a5; }
+    .booking-pill { font-size:.72rem; font-weight:700; border-radius:50px; padding:3px 12px; letter-spacing:.3px; }
+
+    /* Action buttons */
+    .btn-accept { background:#dcfce7; color:#16a34a; border:2px solid #86efac; padding:.45rem 1.1rem; font-size:.82rem; }
+    .btn-accept:hover { background:#16a34a; color:#fff; border-color:#16a34a; }
+    .btn-reject { background:#fee2e2; color:#dc2626; border:2px solid #fca5a5; padding:.45rem 1.1rem; font-size:.82rem; }
+    .btn-reject:hover { background:#dc2626; color:#fff; border-color:#dc2626; }
+    .btn-wa     { background:#dcfce7; color:#16a34a; border:2px solid #86efac; padding:.45rem 1.1rem; font-size:.82rem; }
+    .btn-wa:hover { background:#16a34a; color:#fff; border-color:#16a34a; }
+
+    /* Empty state */
+    .empty-state { text-align:center; padding:4rem 2rem; background:var(--white); border-radius:28px; box-shadow:0 4px 20px rgba(59,79,216,.06); }
+    .empty-icon  { font-size:3.5rem; opacity:.25; margin-bottom:.8rem; }
+    .empty-state h5 { font-family:'Playfair Display',serif; margin-bottom:.4rem; }
+    .empty-state p  { color:var(--muted); font-size:.9rem; }
+
+    /* ── FOOTER ── */
+    footer { background:var(--white); border-top:1px solid rgba(59,79,216,.08); margin-top:4rem; }
+    .footer-bottom { font-size:.8rem; color:var(--muted); padding:1.2rem 0; }
+
+    /* ── ANIMATIONS ── */
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .6s ease,transform .6s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+    .rv1 { transition-delay:.1s; } .rv2 { transition-delay:.2s; } .rv3 { transition-delay:.28s; }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+    @media (max-width:576px) {
+      .page-header { padding:4rem 0 4.5rem; }
+      .panel-card-body { padding:1.4rem; }
+      .booking-card { padding:1.1rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav class="navbar navbar-expand-lg fixed-top py-3">
+  <div class="container-xl d-flex justify-content-between align-items-center">
+    <a href="/" class="navbar-brand">
+      <img src="{% static 'img/logo1.png' %}" alt="EmployIT">
+    </a>
+    <div class="d-flex align-items-center gap-3">
+            <a href="/booking_detail_worker/" class="btn btn-employit-outline px-4">
+  <i class="bi bi-clock-history me-2"></i>My Bookings
+</a>
+      <span class="d-none d-sm-inline text-muted" style="font-size:.9rem">
+        <i class="bi bi-person-badge me-1" style="color:var(--blue)"></i>{{ user_name }}
+      </span>
+      <a href="/logout/" class="btn btn-danger-soft px-4">
+        <i class="bi bi-box-arrow-right me-1"></i>Logout
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════ PAGE HEADER ══════════ -->
+<div class="page-header">
+  <div class="container-xl">
+    <div class="welcome-pill"><span class="dot"></span> Worker Dashboard</div>
+    <h1 class="fw-bold mb-2">Welcome, <em style="color:var(--accent)">{{ user_name }}</em></h1>
+    <p>Manage your availability and respond to booking requests below.</p>
+  </div>
+</div>
+
+<!-- ══════════ MAIN CONTENT ══════════ -->
+<div class="container-xl pb-5">
+
+  <!-- TERMINATED BANNER -->
+  {% if worker.is_terminated %}
+  <div class="terminated-banner mt-4 reveal">
+    <div class="t-icon">🚫</div>
+    <div>
+      <h5>Account Terminated</h5>
+      <p>Your account has been suspended. Please contact support to resolve this.</p>
+    </div>
+    <a href="https://wa.me/919544552689" target="_blank"
+       class="btn btn-danger-soft px-4 ms-auto flex-shrink-0">
+      <i class="bi bi-whatsapp me-1"></i>Contact Support
+    </a>
+  </div>
+  {% endif %}
+
+  <!-- TOP ROW: Controls + Verification -->
+  <div class="row g-4 mt-0">
+
+    <!-- LEFT: Skill + Availability -->
+    <div class="col-lg-7 reveal">
+      <div class="panel-card">
+        <div class="panel-card-body">
+          <h4 class="panel-title">Your <em>Status</em></h4>
+
+          <!-- Skill Select -->
+          <label class="d-block mb-1" style="font-size:.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.5px">
+            <i class="bi bi-tools me-1" style="color:var(--blue)"></i>Your Skill
+          </label>
+          <select id="skillSelect" class="skill-select mb-4">
+            <option value="" disabled selected>Select your skill…</option>
+            <option value="driver">🚗 Driver</option>
+            <option value="delivery">📦 Delivery Boy</option>
+            <option value="mason">🧱 Mason</option>
+            <option value="carpenter">🪚 Carpenter</option>
+            <option value="electrician">🔧 Electrician</option>
+            <option value="plumber">🔩 Plumber</option>
+            <option value="painter">🖌️ Painter</option>
+            <option value="welder">⚙️ Welder</option>
+            <option value="cleaner">🧹 Cleaner</option>
+            <option value="catering">🍽️ Catering Staff</option>
+            <option value="security">🛡️ Security Guard</option>
+            <option value="helper">👷 Helper / Labour</option>
+          </select>
+
+          <!-- Availability Toggle -->
+          <label class="d-block mb-2" style="font-size:.8rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.5px">
+            <i class="bi bi-wifi me-1" style="color:var(--blue)"></i>Availability
+          </label>
+          <div class="availability-wrap">
+            <div class="toggle-label">
+              <p class="tl-title">Go Online</p>
+              <p class="tl-sub">Toggle to let users find and book you.</p>
+            </div>
+
+            <div id="statusBadge">
+              {% if worker.is_online %}
+              <span class="online-badge">
+                <span class="status-dot dot-online"></span> Online
+              </span>
+              {% else %}
+              <span class="offline-badge">
+                <span class="status-dot dot-offline"></span> Offline
+              </span>
+              {% endif %}
+            </div>
+
+            <label class="custom-switch ms-3">
+              <input type="checkbox" id="onlineToggle" {% if worker.is_online %}checked{% endif %}>
+              <span class="switch-track"></span>
+            </label>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Verification -->
+    <div class="col-lg-5 reveal rv1">
+      <div class="panel-card h-100">
+        <div class="panel-card-body">
+          <h4 class="panel-title">Verification <em>Document</em></h4>
+
+          {% if worker.is_verified %}
+            <div class="verify-badge-verified mb-3">
+              <i class="bi bi-patch-check-fill"></i> Verified Worker
+            </div>
+            <p class="text-muted" style="font-size:.88rem">
+              Your identity has been verified. You are eligible to receive bookings.
+            </p>
+
+          {% elif worker.document %}
+            <div class="verify-badge-pending mb-3">
+              <i class="bi bi-clock-history"></i> Pending Verification
+            </div>
+            <p class="text-muted" style="font-size:.88rem">
+              Your document has been submitted and is under review. This usually takes 1–2 business days.
+            </p>
+
+          {% else %}
+            <div class="upload-zone" id="uploadZone">
+              <div class="upload-icon"><i class="bi bi-cloud-arrow-up"></i></div>
+              <h6>Upload ID Document</h6>
+              <p>Aadhaar, Voter ID, or any government-issued photo ID</p>
+              <form method="post" action="/upload_document/" enctype="multipart/form-data" id="uploadForm">
+                {% csrf_token %}
+                <input type="file" name="document" class="file-input-hidden" id="fileInput" required accept="image/*,.pdf">
+                  <label for="fileInput" class="btn btn-upload">
+                    <i class="bi bi-folder2-open me-2"></i>Choose File
+                  </label>
+
+                <div id="fileName" class="mt-2" style="font-size:.82rem; color:var(--muted)"></div>
+                <button type="submit" class="btn btn-employit mt-3 d-none" id="submitBtn">
+                  <i class="bi bi-upload me-2"></i>Upload Document
+                </button>
+              </form>
+            </div>
+            <p class="mt-2 text-center" style="font-size:.78rem; color:#dc2626; font-weight:600;">
+              ⚠ Upload a document to start receiving jobs
+            </p>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOOKING REQUESTS -->
+  {% if not worker.is_terminated %}
+  <div class="mt-5">
+    <div class="d-flex align-items-center justify-content-between mb-3 reveal">
+      <div>
+        <p class="section-label mb-0">Incoming Requests</p>
+        <h2 style="font-size:1.6rem; margin:0">Booking <em>Requests</em></h2>
+      </div>
+      <span class="badge" style="background:var(--blue-pale); color:var(--blue); font-size:.82rem; padding:.5rem 1rem; border-radius:50px; font-weight:600;">
+        {{ bookings|length }} Request{{ bookings|length|pluralize }}
+      </span>
+    </div>
+
+    <div class="d-flex flex-column gap-3">
+
+      {% for b in bookings %}
+      <div class="booking-card bc-{{ b.status }} reveal"
+           onclick="openBooking({{ b.id }})">
+        <div class="d-flex align-items-center gap-3 flex-wrap">
+
+          <!-- User Avatar -->
+          <div class="user-avatar">{{ b.user.username|slice:":2"|upper }}</div>
+
+          <!-- Details -->
+          <div class="flex-grow-1">
+            <p class="booking-user">{{ b.user.username|title }}</p>
+            <div class="d-flex flex-wrap gap-3 mt-1">
+              <span class="booking-meta">
+                <i class="bi bi-calendar3"></i>{{ b.requested_date }}
+              </span>
+              <span class="booking-meta">
+                <i class="bi bi-clock"></i>{{ b.requested_time }}
+              </span>
+              <span class="booking-meta">
+                <i class="bi bi-briefcase"></i>{{ b.worker.skill|title }}
+              </span>
+              <span class="booking-meta">
+                <i class="bi bi-calendar-event"></i>{{ b.created_at|date:"d M Y, H:i" }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Status pill (mobile top-right) -->
+          <div class="d-flex flex-column align-items-end gap-2" onclick="event.stopPropagation()">
+            {% if b.status == 'pending' %}
+              <span class="booking-pill bp-pending">⏳ Pending</span>
+              <div class="d-flex gap-2 mt-1">
+                <a href="/update_booking/{{ b.id }}/accept/" class="btn btn-accept">
+                  <i class="bi bi-check-lg me-1"></i>Accept
+                </a>
+                <a href="/update_booking/{{ b.id }}/reject/" class="btn btn-reject">
+                  <i class="bi bi-x-lg me-1"></i>Reject
+                </a>
+              </div>
+
+            {% elif b.status == 'accepted' %}
+              <span class="booking-pill bp-accepted">✅ Accepted</span>
+              <a href="https://wa.me/91{{ b.user.mobile }}" target="_blank" class="btn btn-wa mt-1">
+                <i class="bi bi-whatsapp me-1"></i>Contact User
+              </a>
+
+            {% else %}
+              <span class="booking-pill bp-rejected">❌ Rejected</span>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+
+      {% empty %}
+      <div class="empty-state reveal">
+        <div class="empty-icon">📋</div>
+        <h5>No Booking Requests Yet</h5>
+        <p>Go online and set your skill to start receiving booking requests from users.</p>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+
+<footer>
+  <div class="container-xl">
+    <div class="footer-bottom d-flex justify-content-between flex-wrap gap-2">
+      <span>© 2026 EmployIT · All rights reserved.</span>
+      <span>Made with ❤️ for daily workers</span>
+    </div>
+  </div>
+</footer>
+
+<input type="hidden" id="csrfToken" value="{{ csrf_token }}">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── File input label ──
+  const fileInput  = document.getElementById('fileInput');
+  const submitBtn  = document.getElementById('submitBtn');
+  const fileNameEl = document.getElementById('fileName');
+  if (fileInput) {
+    fileInput.addEventListener('change', function () {
+      if (this.files.length) {
+        fileNameEl.textContent = '📎 ' + this.files[0].name;
+        submitBtn.classList.remove('d-none');
+      }
+    });
+  }
+
+  // ── Online toggle ──
+  const skillSelect  = document.getElementById('skillSelect');
+  const toggle       = document.getElementById('onlineToggle');
+  const statusBadge  = document.getElementById('statusBadge');
+  const csrfToken    = document.getElementById('csrfToken').value;
+
+  toggle.addEventListener('change', function () {
+    const skill    = skillSelect.value;
+    const isOnline = toggle.checked;
+
+    if (!skill) {
+      alert('Please select your skill before going online.');
+      toggle.checked = false;
+      return;
+    }
+
+    fetch("{% url 'update_worker_status' %}", {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': csrfToken,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ skill: skill, is_online: isOnline })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.error) {
+        alert(data.error);
+        toggle.checked = false;
+        statusBadge.innerHTML = `
+          <span class="offline-badge">
+            <span class="status-dot dot-offline"></span> Terminated
+          </span>`;
+        return;
+      }
+      if (isOnline) {
+        statusBadge.innerHTML = `
+          <span class="online-badge">
+            <span class="status-dot dot-online"></span> Online
+          </span>`;
+      } else {
+        statusBadge.innerHTML = `
+          <span class="offline-badge">
+            <span class="status-dot dot-offline"></span> Offline
+          </span>`;
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Something went wrong. Please try again.');
+      toggle.checked = false;
+    });
+  });
+
+  // ── Open booking detail ──
+  function openBooking(bookingId) {
+    window.location.href = `/booking_detail/${bookingId}/`;
+  }
+</script>
+</body>
+</html>

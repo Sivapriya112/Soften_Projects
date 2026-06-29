@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container-xl mt-5 pt-5">
+  <h2 class="mb-4 fw-bold">My Bookings</h2>
+
+  {% for b in bookings %}
+  <div class="card shadow-sm mb-4 border-0 rounded-4 p-3">
+
+    <div class="d-flex justify-content-between align-items-center">
+
+      <div>
+        <h5 class="fw-bold mb-1">
+          {{ b.worker.user.username|title }}
+        </h5>
+        <small class="text-muted">
+          {{ b.worker.skill|title }}
+        </small>
+      </div>
+
+      <span class="badge bg-primary">
+        {{ b.status|title }}
+      </span>
+
+    </div>
+
+    <hr>
+
+    <div class="row g-3">
+
+      <div class="col-md-3">
+        <strong>Date:</strong><br>
+        {{ b.requested_date }}
+      </div>
+
+      <div class="col-md-3">
+        <strong>Time:</strong><br>
+        {{ b.requested_time }}
+      </div>
+
+      <div class="col-md-3">
+        <strong>Work Status:</strong><br>
+        {{ b.work_status|title }}
+      </div>
+
+      <div class="col-md-3">
+        <strong>Payment:</strong><br>
+        {{ b.payment_status|title }}
+      </div>
+
+      {% if b.total_hours %}
+      <div class="col-md-3">
+        <strong>Total Hours:</strong><br>
+        {{ b.total_hours }}
+      </div>
+      {% endif %}
+
+      {% if b.fare %}
+      <div class="col-md-3">
+        <strong>Fare:</strong><br>
+        ₹ {{ b.fare }}
+      </div>
+      {% endif %}
+
+      {% if b.rating %}
+      <div class="col-md-3">
+        <strong>Rating:</strong><br>
+        ⭐ {{ b.rating }}/5
+      </div>
+      {% endif %}
+
+    </div>
+
+    {% if b.is_closed %}
+      <div class="mt-3 text-success fw-bold">
+        ✔ Booking Closed
+      </div>
+    {% endif %}
+
+  </div>
+  {% empty %}
+  <div class="alert alert-info">
+    You have no bookings yet.
+  </div>
+  {% endfor %}
+
+</div>
+
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,422 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Workers | EmployIT</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --blue:      #3B4FD8;
+      --blue-dark: #2a3ab5;
+      --blue-light:#6B7FE8;
+      --blue-pale: #EEF0FC;
+      --accent:    #F5A623;
+      --text:      #1a1d2e;
+      --muted:     #6b7280;
+      --bg:        #f7f8ff;
+      --white:     #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+    body  { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); }
+    h1,h2,h3 { font-family: 'Playfair Display', serif; }
+    em { color: var(--blue); font-style: normal; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      backdrop-filter: blur(14px);
+      background: rgba(247,248,255,0.92) !important;
+      border-bottom: 1px solid rgba(59,79,216,0.08);
+      box-shadow: 0 4px 30px rgba(59,79,216,0.08);
+    }
+    .navbar-brand img { height: 40px; }
+    .nav-link { color: var(--text) !important; font-weight: 500; transition: color .2s; }
+    .nav-link:hover { color: var(--blue) !important; }
+
+    .btn { border-radius: 50px !important; font-weight: 600; font-family: 'DM Sans', sans-serif; transition: all .25s; }
+    .btn-employit { background: var(--blue); color: #fff; border: 2px solid var(--blue); }
+    .btn-employit:hover { background: var(--blue-dark); color: #fff; border-color: var(--blue-dark); box-shadow: 0 8px 25px rgba(59,79,216,0.35); transform: translateY(-1px); }
+    .btn-danger-soft { background: #fff0f0; color: #dc3545; border: 2px solid #ffd0d0; }
+    .btn-danger-soft:hover { background: #dc3545; color: #fff; border-color: #dc3545; }
+    .btn-bookings {
+  background: gray;
+  color: white;
+  border: 2px solid black;
+}
+
+.btn-bookings:hover {
+  background: #15803d;
+  border-color: #15803d;
+  color: #fff;
+  box-shadow: 0 8px 25px rgba(22,163,74,0.35);
+  transform: translateY(-1px);
+}
+
+    /* ── PAGE HEADER BANNER ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+      padding: 5rem 0 4rem;
+      margin-top: 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 380px; height: 380px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 50%; pointer-events: none;
+    }
+    .page-header::after {
+      content: '';
+      position: absolute; bottom: -80px; left: 5%;
+      width: 250px; height: 250px;
+      background: rgba(245,166,35,0.12);
+      border-radius: 50%; pointer-events: none;
+    }
+    .page-header h1 { color: #fff; font-size: clamp(2rem, 4vw, 3rem); }
+    .page-header p  { color: rgba(255,255,255,.72); font-size: 1.05rem; }
+
+    .welcome-pill {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.15); color: #fff;
+      padding: .35rem 1rem; border-radius: 50px;
+      font-size: .82rem; font-weight: 600; letter-spacing: .5px;
+      margin-bottom: 1rem; backdrop-filter: blur(6px);
+    }
+    .welcome-pill .dot { width:8px; height:8px; background:var(--accent); border-radius:50%; animation: pulse 1.5s infinite; }
+
+    /* ── SEARCH CARD ── */
+    .search-card {
+      background: var(--white);
+      border-radius: 28px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 20px 60px rgba(59,79,216,0.14);
+      position: relative;
+      z-index: 10;
+      margin-top: -2.5rem;
+    }
+    .search-card h5 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 1.5rem; }
+
+    .skill-select {
+      border: 2px solid var(--blue-pale);
+      border-radius: 50px !important;
+      padding: .75rem 1.4rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem;
+      color: var(--text);
+      background-color: var(--bg);
+      transition: border-color .2s, box-shadow .2s;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%233B4FD8' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1.2rem center;
+      padding-right: 3rem;
+      cursor: pointer;
+    }
+    .skill-select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,79,216,0.12); outline: none; }
+
+    /* ── RESULTS HEADER ── */
+    .results-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.5rem; flex-wrap: wrap; gap: .75rem;
+    }
+    .results-count {
+      font-size: .9rem; color: var(--muted); font-weight: 500;
+    }
+    .results-count strong { color: var(--blue); font-size: 1.1rem; }
+
+    /* ── WORKER CARD ── */
+    .worker-card {
+      background: var(--white);
+      border-radius: 22px;
+      padding: 1.6rem;
+      box-shadow: 0 4px 20px rgba(59,79,216,0.07);
+      border: 2px solid transparent;
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .worker-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: linear-gradient(180deg, var(--blue) 0%, var(--blue-light) 100%);
+      border-radius: 4px 0 0 4px;
+    }
+    .worker-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(59,79,216,0.16);
+      border-color: var(--blue-pale);
+      color: inherit;
+    }
+
+    .worker-avatar-lg {
+      width: 58px; height: 58px; border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1.2rem; color: #fff;
+      flex-shrink: 0;
+    }
+    .av-c0 { background: linear-gradient(135deg,#3B4FD8,#6B7FE8); }
+    .av-c1 { background: linear-gradient(135deg,#10b981,#34d399); }
+    .av-c2 { background: linear-gradient(135deg,#f59e0b,#fbbf24); }
+    .av-c3 { background: linear-gradient(135deg,#ec4899,#f472b6); }
+    .av-c4 { background: linear-gradient(135deg,#8b5cf6,#a78bfa); }
+    .av-c5 { background: linear-gradient(135deg,#ef4444,#f87171); }
+
+    .worker-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin: 0 0 .2rem; }
+    .worker-skill { font-size: .85rem; color: var(--muted); margin: 0; }
+
+    .badge-online {
+      background: #dcfce7; color: #16a34a;
+      font-size: .72rem; font-weight: 700;
+      border-radius: 50px; padding: 3px 12px;
+      letter-spacing: .3px;
+    }
+    .badge-online::before { content: '●  '; font-size: .5rem; vertical-align: middle; }
+
+    .rating-row { display: flex; align-items: center; gap: .4rem; margin-top: .8rem; padding-top: .8rem; border-top: 1px solid var(--blue-pale); }
+    .rating-stars { color: var(--accent); font-size: .95rem; }
+    .rating-num   { font-size: .88rem; font-weight: 600; color: var(--text); }
+    .rating-slash { font-size: .8rem; color: var(--muted); }
+
+    .view-btn {
+      display: inline-flex; align-items: center; gap: .4rem;
+      margin-top: 1rem; padding: .5rem 1.2rem;
+      background: var(--blue-pale); color: var(--blue);
+      border-radius: 50px; font-size: .82rem; font-weight: 600;
+      border: none; transition: background .2s, color .2s;
+      text-decoration: none;
+    }
+    .worker-card:hover .view-btn { background: var(--blue); color: #fff; }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center; padding: 5rem 2rem;
+      background: var(--white); border-radius: 28px;
+      box-shadow: 0 4px 20px rgba(59,79,216,0.06);
+    }
+    .empty-icon { font-size: 4rem; opacity: .25; margin-bottom: 1rem; }
+    .empty-state h4 { font-family: 'Playfair Display', serif; color: var(--text); margin-bottom: .5rem; }
+    .empty-state p  { color: var(--muted); font-size: .95rem; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--white); border-top: 1px solid rgba(59,79,216,.08); margin-top: 4rem; }
+    .footer-bottom { font-size: .8rem; color: var(--muted); padding: 1.2rem 0; }
+
+    /* ── ANIMATIONS ── */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .rv1 { transition-delay: .08s; } .rv2 { transition-delay: .16s; } .rv3 { transition-delay: .24s; }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+    /* ── RESPONSIVE TWEAKS ── */
+    @media (max-width: 576px) {
+      .page-header { padding: 4rem 0 3rem; }
+      .search-card { padding: 1.5rem; border-radius: 20px; margin-top: -1.5rem; }
+      .skill-select { border-radius: 14px !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav class="navbar navbar-expand-lg fixed-top py-3">
+  <div class="container-xl d-flex justify-content-between align-items-center">
+
+    <!-- Logo -->
+    <a class="navbar-brand" href="/">
+      <img src="{% static 'img/logo1.png' %}" alt="EmployIT">
+    </a>
+
+    <!-- Right Section -->
+    <div class="d-flex align-items-center gap-3">
+
+      <!-- Bookings Button (Green) -->
+     <a href="/booking_detail_user/" class="btn btn-employit-outline px-4">
+  <i class="bi bi-clock-history me-2"></i>My Bookings
+</a>
+
+      <!-- Username -->
+      <span class="d-none d-sm-inline text-muted fw-500" style="font-size:.9rem">
+        <i class="bi bi-person-circle me-1" style="color:var(--blue)"></i>
+        {{ user }}
+      </span>
+
+      <!-- Logout -->
+      <a href="/logout/" class="btn btn-danger-soft px-4">
+        <i class="bi bi-box-arrow-right me-1"></i> Logout
+      </a>
+
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════ PAGE HEADER ══════════ -->
+<div class="page-header">
+  <div class="container-xl">
+    <div class="welcome-pill">
+      <span class="dot"></span> Welcome back, {{ user }}
+    </div>
+    <h1 class="fw-bold mb-2">Find Your <em style="color:var(--accent)">Worker</em></h1>
+    <p class="mb-0">Browse verified, online workers ready for your task today.</p>
+  </div>
+</div>
+
+<!-- ══════════ MAIN CONTENT ══════════ -->
+<div class="container-xl pb-5">
+
+  <!-- Search / Filter Card -->
+  <div class="search-card mb-5 reveal">
+    <h5><i class="bi bi-sliders me-2" style="color:var(--blue)"></i>Filter by Skill</h5>
+    <form method="post">
+      {% csrf_token %}
+      <div class="row g-3 align-items-center">
+        <div class="col-lg-9 col-md-8">
+          <select name="job_name" class="form-select skill-select w-100" required>
+            <option value="" disabled selected>Choose a skill / job type…</option>
+            <option value="driver">🚗 Driver</option>
+            <option value="delivery">📦 Delivery Boy</option>
+            <option value="mason">🧱 Mason</option>
+            <option value="carpenter">🪚 Carpenter</option>
+            <option value="electrician">🔧 Electrician</option>
+            <option value="plumber">🔩 Plumber</option>
+            <option value="painter">🖌️ Painter</option>
+            <option value="welder">⚙️ Welder</option>
+            <option value="cleaner">🧹 Cleaner</option>
+            <option value="housekeeping">🏠 Housekeeping Staff</option>
+            <option value="gardener">🌿 Gardener</option>
+            <option value="catering">🍽️ Catering Staff</option>
+            <option value="cook">🍳 Cook</option>
+            <option value="waiter">🤵 Waiter</option>
+            <option value="security">🛡️ Security Guard</option>
+            <option value="helper">👷 Helper / General Labour</option>
+            <option value="loader">📤 Loader / Unloader</option>
+          </select>
+        </div>
+        <div class="col-lg-3 col-md-4">
+          <button type="submit" class="btn btn-employit w-100 py-2">
+            <i class="bi bi-search me-2"></i>Find Workers
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Results Header -->
+  <div class="results-bar reveal rv1">
+    <div class="results-count">
+      {% if workers %}
+        Showing <strong>{{ workers|length }}</strong> available worker{{ workers|length|pluralize }}
+      {% else %}
+        No workers found for this skill
+      {% endif %}
+    </div>
+    <span style="font-size:.8rem; color:var(--muted)">
+      <i class="bi bi-circle-fill text-success me-1" style="font-size:.5rem"></i>
+      Live availability
+    </span>
+  </div>
+
+  <!-- Workers Grid -->
+  <div class="row g-4">
+    {% for worker in workers %}
+    <div class="col-xl-4 col-md-6 reveal {% if forloop.counter0 == 1 %}rv1{% elif forloop.counter0 == 2 %}rv2{% elif forloop.counter0 >= 3 %}rv3{% endif %}">
+      <a href="/worker_detail/{{ worker.id }}" class="worker-card">
+
+        <!-- Top row: avatar + name + badge -->
+        <div class="d-flex align-items-start gap-3 mb-3">
+          {% with c=forloop.counter0 %}
+            {% if c|divisibleby:6 or c == 0 %}
+              <div class="worker-avatar-lg av-c0">
+            {% elif c == 1 %}<div class="worker-avatar-lg av-c1">
+            {% elif c == 2 %}<div class="worker-avatar-lg av-c2">
+            {% elif c == 3 %}<div class="worker-avatar-lg av-c3">
+            {% elif c == 4 %}<div class="worker-avatar-lg av-c4">
+            {% else %}<div class="worker-avatar-lg av-c5">
+            {% endif %}
+          {% endwith %}
+            {{ worker.user.username|slice:":2"|upper }}
+          </div>
+
+          <div class="flex-grow-1">
+            <p class="worker-name">{{ worker.user.username|title }}</p>
+            <p class="worker-skill">
+              <i class="bi bi-briefcase me-1" style="color:var(--blue)"></i>
+              {{ worker.skill|title }}
+            </p>
+          </div>
+          <span class="badge-online">Online</span>
+        </div>
+
+        <!-- Rating -->
+        <div class="rating-row">
+          <span class="rating-stars">
+            {% with r=worker.average_rating|floatformat:0 %}
+              {% for i in "12345" %}
+                {% if forloop.counter <= r %}★{% else %}☆{% endif %}
+              {% endfor %}
+            {% endwith %}
+          </span>
+          <span class="rating-num">{{ worker.average_rating|floatformat:1 }}</span>
+          <span class="rating-slash">/ 5</span>
+          <span class="ms-auto" style="font-size:.75rem; color:var(--muted)">Rating</span>
+        </div>
+
+        <!-- CTA -->
+        <div class="mt-3">
+          <span class="view-btn">
+            View Profile <i class="bi bi-arrow-right"></i>
+          </span>
+        </div>
+
+      </a>
+    </div>
+    {% empty %}
+    <div class="col-12 reveal">
+      <div class="empty-state">
+        <div class="empty-icon">👷</div>
+        <h4>No Workers Available</h4>
+        <p>There are no online workers matching your selected skill right now.<br>Try a different category or check back shortly.</p>
+        <button onclick="document.querySelector('.skill-select').value=''; document.querySelector('form').submit();" class="btn btn-employit px-4 mt-2">
+          Show All Workers
+        </button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="container-xl">
+    <div class="footer-bottom d-flex justify-content-between flex-wrap gap-2">
+      <span>© 2026 EmployIT · All rights reserved.</span>
+      <span>Made with ❤️ for daily workers</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

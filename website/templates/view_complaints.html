@@ -1,0 +1,394 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Complaint Details | EmployIT Admin</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --blue:      #3B4FD8;
+      --blue-dark: #2a3ab5;
+      --blue-light:#6B7FE8;
+      --blue-pale: #EEF0FC;
+      --accent:    #F5A623;
+      --red:       #dc2626;
+      --red-pale:  #fff0f0;
+      --text:      #1a1d2e;
+      --muted:     #6b7280;
+      --bg:        #f7f8ff;
+      --white:     #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
+    em { color: var(--red); font-style: normal; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      backdrop-filter: blur(14px);
+      background: rgba(247,248,255,0.92) !important;
+      border-bottom: 1px solid rgba(59,79,216,0.08);
+      box-shadow: 0 4px 30px rgba(59,79,216,0.08);
+    }
+    .navbar-brand img { height: 40px; }
+    .btn { border-radius: 50px !important; font-weight: 600; font-family: 'DM Sans', sans-serif; transition: all .25s; }
+    .btn-back { background: var(--blue-pale); color: var(--blue); border: 2px solid var(--blue-pale); }
+    .btn-back:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 50%, #b91c1c 100%);
+      padding: 5rem 0 5rem;
+      margin-top: 72px;
+      position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 380px; height: 380px;
+      background: rgba(255,255,255,0.05); border-radius: 50%;
+    }
+    .page-header::after {
+      content: ''; position: absolute; bottom: -80px; left: 5%;
+      width: 260px; height: 260px;
+      background: rgba(245,166,35,0.1); border-radius: 50%;
+    }
+
+    .header-pill {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.12); color: rgba(255,255,255,.9);
+      padding: .35rem 1rem; border-radius: 50px;
+      font-size: .8rem; font-weight: 600;
+      margin-bottom: 1rem; backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,.15);
+    }
+    .page-header h1 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.6rem); }
+    .page-header p  { color: rgba(255,255,255,.65); margin: 0; font-size: .95rem; }
+
+    /* Worker info strip in header */
+    .worker-strip {
+      display: flex; align-items: center; gap: 1rem;
+      margin-top: 1.5rem; flex-wrap: wrap;
+    }
+    .worker-avatar-hdr {
+      width: 60px; height: 60px; border-radius: 18px;
+      background: rgba(255,255,255,.2); border: 2px solid rgba(255,255,255,.3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700; color: #fff;
+      backdrop-filter: blur(6px); flex-shrink: 0;
+    }
+    .worker-strip h2 { color: #fff; font-size: 1.5rem; margin: 0; }
+    .worker-strip p  { color: rgba(255,255,255,.65); margin: 0; font-size: .85rem; }
+
+    /* ── SUMMARY CARD ── */
+    .summary-card {
+      background: var(--white); border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(59,79,216,0.11);
+      overflow: hidden;
+      margin-top: -2.5rem; position: relative; z-index: 10;
+    }
+    .summary-header {
+      padding: 1.6rem 2rem;
+      border-bottom: 1px solid var(--blue-pale);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .8rem;
+    }
+    .summary-header h4 { margin: 0; font-size: 1.15rem; }
+    .count-badge {
+      background: #fee2e2; color: #dc2626;
+      font-size: .8rem; font-weight: 700; border-radius: 50px; padding: .35rem 1rem;
+      border: 1.5px solid #fca5a5;
+    }
+
+    /* ── COMPLAINT ENTRIES ── */
+    .complaints-list { padding: 1.5rem 2rem; display: flex; flex-direction: column; gap: 1rem; }
+
+    .complaint-entry {
+      background: var(--bg);
+      border-radius: 18px;
+      border: 1.5px solid var(--blue-pale);
+      border-left: 4px solid #fca5a5;
+      padding: 1.3rem 1.5rem;
+      transition: border-color .2s, box-shadow .2s;
+      position: relative;
+    }
+    .complaint-entry:hover {
+      border-left-color: var(--red);
+      box-shadow: 0 6px 24px rgba(220,38,38,0.08);
+    }
+
+    .complaint-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: .5rem; margin-bottom: .8rem;
+    }
+    .complainant {
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .mini-avatar-sm {
+      width: 32px; height: 32px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-light));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .75rem; color: #fff; flex-shrink: 0;
+    }
+    .complainant-name { font-weight: 600; font-size: .88rem; margin: 0; }
+    .complainant-role { font-size: .72rem; color: var(--muted); margin: 0; }
+
+    .complaint-date {
+      font-size: .75rem; color: var(--muted);
+      display: flex; align-items: center; gap: .3rem;
+    }
+    .complaint-num {
+      position: absolute; top: 1rem; right: 1.2rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; color: #fee2e2;
+      font-weight: 900; line-height: 1; pointer-events: none;
+    }
+
+    .complaint-message {
+      font-size: .92rem; color: var(--text); line-height: 1.7;
+      padding: .8rem 1rem;
+      background: var(--white); border-radius: 12px;
+      border: 1px solid rgba(220,38,38,0.1);
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center; padding: 4rem 2rem;
+    }
+    .empty-icon { font-size: 3rem; opacity: .2; margin-bottom: .8rem; }
+
+    /* ── ACTION PANEL ── */
+    .action-panel {
+      background: var(--white); border-radius: 24px;
+      box-shadow: 0 8px 30px rgba(59,79,216,0.09);
+      overflow: hidden;
+    }
+    .action-panel-header {
+      padding: 1.4rem 2rem;
+      border-bottom: 1px solid var(--blue-pale);
+    }
+    .action-panel-header h4 { font-size: 1.1rem; margin: 0; }
+    .action-panel-body { padding: 1.8rem 2rem; display: flex; flex-direction: column; gap: 1rem; }
+
+    .action-btn-warn {
+      background: #fffbeb; color: #92400e;
+      border: 2px solid #fde68a;
+      padding: 1rem 1.5rem; font-size: .95rem; width: 100%;
+      text-align: left; display: flex; align-items: center; gap: .8rem;
+      text-decoration: none;
+    }
+    .action-btn-warn:hover {
+      background: #f59e0b; color: #fff; border-color: #f59e0b;
+      transform: translateY(-2px); box-shadow: 0 8px 20px rgba(245,158,11,.3);
+    }
+    .action-btn-warn:hover { color: #fff; }
+
+    .action-btn-terminate {
+      background: #fee2e2; color: #dc2626;
+      border: 2px solid #fca5a5;
+      padding: 1rem 1.5rem; font-size: .95rem; width: 100%;
+      text-align: left; display: flex; align-items: center; gap: .8rem;
+      text-decoration: none;
+    }
+    .action-btn-terminate:hover {
+      background: #dc2626; color: #fff; border-color: #dc2626;
+      transform: translateY(-2px); box-shadow: 0 8px 20px rgba(220,38,38,.3);
+    }
+    .action-btn-terminate:hover { color: #fff; }
+
+    .action-icon {
+      width: 44px; height: 44px; border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .action-icon.warn-icon      { background: #fef3c7; }
+    .action-icon.terminate-icon { background: #fee2e2; }
+    .action-text h6 { font-size: .92rem; font-weight: 700; margin: 0 0 .1rem; }
+    .action-text p  { font-size: .78rem; margin: 0; opacity: .75; }
+
+    .action-disclaimer {
+      background: var(--bg); border-radius: 14px; padding: 1rem 1.2rem;
+      border: 1.5px solid var(--blue-pale);
+      font-size: .8rem; color: var(--muted); line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer { background: var(--white); border-top: 1px solid rgba(59,79,216,.08); margin-top: 4rem; }
+    .footer-bottom { font-size: .8rem; color: var(--muted); padding: 1.2rem 0; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .rv1 { transition-delay: .1s; } .rv2 { transition-delay: .2s; }
+
+    @media (max-width: 576px) {
+      .complaints-list { padding: 1rem; }
+      .action-panel-body { padding: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav class="navbar fixed-top py-3">
+  <div class="container-xl d-flex justify-content-between align-items-center">
+    <a href="/" class="navbar-brand">
+      <img src="{% static 'img/logo1.png' %}" alt="EmployIT">
+    </a>
+    <a href="/complaints/" class="btn btn-back px-4">
+      <i class="bi bi-arrow-left me-2"></i>Back to Complaints
+    </a>
+  </div>
+</nav>
+
+<!-- ══════════ PAGE HEADER ══════════ -->
+<div class="page-header">
+  <div class="container-xl">
+    <div class="header-pill"><i class="bi bi-flag-fill me-1"></i> Complaint Details</div>
+    <h1 class="fw-bold mb-2">Complaint <em>History</em></h1>
+
+    {% if complaints %}
+    <div class="worker-strip">
+      <div class="worker-avatar-hdr">
+        {{ complaints.0.worker.user.username|slice:":2"|upper }}
+      </div>
+      <div>
+        <h2>{{ complaints.0.worker.user.username|title }}</h2>
+        <p><i class="bi bi-briefcase me-1"></i>{{ complaints.0.worker.skill|title }} &nbsp;·&nbsp;
+           <i class="bi bi-flag me-1"></i>{{ complaints|length }} complaint{{ complaints|length|pluralize }} filed
+        </p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- ══════════ CONTENT ══════════ -->
+<div class="container-xl pb-5">
+  <div class="row g-4 justify-content-center">
+
+    <!-- LEFT: Complaint entries -->
+    <div class="col-lg-7 reveal">
+      <div class="summary-card">
+        <div class="summary-header">
+          <h4>All <em>Complaints</em></h4>
+          {% if complaints %}
+          <span class="count-badge">
+            <i class="bi bi-exclamation-triangle-fill me-1"></i>
+            {{ complaints|length }} Report{{ complaints|length|pluralize }}
+          </span>
+          {% endif %}
+        </div>
+
+        {% if complaints %}
+        <div class="complaints-list">
+          {% for c in complaints %}
+          <div class="complaint-entry">
+            <div class="complaint-num">{{ forloop.counter }}</div>
+
+            <div class="complaint-meta">
+              <div class="complainant">
+                <div class="mini-avatar-sm">
+                  {{ c.user.username|slice:":2"|upper }}
+                </div>
+                <div>
+                  <p class="complainant-name">{{ c.user.username|title }}</p>
+                  <p class="complainant-role">Filed by user</p>
+                </div>
+              </div>
+              <span class="complaint-date">
+                <i class="bi bi-calendar3"></i>
+                {{ c.created_at|date:"d M Y, h:i A" }}
+              </span>
+            </div>
+
+            <div class="complaint-message">
+              {{ c.message }}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        {% else %}
+        <div class="empty-state">
+          <div class="empty-icon">🏳️</div>
+          <h5 style="font-family:'Playfair Display',serif; margin-bottom:.4rem">No Complaints Found</h5>
+          <p style="color:var(--muted); font-size:.88rem; margin:0">No complaint records for this worker.</p>
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+
+    <!-- RIGHT: Action Panel -->
+    {% if complaints %}
+    <div class="col-lg-4 reveal rv1">
+      <div class="action-panel">
+        <div class="action-panel-header">
+          <h4>Take <em>Action</em></h4>
+        </div>
+        <div class="action-panel-body">
+
+          <!-- Warn -->
+          <a href="/warn_worker/{{ complaints.0.worker.id }}/"
+             class="btn action-btn-warn"
+             onclick="return confirm('Send a warning to {{ complaints.0.worker.user.username }}?')">
+            <div class="action-icon warn-icon">⚠️</div>
+            <div class="action-text">
+              <h6>Warn Worker</h6>
+              <p>Send an official warning to this worker.</p>
+            </div>
+            <i class="bi bi-chevron-right ms-auto"></i>
+          </a>
+
+          <!-- Terminate -->
+          <a href="/terminate_worker/{{ complaints.0.worker.id }}/"
+             class="btn action-btn-terminate"
+             onclick="return confirm('Permanently terminate {{ complaints.0.worker.user.username }}? This cannot be undone.')">
+            <div class="action-icon terminate-icon">🚫</div>
+            <div class="action-text">
+              <h6>Terminate Worker</h6>
+              <p>Permanently suspend this worker account.</p>
+            </div>
+            <i class="bi bi-chevron-right ms-auto"></i>
+          </a>
+
+          <!-- Disclaimer -->
+          <div class="action-disclaimer">
+            <i class="bi bi-info-circle me-1" style="color:var(--blue)"></i>
+            Termination is <strong>permanent</strong> and cannot be undone. Use with caution. Warn first for minor issues.
+          </div>
+
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="container-xl">
+    <div class="footer-bottom d-flex justify-content-between flex-wrap gap-2">
+      <span>© 2026 EmployIT · Admin Panel</span>
+      <span>Made with ❤️ for daily workers</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

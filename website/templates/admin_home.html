@@ -1,0 +1,439 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Worker Verification | EmployIT Admin</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --blue:      #3B4FD8;
+      --blue-dark: #2a3ab5;
+      --blue-light:#6B7FE8;
+      --blue-pale: #EEF0FC;
+      --accent:    #F5A623;
+      --text:      #1a1d2e;
+      --muted:     #6b7280;
+      --bg:        #f7f8ff;
+      --white:     #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
+    em { color: var(--blue); font-style: normal; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      backdrop-filter: blur(14px);
+      background: rgba(247,248,255,0.92) !important;
+      border-bottom: 1px solid rgba(59,79,216,0.08);
+      box-shadow: 0 4px 30px rgba(59,79,216,0.08);
+    }
+    .navbar-brand img { height: 40px; }
+    .btn { border-radius: 50px !important; font-weight: 600; font-family: 'DM Sans', sans-serif; transition: all .25s; }
+    .btn-complaints {
+      background: #fff0f0; color: #dc2626;
+      border: 2px solid #fca5a5;
+    }
+    .btn-complaints:hover { background: #dc2626; color: #fff; border-color: #dc2626; }
+    .btn-employit { background: var(--blue); color: #fff; border: 2px solid var(--blue); }
+    .btn-employit:hover { background: var(--blue-dark); color: #fff; transform: translateY(-1px); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--text) 0%, #2d3250 100%);
+      padding: 5rem 0 5rem;
+      margin-top: 72px;
+      position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 380px; height: 380px;
+      background: rgba(59,79,216,0.12); border-radius: 50%;
+    }
+    .page-header::after {
+      content: ''; position: absolute; bottom: -80px; left: 5%;
+      width: 260px; height: 260px;
+      background: rgba(245,166,35,0.1); border-radius: 50%;
+    }
+    .page-header h1 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.6rem); }
+    .page-header p  { color: rgba(255,255,255,.65); margin: 0; font-size: .95rem; }
+
+    .header-pill {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.12); color: rgba(255,255,255,.9);
+      padding: .35rem 1rem; border-radius: 50px;
+      font-size: .8rem; font-weight: 600;
+      margin-bottom: 1rem; backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,.15);
+    }
+
+    /* ── STAT PILLS ── */
+    .stat-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .stat-pill {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 14px; padding: .6rem 1.2rem;
+      color: #fff; display: flex; align-items: center; gap: .6rem;
+      backdrop-filter: blur(6px);
+    }
+    .stat-pill .sp-num { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; }
+    .stat-pill .sp-lbl { font-size: .75rem; color: rgba(255,255,255,.65); font-weight: 500; }
+
+    /* ── SEARCH / FILTER BAR ── */
+    .filter-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 1.4rem 2rem;
+      box-shadow: 0 8px 30px rgba(59,79,216,0.09);
+      margin-top: -2rem; position: relative; z-index: 10;
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .filter-input {
+      flex: 1; min-width: 200px;
+      border: 2px solid var(--blue-pale); border-radius: 50px;
+      padding: .6rem 1.2rem;
+      font-family: 'DM Sans', sans-serif; font-size: .92rem;
+      color: var(--text); background: var(--bg);
+      transition: border-color .2s;
+    }
+    .filter-input:focus { border-color: var(--blue); outline: none; box-shadow: 0 0 0 3px rgba(59,79,216,.1); }
+    .filter-select {
+      border: 2px solid var(--blue-pale); border-radius: 50px;
+      padding: .6rem 1.4rem; font-family: 'DM Sans', sans-serif;
+      font-size: .88rem; color: var(--text); background: var(--bg);
+      cursor: pointer; transition: border-color .2s;
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%233B4FD8' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem;
+    }
+    .filter-select:focus { border-color: var(--blue); outline: none; }
+
+    /* ── TABLE CARD ── */
+    .table-card {
+      background: var(--white);
+      border-radius: 24px;
+      box-shadow: 0 8px 30px rgba(59,79,216,0.09);
+      overflow: hidden;
+    }
+    .table-card-header {
+      padding: 1.4rem 2rem;
+      border-bottom: 1px solid var(--blue-pale);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .8rem;
+    }
+    .table-card-header h4 { font-size: 1.15rem; margin: 0; }
+    .total-badge {
+      background: var(--blue-pale); color: var(--blue);
+      font-size: .8rem; font-weight: 700; border-radius: 50px; padding: .35rem 1rem;
+    }
+
+    /* ── TABLE ── */
+    .admin-table { width: 100%; border-collapse: collapse; }
+    .admin-table thead tr {
+      background: var(--bg);
+      border-bottom: 2px solid var(--blue-pale);
+    }
+    .admin-table thead th {
+      padding: 1rem 1.5rem;
+      font-size: .75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .8px;
+      color: var(--muted); white-space: nowrap;
+    }
+    .admin-table tbody tr {
+      border-bottom: 1px solid var(--blue-pale);
+      transition: background .2s;
+    }
+    .admin-table tbody tr:hover { background: #fafbff; }
+    .admin-table tbody tr:last-child { border-bottom: none; }
+    .admin-table td { padding: 1.1rem 1.5rem; vertical-align: middle; }
+
+    /* Worker name cell */
+    .worker-cell { display: flex; align-items: center; gap: .9rem; }
+    .w-mini-avatar {
+      width: 40px; height: 40px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .85rem; color: #fff; flex-shrink: 0;
+    }
+    .av-c0 { background: linear-gradient(135deg,#3B4FD8,#6B7FE8); }
+    .av-c1 { background: linear-gradient(135deg,#10b981,#34d399); }
+    .av-c2 { background: linear-gradient(135deg,#f59e0b,#fbbf24); }
+    .av-c3 { background: linear-gradient(135deg,#ec4899,#f472b6); }
+    .av-c4 { background: linear-gradient(135deg,#8b5cf6,#a78bfa); }
+    .av-c5 { background: linear-gradient(135deg,#ef4444,#f87171); }
+
+    .w-name { font-weight: 600; font-size: .92rem; margin: 0; }
+    .w-id   { font-size: .75rem; color: var(--muted); margin: 0; }
+
+    /* Skill badge */
+    .skill-chip {
+      background: var(--blue-pale); color: var(--blue);
+      font-size: .75rem; font-weight: 700; border-radius: 50px; padding: 4px 12px;
+      display: inline-flex; align-items: center; gap: .3rem;
+    }
+
+    /* Status badges */
+    .badge-verified { background: #dcfce7; color: #16a34a; font-size: .75rem; font-weight: 700; border-radius: 50px; padding: 4px 12px; display: inline-flex; align-items: center; gap: .35rem; }
+    .badge-pending  { background: #fffbeb; color: #92400e; font-size: .75rem; font-weight: 700; border-radius: 50px; padding: 4px 12px; display: inline-flex; align-items: center; gap: .35rem; }
+    .badge-no-doc   { background: #f1f5f9; color: var(--muted); font-size: .75rem; font-weight: 700; border-radius: 50px; padding: 4px 12px; display: inline-flex; align-items: center; gap: .35rem; }
+
+    /* Doc button */
+    .btn-doc {
+      background: var(--blue-pale); color: var(--blue);
+      border: 1.5px solid rgba(59,79,216,0.2);
+      padding: .35rem .9rem; font-size: .8rem;
+    }
+    .btn-doc:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    /* Action buttons */
+    .btn-verify { background: #dcfce7; color: #16a34a; border: 1.5px solid #86efac; padding: .35rem .9rem; font-size: .8rem; }
+    .btn-verify:hover { background: #16a34a; color: #fff; border-color: #16a34a; }
+    .btn-reject-sm { background: #fee2e2; color: #dc2626; border: 1.5px solid #fca5a5; padding: .35rem .9rem; font-size: .8rem; }
+    .btn-reject-sm:hover { background: #dc2626; color: #fff; border-color: #dc2626; }
+
+    /* Empty row */
+    .empty-row td { text-align: center; padding: 4rem 2rem; }
+    .empty-icon { font-size: 3rem; opacity: .2; margin-bottom: .8rem; }
+    .empty-row h5 { font-family: 'Playfair Display', serif; margin-bottom: .3rem; }
+    .empty-row p  { color: var(--muted); font-size: .88rem; margin: 0; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--white); border-top: 1px solid rgba(59,79,216,.08); margin-top: 4rem; }
+    .footer-bottom { font-size: .8rem; color: var(--muted); padding: 1.2rem 0; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .rv1 { transition-delay: .1s; } .rv2 { transition-delay: .2s; }
+
+    /* Responsive table scroll */
+    .table-scroll { overflow-x: auto; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav class="navbar fixed-top py-3">
+  <div class="container-xl d-flex justify-content-between align-items-center">
+    <a href="/" class="navbar-brand">
+      <img src="{% static 'img/logo.png' %}" alt="EmployIT">
+    </a>
+    <div class="d-flex gap-2">
+      <a href="/complaints/" class="btn btn-complaints px-4">
+        <i class="bi bi-flag me-1"></i>Complaints
+      </a>
+      <a href="/admin_home/" class="btn btn-employit px-4">
+        <i class="bi bi-grid me-1"></i>Dashboard
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════ PAGE HEADER ══════════ -->
+<div class="page-header">
+  <div class="container-xl">
+    <div class="header-pill">
+      <i class="bi bi-shield-check"></i> Admin Panel
+    </div>
+    <h1 class="fw-bold mb-2">Worker <em style="color:var(--accent)">Verification</em></h1>
+    <p>Review submitted documents and verify or reject worker accounts.</p>
+
+    <!-- Stats -->
+    <div class="stat-row">
+      <div class="stat-pill">
+        <span class="sp-num">{{ workers|length }}</span>
+        <span class="sp-lbl">Total Workers</span>
+      </div>
+      <div class="stat-pill">
+        <span class="sp-num" style="color:#86efac">
+          {{ workers|length }}
+        </span>
+        <span class="sp-lbl">Pending Review</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CONTENT ══════════ -->
+<div class="container-xl pb-5">
+
+  <!-- Filter Bar -->
+  <div class="filter-card reveal">
+    <i class="bi bi-funnel" style="color:var(--blue); font-size:1.1rem; flex-shrink:0"></i>
+    <input type="text" class="filter-input" id="searchInput" placeholder="Search worker name or ID…">
+    <select class="filter-select" id="statusFilter">
+      <option value="">All Statuses</option>
+      <option value="verified">Verified</option>
+      <option value="pending">Pending</option>
+      <option value="no-doc">No Document</option>
+    </select>
+  </div>
+
+  <!-- Table Card -->
+  <div class="table-card mt-4 reveal rv1">
+    <div class="table-card-header">
+      <h4>Worker <em>List</em></h4>
+      <span class="total-badge">
+        <i class="bi bi-people me-1"></i>{{ workers|length }} Workers
+      </span>
+    </div>
+
+    <div class="table-scroll">
+      <table class="admin-table" id="workerTable">
+        <thead>
+          <tr>
+            <th><i class="bi bi-person me-1"></i>Worker</th>
+            <th><i class="bi bi-briefcase me-1"></i>Skill</th>
+            <th><i class="bi bi-file-earmark me-1"></i>Document</th>
+            <th><i class="bi bi-patch-check me-1"></i>Status</th>
+            <th><i class="bi bi-clock-history me-1"></i>Bookings</th>
+            <th style="text-align:center"><i class="bi bi-gear me-1"></i>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for w in workers %}
+          <tr class="worker-row"
+              data-name="{{ w.user.username|lower }}"
+              data-id="{{ w.id }}"
+              data-status="{% if w.is_verified %}verified{% elif w.document %}pending{% else %}no-doc{% endif %}">
+
+            <!-- Worker Name -->
+            <td>
+              <div class="worker-cell">
+                <div class="w-mini-avatar av-c{{ forloop.counter0|divisibleby:6|yesno:'0,' }}{% cycle '0' '1' '2' '3' '4' '5' %}">
+                  {{ w.user.username|slice:":2"|upper }}
+                </div>
+                <div>
+                  <p class="w-name">{{ w.user.username|title }}</p>
+                  <p class="w-id">ID #{{ w.id }}</p>
+                </div>
+              </div>
+            </td>
+
+            <!-- Skill -->
+            <td>
+              <span class="skill-chip">
+                {{ w.get_skill_display|default:w.skill }}
+              </span>
+            </td>
+
+            <!-- Document -->
+            <td>
+              {% if w.document %}
+                <a href="{{ w.document.url }}" target="_blank" class="btn btn-doc">
+                  <i class="bi bi-file-earmark-text me-1"></i>View Doc
+                </a>
+              {% else %}
+                <span class="badge-no-doc">
+                  <i class="bi bi-x-circle"></i> Not Uploaded
+                </span>
+              {% endif %}
+            </td>
+
+            <!-- Status -->
+            <td>
+              {% if w.is_verified %}
+                <span class="badge-verified">
+                  <i class="bi bi-patch-check-fill"></i> Verified
+                </span>
+              {% elif w.document %}
+                <span class="badge-pending">
+                  <i class="bi bi-hourglass-split"></i> Pending
+                </span>
+              {% else %}
+                <span class="badge-no-doc">
+                  <i class="bi bi-dash-circle"></i> No Document
+                </span>
+              {% endif %}
+            </td>
+
+            <!-- Bookings -->
+            <td>
+                <a href="/booking_detail_admin/{{ w.id }}/" class="btn btn-doc">
+                <i class="bi bi-clock-history me-1"></i>View
+                </a>
+            </td>
+
+            <!-- Actions -->
+            <td style="text-align:center">
+              {% if not w.is_verified and w.document %}
+                <div class="d-flex gap-2 justify-content-center">
+                  <a href="/verify_worker/{{ w.id }}" class="btn btn-verify">
+                    <i class="bi bi-check-lg me-1"></i>Verify
+                  </a>
+                  <a href="/reject_worker/{{ w.id }}" class="btn btn-reject-sm">
+                    <i class="bi bi-x-lg me-1"></i>Reject
+                  </a>
+                </div>
+              {% elif w.is_verified %}
+                <span style="color:#16a34a; font-size:.82rem; font-weight:600">
+                  <i class="bi bi-check-circle-fill me-1"></i>Done
+                </span>
+              {% else %}
+                <span style="color:var(--muted); font-size:.82rem">—</span>
+              {% endif %}
+            </td>
+
+          </tr>
+          {% empty %}
+          <tr class="empty-row">
+            <td colspan="6">
+              <div class="empty-icon">👷</div>
+              <h5>No Workers Found</h5>
+              <p>No worker records available yet.</p>
+            </td>
+          </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="container-xl">
+    <div class="footer-bottom d-flex justify-content-between flex-wrap gap-2">
+      <span>© 2026 EmployIT · Admin Panel</span>
+      <span>Made with ❤️ for daily workers</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Live search + status filter ──
+  const searchInput  = document.getElementById('searchInput');
+  const statusFilter = document.getElementById('statusFilter');
+  const rows         = document.querySelectorAll('.worker-row');
+
+  function filterTable() {
+    const q      = searchInput.value.toLowerCase().trim();
+    const status = statusFilter.value;
+
+    rows.forEach(row => {
+      const nameMatch   = row.dataset.name.includes(q) || row.dataset.id.includes(q);
+      const statusMatch = !status || row.dataset.status === status;
+      row.style.display = (nameMatch && statusMatch) ? '' : 'none';
+    });
+  }
+
+  searchInput.addEventListener('input', filterTable);
+  statusFilter.addEventListener('change', filterTable);
+</script>
+</body>
+</html>

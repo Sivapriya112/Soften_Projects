@@ -1,0 +1,712 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ worker.user.username|title }} | EmployIT</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --blue:      #3B4FD8;
+      --blue-dark: #2a3ab5;
+      --blue-light:#6B7FE8;
+      --blue-pale: #EEF0FC;
+      --accent:    #F5A623;
+      --text:      #1a1d2e;
+      --muted:     #6b7280;
+      --bg:        #f7f8ff;
+      --white:     #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
+    em { color: var(--blue); font-style: normal; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      backdrop-filter: blur(14px);
+      background: rgba(247,248,255,0.92) !important;
+      border-bottom: 1px solid rgba(59,79,216,0.08);
+      box-shadow: 0 4px 30px rgba(59,79,216,0.08);
+    }
+    .navbar-brand img { height: 40px; }
+    .btn { border-radius: 50px !important; font-weight: 600; font-family: 'DM Sans', sans-serif; transition: all .25s; }
+    .btn-back { background: var(--blue-pale); color: var(--blue); border: 2px solid var(--blue-pale); }
+    .btn-back:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+      padding: 5rem 0 5rem;
+      margin-top: 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 380px; height: 380px;
+      background: rgba(255,255,255,0.06); border-radius: 50%;
+    }
+    .page-header::after {
+      content: ''; position: absolute; bottom: -80px; left: 5%;
+      width: 260px; height: 260px;
+      background: rgba(245,166,35,0.12); border-radius: 50%;
+    }
+
+    /* ── WORKER AVATAR ── */
+    .worker-avatar-hero {
+      width: 90px; height: 90px; border-radius: 26px;
+      background: linear-gradient(135deg, rgba(255,255,255,.25), rgba(255,255,255,.1));
+      border: 3px solid rgba(255,255,255,.3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem; font-weight: 700; color: #fff;
+      backdrop-filter: blur(8px);
+      flex-shrink: 0;
+    }
+    .worker-hero-name { font-size: clamp(1.6rem, 4vw, 2.4rem); color: #fff; margin: 0; }
+    .worker-hero-skill { color: rgba(255,255,255,.75); font-size: 1rem; margin: .3rem 0 0; }
+
+    .status-pill {
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .35rem 1rem; border-radius: 50px;
+      font-size: .78rem; font-weight: 700; letter-spacing: .4px;
+    }
+    .status-online  { background: #dcfce7; color: #16a34a; }
+    .status-offline { background: #f1f5f9; color: var(--muted); }
+    .status-pill .dot { width:7px; height:7px; border-radius:50%; }
+    .status-online .dot  { background: #16a34a; animation: pulse 1.5s infinite; }
+    .status-offline .dot { background: var(--muted); }
+
+    /* ── MAIN CARD ── */
+    .detail-card {
+      background: var(--white);
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(59,79,216,0.13);
+      overflow: hidden;
+      margin-top: -2.5rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ── INFO SECTION ── */
+    .info-section { padding: 2.5rem; border-bottom: 1px solid var(--blue-pale); }
+
+    .info-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: var(--bg);
+      border-radius: 16px;
+      border: 1.5px solid var(--blue-pale);
+      transition: border-color .2s;
+    }
+    .info-item:hover { border-color: var(--blue-light); }
+    .info-icon {
+      width: 44px; height: 44px; border-radius: 13px;
+      background: var(--blue-pale);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; flex-shrink: 0;
+      color: var(--blue);
+    }
+    .info-label { font-size: .75rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; margin: 0; }
+    .info-value { font-size: .98rem; font-weight: 600; color: var(--text); margin: .1rem 0 0; }
+
+    /* ── PRICING HINT ── */
+    .pricing-hint {
+      background: var(--blue-pale);
+      border-radius: 16px;
+      padding: 1rem 1.4rem;
+      display: flex; align-items: center; gap: .8rem;
+      font-size: .88rem; color: var(--blue); font-weight: 500;
+    }
+    .pricing-hint strong { color: var(--blue-dark); }
+
+    /* ── BOOKING SECTION ── */
+    .booking-section { padding: 2.5rem; }
+    .booking-section h4 { font-size: 1.3rem; margin-bottom: 1.5rem; }
+
+    /* Date/Time inputs */
+    .datetime-input {
+      border: 2px solid var(--blue-pale);
+      border-radius: 16px !important;
+      padding: .85rem 1.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color .2s, box-shadow .2s;
+      width: 100%;
+    }
+    .datetime-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(59,79,216,.1); outline: none; }
+    .datetime-input:disabled { opacity: .5; cursor: not-allowed; }
+
+    .input-label {
+      font-size: .8rem; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .5px;
+      margin-bottom: .4rem; display: block;
+    }
+
+    /* Booking CTA */
+    .btn-book {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+      color: #fff; border: none; padding: 1rem 2rem;
+      font-size: 1rem; width: 100%;
+      box-shadow: 0 8px 25px rgba(59,79,216,0.35);
+    }
+    .btn-book:hover { transform: translateY(-2px); box-shadow: 0 14px 35px rgba(59,79,216,0.45); color: #fff; }
+    .btn-book:disabled { opacity: .6; transform: none; cursor: not-allowed; }
+
+    /* Status badges (booking states) */
+    .status-block {
+      border-radius: 18px; padding: 1.4rem 1.6rem;
+      text-align: center; font-weight: 600; font-size: 1rem;
+    }
+    .status-pending  { background: #fffbeb; border: 2px solid #fde68a; color: #92400e; }
+    .status-accepted { background: #f0fdf4; border: 2px solid #86efac; color: #166534; }
+    .status-rejected { background: #fef2f2; border: 2px solid #fca5a5; color: #991b1b; }
+    .status-paid     { background: var(--text); border: 2px solid var(--text); color: #fff; }
+
+    .status-block .status-icon { font-size: 2rem; margin-bottom: .5rem; display: block; }
+    .status-block .status-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: .2rem; }
+    .status-block .status-sub   { font-size: .82rem; opacity: .7; font-weight: 400; }
+
+    /* Payment card */
+    .payment-card {
+      background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+      border: 2px solid #86efac;
+      border-radius: 20px; padding: 1.8rem;
+      text-align: center;
+    }
+    .payment-fare { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: #166534; font-weight: 900; }
+    .payment-label { font-size: .82rem; color: #15803d; font-weight: 500; margin-bottom: 1.2rem; }
+
+    .btn-pay {
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      color: #fff; border: none; padding: 1rem 2rem;
+      font-size: 1rem; width: 100%;
+      box-shadow: 0 8px 25px rgba(22,163,74,.35);
+    }
+    .btn-pay:hover { transform: translateY(-2px); box-shadow: 0 14px 35px rgba(22,163,74,.45); color: #fff; }
+
+    /* ── COMPLAINT CARD ── */
+    .complaint-card {
+      background: var(--white);
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(59,79,216,0.10);
+      overflow: hidden;
+      position: relative; z-index: 10;
+    }
+    .complaint-section { padding: 2.5rem; }
+    .complaint-header {
+      display: flex; align-items: center; gap: .8rem;
+      margin-bottom: 1.5rem;
+    }
+    .complaint-icon {
+      width: 46px; height: 46px; border-radius: 14px;
+      background: #fff0f0; border: 1.5px solid #fca5a5;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; color: #dc2626; flex-shrink: 0;
+    }
+    .complaint-header h4 { font-size: 1.2rem; margin: 0; }
+    .complaint-header p  { font-size: .82rem; color: var(--muted); margin: 0; }
+
+    .complaint-textarea {
+      border: 2px solid var(--blue-pale);
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .93rem;
+      color: var(--text);
+      background: var(--bg);
+      width: 100%; resize: vertical; min-height: 110px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .complaint-textarea:focus { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,.1); outline: none; }
+    .complaint-textarea::placeholder { color: var(--muted); }
+
+    .btn-complaint {
+      background: #fff0f0; color: #dc2626;
+      border: 2px solid #fca5a5;
+      padding: .75rem 2rem; font-size: .9rem;
+    }
+    .btn-complaint:hover { background: #dc2626; color: #fff; border-color: #dc2626; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(220,38,38,.25); }
+
+    /* Django messages */
+    .django-message {
+      border-radius: 16px; padding: 1rem 1.4rem;
+      display: flex; align-items: center; gap: .8rem;
+      font-size: .9rem; font-weight: 500; margin-bottom: 1.5rem;
+    }
+    .django-message.success { background: #f0fdf4; border: 2px solid #86efac; color: #166534; }
+    .django-message.error   { background: #fef2f2; border: 2px solid #fca5a5; color: #991b1b; }
+
+
+    /* ── STAR RATING ── */
+    .rating-section { text-align: center; padding: 1.5rem; background: #fffbeb; border: 2px solid #fde68a; border-radius: 20px; }
+    .rating-section h5 { font-size: 1.1rem; margin-bottom: .5rem; }
+    .star-group { display: flex; justify-content: center; gap: .5rem; margin: .8rem 0; }
+    .star-btn {
+      font-size: 2.4rem; cursor: pointer; color: #d1d5db;
+      transition: color .15s, transform .15s;
+      background: none; border: none; padding: 0; line-height: 1;
+    }
+    .star-btn:hover,
+    .star-btn.active { color: var(--accent); transform: scale(1.2); }
+    .star-hint { font-size: .8rem; color: var(--muted); margin: 0; }
+
+    .rated-badge {
+      background: #fffbeb; border: 2px solid #fde68a;
+      border-radius: 16px; padding: 1rem 1.4rem;
+      display: flex; align-items: center; gap: .8rem;
+      color: #92400e; font-weight: 600; font-size: .95rem;
+    }
+
+    /* ── FOOTER ── */
+    footer { background: var(--white); border-top: 1px solid rgba(59,79,216,.08); margin-top: 4rem; }
+    .footer-bottom { font-size: .8rem; color: var(--muted); padding: 1.2rem 0; }
+
+    /* ── ANIMATIONS ── */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .rv1 { transition-delay: .1s; } .rv2 { transition-delay: .2s; }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+    @media (max-width: 576px) {
+      .page-header { padding: 4rem 0 4.5rem; }
+      .info-section, .booking-section { padding: 1.5rem; }
+      .worker-avatar-hero { width: 70px; height: 70px; font-size: 1.6rem; border-radius: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav class="navbar fixed-top py-3">
+  <div class="container-xl d-flex justify-content-between align-items-center">
+    <a href="/" class="navbar-brand">
+      <img src="{% static 'img/logo.png' %}" alt="EmployIT">
+    </a>
+    <a href="/user_home/" class="btn btn-back px-4">
+      <i class="bi bi-arrow-left me-2"></i>Back to Workers
+    </a>
+  </div>
+</nav>
+
+<!-- ══════════ PAGE HEADER ══════════ -->
+<div class="page-header">
+  <div class="container-xl">
+    <div class="d-flex align-items-center gap-4 flex-wrap">
+      <!-- Avatar -->
+      <div class="worker-avatar-hero">
+        {{ worker.user.username|slice:":2"|upper }}
+      </div>
+      <!-- Name + skill + status -->
+      <div>
+        <h1 class="worker-hero-name">{{ worker.user.username|title }}</h1>
+        <p class="worker-hero-skill">
+          <i class="bi bi-briefcase me-1"></i>{{ worker.get_skill_display }}
+        </p>
+        <div class="mt-2">
+          {% if worker.is_online %}
+            <span class="status-pill status-online">
+              <span class="dot"></span> Online &amp; Available
+            </span>
+          {% else %}
+            <span class="status-pill status-offline">
+              <span class="dot"></span> Currently Offline
+            </span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MAIN CONTENT ══════════ -->
+<div class="container-xl pb-5">
+  <div class="row g-4 justify-content-center">
+
+    <!-- LEFT: Worker Info -->
+    <div class="col-lg-5 reveal">
+      <div class="detail-card">
+        <div class="info-section">
+          <h4 class="mb-4">Worker <em>Details</em></h4>
+
+          <div class="d-flex flex-column gap-3">
+
+            <div class="info-item">
+              <div class="info-icon"><i class="bi bi-tools"></i></div>
+              <div>
+                <p class="info-label">Skill</p>
+                <p class="info-value">{{ worker.get_skill_display }}</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon"><i class="bi bi-telephone"></i></div>
+              <div>
+                <p class="info-label">Phone</p>
+                <p class="info-value">{{ worker.user.mobile }}</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon"><i class="bi bi-wifi"></i></div>
+              <div>
+                <p class="info-label">Status</p>
+                <p class="info-value">
+                  {% if worker.is_online %}
+                    <span style="color:#16a34a; font-weight:700">● Online</span>
+                  {% else %}
+                    <span style="color:var(--muted)">● Offline</span>
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+
+            {% if worker.average_rating %}
+            <div class="info-item">
+              <div class="info-icon"><i class="bi bi-star"></i></div>
+              <div>
+                <p class="info-label">Rating</p>
+                <p class="info-value" style="color:var(--accent)">
+                  ★ {{ worker.average_rating|floatformat:1 }} / 5
+                </p>
+              </div>
+            </div>
+            {% endif %}
+
+          </div>
+        </div>
+
+        <!-- Pricing hint -->
+        <div class="p-3" style="border-top: 1px solid var(--blue-pale);">
+          <div class="pricing-hint">
+            <i class="bi bi-tag-fill" style="font-size:1.2rem"></i>
+            <span><strong>₹500</strong> for first 4 hrs &nbsp;·&nbsp; <strong>₹130</strong> per extra hr</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Booking Panel -->
+    <div class="col-lg-5 reveal rv1">
+      <div class="detail-card">
+        <div class="booking-section">
+
+          <input type="hidden" id="csrfToken" value="{{ csrf_token }}">
+
+          <div id="bookingArea">
+
+            {% if booking %}
+
+              <!-- ── PENDING ── -->
+              {% if booking.status == 'pending' %}
+              <div class="status-block status-pending">
+                <span class="status-icon">⏳</span>
+                <div class="status-title">Request Pending</div>
+                <div class="status-sub">Waiting for the worker to accept your booking.</div>
+              </div>
+
+              <!-- ── ACCEPTED ── -->
+              {% elif booking.status == 'accepted' %}
+              <div class="status-block status-accepted">
+                <span class="status-icon">✅</span>
+                <div class="status-title">Booking Confirmed!</div>
+                <div class="status-sub">The worker has accepted your request.</div>
+              </div>
+
+              <!-- ── REJECTED ── -->
+              {% elif booking.status == 'rejected' %}
+              <div class="status-block status-rejected">
+                <span class="status-icon">❌</span>
+                <div class="status-title">Request Rejected</div>
+                <div class="status-sub">The worker is unavailable. Please try another worker.</div>
+              </div>
+              <div class="mt-3">
+                <a href="/user_home/" class="btn btn-back w-100 py-3">
+                  <i class="bi bi-search me-2"></i>Find Another Worker
+                </a>
+              </div>
+              {% endif %}
+
+              <!-- ── WORK COMPLETED → PAYMENT DUE ── -->
+              {% if booking.work_status == 'completed' and booking.payment_status == 'unpaid' and not booking.is_closed %}
+              <div class="payment-card mt-4">
+                <div class="payment-label">Work Completed 🎉 &nbsp;·&nbsp; Total Amount Due</div>
+                <div class="payment-fare">₹{{ booking.fare }}</div>
+                <p style="font-size:.82rem; color:#15803d; margin-bottom:1.5rem">
+                  Base ₹500 + extra hours @ ₹130/hr
+                </p>
+                <a href="/payment/{{ booking.id }}/" class="btn btn-pay">
+                  <i class="bi bi-credit-card me-2"></i>Pay Now via Razorpay
+                </a>
+              </div>
+              {% endif %}
+
+              <!-- ── PAYMENT DONE ── -->
+              {% if booking.is_closed %}
+              <div class="status-block status-paid mt-4">
+                <span class="status-icon">💳</span>
+                <div class="status-title">Payment Completed</div>
+                <div class="status-sub">Thank you! Your payment has been received.</div>
+              </div>
+
+              <!-- ── RATE THE WORKER ── -->
+              {% if not booking.rating %}
+              <div class="rating-section mt-4">
+                <h5>Rate <em>{{ worker.user.username|title }}</em></h5>
+                <p class="text-muted" style="font-size:.85rem; margin-bottom:1rem">
+                  How was your experience with {{ worker.user.username|title }}?
+                </p>
+                <div class="star-group" id="starGroup">
+                  {% for i in "12345" %}
+                  <button class="star-btn" data-val="{{ forloop.counter }}" onclick="submitRating({{ booking.id }}, {{ forloop.counter }})">★</button>
+                  {% endfor %}
+                </div>
+                <p class="star-hint">Click a star to submit your rating</p>
+              </div>
+              {% else %}
+              <div class="rated-badge mt-4">
+                <i class="bi bi-star-fill" style="font-size:1.3rem; color:var(--accent)"></i>
+                You rated {{ worker.user.username|title }}: <strong>{{ booking.rating }} / 5 ★</strong>
+              </div>
+              {% endif %}
+              {% endif %}
+
+            {% else %}
+
+              <!-- ── NO BOOKING → BOOKING FORM ── -->
+              <h4>Book This <em>Worker</em></h4>
+              <p class="text-muted mb-4" style="font-size:.9rem">
+                Choose your preferred date and time to request a booking.
+              </p>
+
+              <div class="mb-3">
+                <label class="input-label">
+                  <i class="bi bi-calendar3 me-1" style="color:var(--blue)"></i>Select Date
+                </label>
+                <input type="date" id="bookingDate" class="datetime-input" required>
+              </div>
+
+              <div class="mb-4">
+                <label class="input-label">
+                  <i class="bi bi-clock me-1" style="color:var(--blue)"></i>Select Time
+                </label>
+                <input type="time" id="bookingTime" class="datetime-input" required disabled>
+                <small class="text-muted mt-1 d-block" style="font-size:.78rem; padding-left:.4rem">
+                  Select a date first to enable time selection.
+                </small>
+              </div>
+
+              <!-- Pricing reminder -->
+              <div class="pricing-hint mb-4">
+                <i class="bi bi-info-circle-fill"></i>
+                <span>You'll be charged <strong>₹500</strong> for up to 4 hrs, then <strong>₹130/hr</strong> after.</span>
+              </div>
+
+              <button class="btn btn-book" id="bookBtn" onclick="requestBooking({{ worker.id }})" disabled>
+                <i class="bi bi-calendar-check me-2"></i>Request Booking
+              </button>
+
+            {% endif %}
+
+          </div><!-- /bookingArea -->
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Django Messages -->
+  {% if messages %}
+  <div class="row justify-content-center mt-4">
+    <div class="col-lg-10">
+      {% for message in messages %}
+      <div class="django-message {{ message.tags }}">
+        {% if message.tags == 'success' %}
+          <i class="bi bi-check-circle-fill" style="font-size:1.2rem; color:#16a34a"></i>
+        {% else %}
+          <i class="bi bi-exclamation-circle-fill" style="font-size:1.2rem; color:#dc2626"></i>
+        {% endif %}
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Complaint Card -->
+  <div class="row justify-content-center mt-4 pb-5">
+    <div class="col-lg-10">
+      <div class="complaint-card reveal rv2">
+        <div class="complaint-section">
+
+          <div class="complaint-header">
+            <div class="complaint-icon"><i class="bi bi-flag-fill"></i></div>
+            <div>
+              <h4>Report a <em style="color:#dc2626">Complaint</em></h4>
+              <p>Had an issue with this worker? Let us know and our team will review it shortly.</p>
+            </div>
+          </div>
+
+          <form method="post" action="/submit_complaint/{{ worker.id }}/">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label class="input-label">
+                <i class="bi bi-chat-left-text me-1" style="color:#dc2626"></i>Your Complaint
+              </label>
+              <textarea
+                name="message"
+                class="complaint-textarea"
+                placeholder="Describe your issue clearly — e.g. worker didn't show up, unprofessional behaviour, work quality was poor…"
+                required
+                minlength="20"
+              ></textarea>
+              <small class="text-muted mt-1 d-block" style="font-size:.76rem; padding-left:.2rem">
+                Minimum 20 characters. Please be as specific as possible.
+              </small>
+            </div>
+            <button type="submit" class="btn btn-complaint">
+              <i class="bi bi-flag me-2"></i>Submit Complaint
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container-xl -->
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="container-xl">
+    <div class="footer-bottom d-flex justify-content-between flex-wrap gap-2">
+      <span>© 2026 EmployIT · All rights reserved.</span>
+      <span>Made with ❤️ for daily workers</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Date / Time logic ──
+  const dateInput = document.getElementById("bookingDate");
+  const timeInput = document.getElementById("bookingTime");
+  const bookBtn   = document.getElementById("bookBtn");
+
+  if (dateInput && timeInput) {
+
+    // Set today as minimum date
+    const todayStr = new Date().toISOString().split("T")[0];
+    dateInput.min = todayStr;
+
+    dateInput.addEventListener("change", function () {
+      timeInput.disabled = false;
+      timeInput.value = "";
+      bookBtn && (bookBtn.disabled = true);
+
+      const selectedDate = this.value;
+      if (selectedDate === todayStr) {
+        const now = new Date();
+        const hh  = now.getHours().toString().padStart(2, '0');
+        const mm  = now.getMinutes().toString().padStart(2, '0');
+        timeInput.min = `${hh}:${mm}`;
+      } else {
+        timeInput.removeAttribute("min");
+      }
+    });
+
+    timeInput.addEventListener("change", function () {
+      // Enable the book button only when both date AND time are filled
+      if (dateInput.value && timeInput.value) {
+        bookBtn && (bookBtn.disabled = false);
+      }
+    });
+  }
+
+  // ── Booking fetch ──
+  function requestBooking(workerId) {
+    const csrfToken = document.getElementById("csrfToken").value;
+    const date = dateInput ? dateInput.value : '';
+    const time = timeInput ? timeInput.value : '';
+
+    if (!date || !time) {
+      alert("Please select both a date and time.");
+      return;
+    }
+
+    if (bookBtn) {
+      bookBtn.disabled = true;
+      bookBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sending…';
+    }
+
+    fetch(`/book_worker/${workerId}/`, {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": csrfToken,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ requested_date: date, requested_time: time })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "pending") {
+        document.getElementById("bookingArea").innerHTML = `
+          <div class="status-block status-pending">
+            <span class="status-icon">⏳</span>
+            <div class="status-title">Request Pending</div>
+            <div class="status-sub">Waiting for the worker to accept your booking.</div>
+          </div>`;
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      if (bookBtn) {
+        bookBtn.disabled = false;
+        bookBtn.innerHTML = '<i class="bi bi-calendar-check me-2"></i>Request Booking';
+      }
+    });
+  }
+
+  // ── Star hover effect ──
+  const stars = document.querySelectorAll('.star-btn');
+  stars.forEach(star => {
+    star.addEventListener('mouseenter', () => {
+      const val = parseInt(star.dataset.val);
+      stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.val) <= val));
+    });
+    star.addEventListener('mouseleave', () => {
+      stars.forEach(s => s.classList.remove('active'));
+    });
+  });
+
+  // ── Submit rating ──
+  function submitRating(bookingId, ratingValue) {
+    const csrfToken = document.getElementById('csrfToken').value;
+    fetch(`/submit_rating/${bookingId}/`, {
+      method: 'POST',
+      headers: { 'X-CSRFToken': csrfToken, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ rating: ratingValue })
+    })
+    .then(res => res.json())
+    .then(() => location.reload());
+  }
+</script>
+</body>
+</html>

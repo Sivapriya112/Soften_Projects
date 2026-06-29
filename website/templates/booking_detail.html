@@ -1,0 +1,538 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Details | EmployIT</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --blue:      #3B4FD8;
+      --blue-dark: #2a3ab5;
+      --blue-light:#6B7FE8;
+      --blue-pale: #EEF0FC;
+      --accent:    #F5A623;
+      --text:      #1a1d2e;
+      --muted:     #6b7280;
+      --bg:        #f7f8ff;
+      --white:     #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
+    em { color: var(--blue); font-style: normal; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      backdrop-filter: blur(14px);
+      background: rgba(247,248,255,0.92) !important;
+      border-bottom: 1px solid rgba(59,79,216,0.08);
+      box-shadow: 0 4px 30px rgba(59,79,216,0.08);
+    }
+    .navbar-brand img { height: 40px; }
+    .btn { border-radius: 50px !important; font-weight: 600; font-family: 'DM Sans', sans-serif; transition: all .25s; }
+    .btn-back { background: var(--blue-pale); color: var(--blue); border: 2px solid var(--blue-pale); }
+    .btn-back:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+      padding: 5rem 0 5rem;
+      margin-top: 72px;
+      position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 380px; height: 380px;
+      background: rgba(255,255,255,0.06); border-radius: 50%;
+    }
+    .page-header::after {
+      content: ''; position: absolute; bottom: -80px; left: 5%;
+      width: 260px; height: 260px;
+      background: rgba(245,166,35,0.12); border-radius: 50%;
+    }
+    .page-header h1 { color: #fff; font-size: clamp(1.8rem, 4vw, 2.6rem); }
+    .page-header p  { color: rgba(255,255,255,.72); font-size: .95rem; margin: 0; }
+
+    .header-pill {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.15); color: #fff;
+      padding: .35rem 1rem; border-radius: 50px;
+      font-size: .8rem; font-weight: 600;
+      margin-bottom: 1rem; backdrop-filter: blur(6px);
+    }
+
+    /* ── MAIN CARDS ── */
+    .detail-card {
+      background: var(--white);
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(59,79,216,0.11);
+      overflow: hidden;
+      margin-top: -2.5rem;
+      position: relative; z-index: 10;
+    }
+    .card-section { padding: 2rem 2.5rem; }
+    .card-section + .card-section { border-top: 1px solid var(--blue-pale); }
+
+    /* ── INFO ITEMS ── */
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 576px) { .info-grid { grid-template-columns: 1fr; } }
+
+    .info-item {
+      display: flex; align-items: center; gap: .9rem;
+      padding: .9rem 1.1rem;
+      background: var(--bg);
+      border-radius: 14px;
+      border: 1.5px solid var(--blue-pale);
+      transition: border-color .2s;
+    }
+    .info-item:hover { border-color: var(--blue-light); }
+    .info-icon {
+      width: 40px; height: 40px; border-radius: 12px;
+      background: var(--blue-pale); color: var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.05rem; flex-shrink: 0;
+    }
+    .info-label { font-size: .72rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; margin: 0; }
+    .info-value { font-size: .95rem; font-weight: 600; color: var(--text); margin: .1rem 0 0; }
+
+    /* Work status badge */
+    .ws-badge {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .78rem; font-weight: 700; border-radius: 50px; padding: 4px 14px;
+    }
+    .ws-not-started { background: #f1f5f9; color: var(--muted); }
+    .ws-in-progress  { background: #fffbeb; color: #92400e; }
+    .ws-completed    { background: #dcfce7; color: #16a34a; }
+
+    /* ── PROGRESS TRACKER ── */
+    .progress-track {
+      display: flex; align-items: center; gap: 0; margin: .5rem 0 1.5rem;
+    }
+    .pt-step {
+      display: flex; flex-direction: column; align-items: center; flex: 1; position: relative;
+    }
+    .pt-circle {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; font-weight: 700; border: 2.5px solid;
+      background: var(--white); z-index: 1; position: relative;
+    }
+    .pt-step::before {
+      content: ''; position: absolute; top: 18px; left: 50%; right: -50%;
+      height: 2.5px; background: var(--blue-pale);
+    }
+    .pt-step:last-child::before { display: none; }
+    .pt-step.done .pt-circle   { border-color: var(--blue); background: var(--blue); color: #fff; }
+    .pt-step.active .pt-circle { border-color: var(--accent); background: #fffbeb; color: var(--accent); }
+    .pt-step.idle .pt-circle   { border-color: #d1d5db; color: var(--muted); }
+    .pt-step.done::before      { background: var(--blue); }
+    .pt-label { font-size: .72rem; color: var(--muted); margin-top: .4rem; font-weight: 600; text-align: center; }
+    .pt-step.done .pt-label   { color: var(--blue); }
+    .pt-step.active .pt-label { color: var(--accent); }
+
+    /* ── SLIDE BUTTON ── */
+    .slide-wrap { margin: 1.5rem 0 .5rem; }
+    .slide-label {
+      font-size: .78rem; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .5px; margin-bottom: .6rem;
+    }
+
+    .slide-container {
+      position: relative; width: 100%; height: 64px;
+      background: var(--blue-pale); border-radius: 50px;
+      overflow: hidden; user-select: none;
+      border: 2px solid rgba(59,79,216,0.15);
+      transition: background .3s;
+    }
+    .slide-container.slide-green { background: #dcfce7; border-color: rgba(22,163,74,0.2); }
+
+    .slide-text {
+      position: absolute; width: 100%;
+      text-align: center; line-height: 64px;
+      font-weight: 600; font-size: .9rem;
+      color: var(--blue); pointer-events: none;
+      transition: opacity .2s;
+    }
+    .slide-container.slide-green .slide-text { color: #16a34a; }
+
+    .slider {
+      position: absolute; left: 4px; top: 4px;
+      height: 56px; width: 56px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      border-radius: 50px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.3rem;
+      cursor: grab; transition: background .3s, box-shadow .2s;
+      box-shadow: 0 4px 16px rgba(59,79,216,0.35);
+    }
+    .slider:active { cursor: grabbing; }
+    .slide-container.slide-green .slider {
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      box-shadow: 0 4px 16px rgba(22,163,74,0.35);
+    }
+
+    /* Slide hint arrow animation */
+    @keyframes slideHint {
+      0%,100% { transform: translateX(0); opacity:1; }
+      50%      { transform: translateX(8px); opacity:.6; }
+    }
+    .slider { animation: slideHint 1.8s ease-in-out infinite; }
+    .slider:active { animation: none; }
+
+    /* ── COMPLETED CARD ── */
+    .completed-card {
+      background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+      border: 2px solid #86efac;
+      border-radius: 22px; padding: 1.8rem;
+      text-align: center;
+    }
+    .fare-label { font-size: .82rem; color: #15803d; font-weight: 500; margin-bottom: .3rem; }
+    .fare-amt   { font-family: 'Playfair Display', serif; font-size: 3rem; color: #166534; font-weight: 900; line-height: 1; }
+    .fare-sub   { font-size: .8rem; color: #16a34a; margin-top: .3rem; }
+    .hours-row  { display: flex; justify-content: center; gap: 2rem; margin: 1rem 0; }
+    .hours-item h5 { font-size: 1.5rem; color: #166534; font-family: 'Playfair Display', serif; margin: 0; }
+    .hours-item p  { font-size: .75rem; color: #15803d; margin: 0; }
+
+    /* ── COLLECT CASH BUTTON ── */
+    .btn-collect {
+      background: linear-gradient(135deg, var(--accent), #e09410);
+      color: #fff; border: none; padding: 1rem 2rem;
+      font-size: 1rem; width: 100%;
+      box-shadow: 0 8px 25px rgba(245,166,35,0.35);
+    }
+    .btn-collect:hover { transform: translateY(-2px); box-shadow: 0 14px 35px rgba(245,166,35,0.45); color: #fff; }
+
+    /* ── PAYMENT DONE ── */
+    .paid-badge {
+      background: #f0fdf4; border: 2px solid #86efac;
+      border-radius: 16px; padding: 1rem 1.4rem;
+      display: flex; align-items: center; gap: .8rem;
+      color: #166534; font-weight: 600; font-size: .95rem;
+    }
+
+
+    /* ── FOOTER ── */
+    footer { background: var(--white); border-top: 1px solid rgba(59,79,216,.08); margin-top: 4rem; }
+    .footer-bottom { font-size: .8rem; color: var(--muted); padding: 1.2rem 0; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .rv1 { transition-delay: .1s; } .rv2 { transition-delay: .2s; }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+    @media (max-width: 576px) {
+      .card-section { padding: 1.4rem; }
+      .page-header  { padding: 4rem 0 4.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav class="navbar fixed-top py-3">
+  <div class="container-xl d-flex justify-content-between align-items-center">
+    <a href="/" class="navbar-brand">
+      <img src="{% static 'img/logo.png' %}" alt="EmployIT">
+    </a>
+    <a href="/worker_home/" class="btn btn-back px-4">
+      <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
+    </a>
+  </div>
+</nav>
+
+<!-- ══════════ PAGE HEADER ══════════ -->
+<div class="page-header">
+  <div class="container-xl">
+    <div class="header-pill"><i class="bi bi-calendar-check me-1"></i> Booking #{{ b.id }}</div>
+    <h1 class="fw-bold mb-2">Booking <em style="color:var(--accent)">Details</em></h1>
+    <p>View booking info, track work progress, and manage payment below.</p>
+  </div>
+</div>
+
+<!-- ══════════ MAIN ══════════ -->
+<div class="container-xl pb-5">
+  <div class="row g-4 justify-content-center">
+
+    <!-- LEFT: Info + Progress -->
+    <div class="col-lg-5 reveal">
+      <div class="detail-card">
+
+        <!-- Booking Info -->
+        <div class="card-section">
+          <h4 class="mb-4">Booking <em>Info</em></h4>
+          <div class="info-grid">
+
+            <div class="info-item">
+              <div class="info-icon"><i class="bi bi-person"></i></div>
+              <div>
+                <p class="info-label">Customer</p>
+                <p class="info-value">{{ b.user.username|title }}</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon"><i class="bi bi-calendar3"></i></div>
+              <div>
+                <p class="info-label">Date</p>
+                <p class="info-value">{{ b.requested_date }}</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon"><i class="bi bi-clock"></i></div>
+              <div>
+                <p class="info-label">Time</p>
+                <p class="info-value">{{ b.requested_time }}</p>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon"><i class="bi bi-check2-circle"></i></div>
+              <div>
+                <p class="info-label">Booking Status</p>
+                <p class="info-value">{{ b.status|title }}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Progress Tracker -->
+        <div class="card-section">
+          <h4 class="mb-3" style="font-size:1.1rem">Work <em>Progress</em></h4>
+
+          <div class="progress-track">
+            <!-- Step 1: Booked -->
+            <div class="pt-step done">
+              <div class="pt-circle"><i class="bi bi-check-lg"></i></div>
+              <span class="pt-label">Booked</span>
+            </div>
+            <!-- Step 2: In Progress -->
+            <div class="pt-step {% if b.work_status == 'in_progress' or b.work_status == 'completed' %}done{% elif b.work_status == 'not_started' %}idle{% endif %}">
+              <div class="pt-circle">
+                {% if b.work_status == 'in_progress' or b.work_status == 'completed' %}
+                  <i class="bi bi-check-lg"></i>
+                {% else %}
+                  2
+                {% endif %}
+              </div>
+              <span class="pt-label">In Progress</span>
+            </div>
+            <!-- Step 3: Completed -->
+            <div class="pt-step {% if b.work_status == 'completed' %}done{% else %}idle{% endif %}">
+              <div class="pt-circle">
+                {% if b.work_status == 'completed' %}<i class="bi bi-check-lg"></i>{% else %}3{% endif %}
+              </div>
+              <span class="pt-label">Completed</span>
+            </div>
+            <!-- Step 4: Paid -->
+            <div class="pt-step {% if b.is_closed %}done{% else %}idle{% endif %}">
+              <div class="pt-circle">
+                {% if b.is_closed %}<i class="bi bi-check-lg"></i>{% else %}4{% endif %}
+              </div>
+              <span class="pt-label">Paid</span>
+            </div>
+          </div>
+
+          <!-- Current work status badge -->
+          <div>
+            {% if b.work_status == 'not_started' %}
+              <span class="ws-badge ws-not-started"><i class="bi bi-hourglass me-1"></i>Not Started</span>
+            {% elif b.work_status == 'in_progress' %}
+              <span class="ws-badge ws-in-progress"><i class="bi bi-play-circle me-1"></i>In Progress</span>
+            {% elif b.work_status == 'completed' %}
+              <span class="ws-badge ws-completed"><i class="bi bi-check-circle me-1"></i>Completed</span>
+            {% endif %}
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT: Action Panel -->
+    <div class="col-lg-5 reveal rv1">
+      <div class="detail-card">
+        <div class="card-section">
+
+          <!-- ── NOT STARTED → Slide to Start ── -->
+          {% if b.work_status == "not_started" %}
+          <h4 class="mb-1">Start <em>Work</em></h4>
+          <p class="text-muted mb-3" style="font-size:.88rem">
+            Slide the button all the way to confirm work has begun.
+          </p>
+          <div class="slide-wrap">
+            <div class="slide-label"><i class="bi bi-play-circle me-1"></i>Slide to Start Work</div>
+            <div class="slide-container" id="slideStart">
+              <div class="slide-text">Slide to Start →</div>
+              <div class="slider" id="sliderStart">▶</div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- ── IN PROGRESS → Slide to End ── -->
+          {% if b.work_status == "in_progress" %}
+          <h4 class="mb-1">End <em>Work</em></h4>
+          <p class="text-muted mb-3" style="font-size:.88rem">
+            Slide to mark the work as completed and calculate the fare.
+          </p>
+          <div class="slide-wrap">
+            <div class="slide-label"><i class="bi bi-stop-circle me-1"></i>Slide to End Work</div>
+            <div class="slide-container slide-green" id="slideEnd">
+              <div class="slide-text">Slide to Complete →</div>
+              <div class="slider" id="sliderEnd">■</div>
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- ── COMPLETED ── -->
+          {% if b.work_status == "completed" %}
+
+          <h4 class="mb-3">Work <em>Completed</em> 🎉</h4>
+
+          <!-- Fare card -->
+          <div class="completed-card mb-4">
+            <div class="fare-label">Total Amount Due</div>
+            <div class="fare-amt">₹{{ b.fare }}</div>
+            <div class="fare-sub">Base ₹500 + extra hours @ ₹130/hr</div>
+            <div class="hours-row mt-3">
+              <div class="hours-item">
+                <h5>{{ b.total_hours }}</h5>
+                <p>Hours Worked</p>
+              </div>
+              <div class="hours-item">
+                <h5>₹{{ b.fare }}</h5>
+                <p>Total Fare</p>
+              </div>
+            </div>
+          </div>
+
+          {% if not b.is_closed %}
+            <!-- Collect Cash -->
+            <button class="btn btn-collect" onclick="collectCash({{ b.id }})">
+              <i class="bi bi-cash-coin me-2"></i>Collect Cash &amp; Close Work
+            </button>
+            <p class="text-center text-muted mt-2" style="font-size:.78rem">
+              Tap once the customer has paid you in cash.
+            </p>
+
+          {% else %}
+            <!-- Payment Collected -->
+            <div class="paid-badge">
+              <i class="bi bi-check-circle-fill" style="font-size:1.3rem; color:#16a34a"></i>
+              Payment Collected &amp; Work Closed
+            </div>
+
+          {% endif %}
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="container-xl">
+    <div class="footer-bottom d-flex justify-content-between flex-wrap gap-2">
+      <span>© 2026 EmployIT · All rights reserved.</span>
+      <span>Made with ❤️ for daily workers</span>
+    </div>
+  </div>
+</footer>
+
+<input type="hidden" id="csrfToken" value="{{ csrf_token }}">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver(entries => {
+
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+
+  // ── Slider factory ──
+  function makeSlider(sliderId, containerId, action) {
+    const slider    = document.getElementById(sliderId);
+    const container = document.getElementById(containerId);
+    if (!slider || !container) return;
+
+    let isDragging = false;
+    let startX = 0;
+    const maxX = container.offsetWidth - 64; // 56px + 4px*2 padding
+
+    function onStart(clientX) {
+      isDragging = true;
+      startX = clientX;
+      slider.style.animation = 'none';
+    }
+    function onMove(clientX) {
+      if (!isDragging) return;
+      let moveX = clientX - container.getBoundingClientRect().left - 28;
+      moveX = Math.max(0, Math.min(moveX, maxX));
+      slider.style.left = moveX + 'px';
+      // Fade out text as slider moves
+      const progress = moveX / maxX;
+      container.querySelector('.slide-text').style.opacity = 1 - progress;
+
+      if (moveX >= maxX - 10) {
+        isDragging = false;
+        slider.style.left = maxX + 'px';
+        updateWorkStatus({{ b.id }}, action);
+      }
+    }
+    function onEnd() { isDragging = false; }
+
+    // Mouse
+    slider.addEventListener('mousedown',  e => onStart(e.clientX));
+    document.addEventListener('mousemove', e => onMove(e.clientX));
+    document.addEventListener('mouseup',   onEnd);
+
+    // Touch
+    slider.addEventListener('touchstart', e => onStart(e.touches[0].clientX), { passive: true });
+    document.addEventListener('touchmove',  e => onMove(e.touches[0].clientX), { passive: true });
+    document.addEventListener('touchend',   onEnd);
+  }
+
+  makeSlider('sliderStart', 'slideStart', 'start');
+  makeSlider('sliderEnd',   'slideEnd',   'end');
+
+  // ── Update work status ──
+  function updateWorkStatus(bookingId, action) {
+    const csrfToken = document.getElementById('csrfToken').value;
+    fetch(`/update_work_status/${bookingId}/`, {
+      method: 'POST',
+      headers: { 'X-CSRFToken': csrfToken, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: action })
+    })
+    .then(res => res.json())
+    .then(() => location.reload());
+  }
+
+  // ── Collect cash ──
+  function collectCash(bookingId) {
+    const csrfToken = document.getElementById('csrfToken').value;
+    fetch(`/collect_cash/${bookingId}/`, {
+      method: 'POST',
+      headers: { 'X-CSRFToken': csrfToken, 'Content-Type': 'application/json' }
+    })
+    .then(res => res.json())
+    .then(() => location.reload());
+  }
+
+</script>
+</body>
+</html>

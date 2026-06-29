@@ -1,0 +1,453 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Bookings | EmployIT Worker</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --blue:      #3B4FD8;
+      --blue-dark: #2a3ab5;
+      --blue-light:#6B7FE8;
+      --blue-pale: #EEF0FC;
+      --accent:    #F5A623;
+      --text:      #1a1d2e;
+      --muted:     #6b7280;
+      --bg:        #f7f8ff;
+      --white:     #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
+    em { color: var(--blue); font-style: normal; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      backdrop-filter: blur(14px);
+      background: rgba(247,248,255,0.92) !important;
+      border-bottom: 1px solid rgba(59,79,216,0.08);
+      box-shadow: 0 4px 30px rgba(59,79,216,0.08);
+    }
+    .navbar-brand img { height: 40px; }
+    .btn { border-radius: 50px !important; font-weight: 600; font-family: 'DM Sans', sans-serif; transition: all .25s; }
+    .btn-back { background: var(--blue-pale); color: var(--blue); border: 2px solid var(--blue-pale); }
+    .btn-back:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .btn-danger-soft { background: #fff0f0; color: #dc3545; border: 2px solid #ffd0d0; }
+    .btn-danger-soft:hover { background: #dc3545; color: #fff; border-color: #dc3545; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+      padding: 5rem 0 5rem;
+      margin-top: 72px;
+      position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 380px; height: 380px;
+      background: rgba(255,255,255,0.06); border-radius: 50%;
+    }
+    .page-header::after {
+      content: ''; position: absolute; bottom: -80px; left: 5%;
+      width: 260px; height: 260px;
+      background: rgba(245,166,35,0.12); border-radius: 50%;
+    }
+    .page-header h1 { color: #fff; font-size: clamp(2rem, 4vw, 2.8rem); }
+    .page-header p  { color: rgba(255,255,255,.72); margin: 0; font-size: .95rem; }
+    .welcome-pill {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.15); color: #fff;
+      padding: .35rem 1rem; border-radius: 50px;
+      font-size: .8rem; font-weight: 600;
+      margin-bottom: 1rem; backdrop-filter: blur(6px);
+    }
+
+    /* Stats */
+    .stats-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .stat-chip {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 14px; padding: .55rem 1.2rem;
+      color: #fff; display: flex; align-items: center; gap: .6rem;
+      backdrop-filter: blur(6px);
+    }
+    .stat-chip .sc-num { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; }
+    .stat-chip .sc-lbl { font-size: .72rem; color: rgba(255,255,255,.65); font-weight: 500; }
+
+    /* ── FILTER BAR ── */
+    .filter-card {
+      background: var(--white); border-radius: 24px;
+      padding: 1.2rem 2rem;
+      box-shadow: 0 8px 30px rgba(59,79,216,0.09);
+      margin-top: -2rem; position: relative; z-index: 10;
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .filter-select {
+      border: 2px solid var(--blue-pale); border-radius: 50px;
+      padding: .55rem 1.4rem; font-family: 'DM Sans', sans-serif;
+      font-size: .88rem; color: var(--text); background: var(--bg);
+      cursor: pointer; transition: border-color .2s;
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%233B4FD8' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem;
+    }
+    .filter-select:focus { border-color: var(--blue); outline: none; }
+    .filter-label { font-size: .82rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
+
+    /* ── BOOKING CARDS ── */
+    .booking-card {
+      background: var(--white);
+      border-radius: 22px;
+      padding: 1.6rem 2rem;
+      box-shadow: 0 4px 20px rgba(59,79,216,0.07);
+      border: 2px solid var(--blue-pale);
+      position: relative; overflow: hidden;
+    }
+    .booking-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; width: 4px; height: 100%;
+      border-radius: 4px 0 0 4px;
+    }
+    .bc-pending::before   { background: #f59e0b; }
+    .bc-accepted::before  { background: var(--blue); }
+    .bc-rejected::before  { background: #ef4444; }
+    .bc-completed::before { background: #16a34a; }
+
+    /* Customer avatar */
+    .customer-avatar {
+      width: 50px; height: 50px; border-radius: 16px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-light));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1rem; color: #fff; flex-shrink: 0;
+    }
+
+    .customer-name  { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; margin: 0; }
+    .customer-skill { font-size: .82rem; color: var(--muted); margin: .1rem 0 0; }
+
+    /* Meta row */
+    .meta-row { display: flex; flex-wrap: wrap; gap: .6rem 1.4rem; margin-top: .9rem; }
+    .meta-item { display: flex; align-items: center; gap: .35rem; font-size: .82rem; color: var(--muted); }
+    .meta-item i { color: var(--blue); font-size: .9rem; }
+
+    /* Status badges */
+    .status-badge { display: inline-flex; align-items: center; gap: .35rem; font-size: .75rem; font-weight: 700; border-radius: 50px; padding: 4px 12px; white-space: nowrap; }
+    .sb-pending   { background: #fffbeb; color: #92400e; border: 1.5px solid #fde68a; }
+    .sb-accepted  { background: var(--blue-pale); color: var(--blue); border: 1.5px solid rgba(59,79,216,0.2); }
+    .sb-rejected  { background: #fef2f2; color: #dc2626; border: 1.5px solid #fca5a5; }
+    .sb-completed { background: #dcfce7; color: #16a34a; border: 1.5px solid #86efac; }
+
+    /* Work status badge */
+    .ws-badge { display: inline-flex; align-items: center; gap: .35rem; font-size: .73rem; font-weight: 600; border-radius: 50px; padding: 3px 10px; }
+    .ws-not-started { background: #f1f5f9; color: var(--muted); }
+    .ws-in-progress { background: #fffbeb; color: #92400e; }
+    .ws-done        { background: #dcfce7; color: #16a34a; }
+
+    /* Payment badge */
+    .pay-badge { display: inline-flex; align-items: center; gap: .35rem; font-size: .73rem; font-weight: 700; border-radius: 50px; padding: 3px 10px; }
+    .pay-unpaid { background: #fff7ed; color: #c2410c; border: 1.5px solid #fed7aa; }
+    .pay-paid   { background: #dcfce7; color: #16a34a; border: 1.5px solid #86efac; }
+
+    /* Fare */
+    .fare-tag { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--text); }
+    .fare-tag.earned { color: #16a34a; }
+
+    /* Rating stars */
+    .star-on  { color: var(--accent); }
+    .star-off { color: #d1d5db; }
+
+    /* WhatsApp button on card */
+    .btn-wa-sm {
+      background: #dcfce7; color: #16a34a;
+      border: 1.5px solid #86efac;
+      padding: .35rem .9rem; font-size: .8rem;
+      display: inline-flex; align-items: center; gap: .35rem;
+      text-decoration: none;
+    }
+    .btn-wa-sm:hover { background: #16a34a; color: #fff; border-color: #16a34a; }
+
+    /* View detail button */
+    .btn-view {
+      background: var(--blue-pale); color: var(--blue);
+      border: 1.5px solid rgba(59,79,216,.2);
+      padding: .35rem .9rem; font-size: .8rem;
+      display: inline-flex; align-items: center; gap: .35rem;
+      text-decoration: none;
+    }
+    .btn-view:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+
+    /* ── FARE STRIP ── */
+    .fare-strip {
+      display: flex; align-items: center; gap: 1rem;
+      padding: .7rem 1.5rem .7rem 2rem;
+      border-radius: 0 0 22px 22px;
+      margin-top: -6px;
+      flex-wrap: wrap;
+    }
+    .fare-strip-paid    { background: #f0fdf4; border: 2px solid #86efac; border-top: none; }
+    .fare-strip-pending { background: #fff7ed; border: 2px solid #fed7aa; border-top: none; }
+    .fare-strip-label { font-size: .8rem; font-weight: 600; color: var(--muted); }
+    .fare-strip-paid   .fare-strip-label { color: #16a34a; }
+    .fare-strip-pending .fare-strip-label { color: #c2410c; }
+    .fare-strip-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 900;
+    }
+    .fare-strip-paid    .fare-strip-amount { color: #166534; }
+    .fare-strip-pending .fare-strip-amount { color: #c2410c; }
+    .fare-strip-hours { font-size: .78rem; color: var(--muted); margin-left: auto; }
+
+    /* Remove old fare-tag since fare is now in strip */
+    .btn-view { display: none; }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center; padding: 5rem 2rem;
+      background: var(--white); border-radius: 28px;
+      box-shadow: 0 4px 20px rgba(59,79,216,0.06);
+    }
+    .empty-icon { font-size: 4rem; opacity: .2; margin-bottom: 1rem; }
+    .empty-state h4 { font-family: 'Playfair Display', serif; margin-bottom: .5rem; }
+    .empty-state p  { color: var(--muted); font-size: .92rem; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--white); border-top: 1px solid rgba(59,79,216,.08); margin-top: 4rem; }
+    .footer-bottom { font-size: .8rem; color: var(--muted); padding: 1.2rem 0; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 576px) {
+      .page-header { padding: 4rem 0 4.5rem; }
+      .booking-card { padding: 1.2rem 1.4rem; }
+      .filter-card  { padding: 1rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav class="navbar navbar-expand-lg fixed-top py-3">
+  <div class="container-xl d-flex justify-content-between align-items-center">
+    <a href="/" class="navbar-brand">
+      <img src="{% static 'img/logo.png' %}" alt="EmployIT">
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <a href="/worker_home/" class="btn btn-back px-4">
+        <i class="bi bi-arrow-left me-2"></i>Dashboard
+      </a>
+      <a href="/logout/" class="btn btn-danger-soft px-4">
+        <i class="bi bi-box-arrow-right me-1"></i>Logout
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════ PAGE HEADER ══════════ -->
+<div class="page-header">
+  <div class="container-xl">
+    <div class="welcome-pill"><i class="bi bi-clock-history me-1"></i> {{ worker_name }}</div>
+    <h1 class="fw-bold mb-2">My Booking History</h1>
+    <p>All your past and ongoing jobs in one place.</p>
+
+    <div class="stats-row">
+      <div class="stat-chip">
+        <span class="sc-num">{{ bookings|length }}</span>
+        <span class="sc-lbl">Total Jobs</span>
+      </div>
+      <div class="stat-chip">
+        <span class="sc-num" style="color:#86efac">{{ total_earned }}</span>
+        <span class="sc-lbl">Total Earned (₹)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CONTENT ══════════ -->
+<div class="container-xl pb-5">
+
+  <!-- Filter Bar -->
+  <div class="filter-card reveal">
+    <i class="bi bi-funnel" style="color:var(--blue); font-size:1.05rem; flex-shrink:0"></i>
+    <span class="filter-label">Filter:</span>
+    <select class="filter-select" id="statusFilter">
+      <option value="">All Bookings</option>
+      <option value="pending">Pending</option>
+      <option value="accepted">Accepted</option>
+      <option value="rejected">Rejected</option>
+    </select>
+    <select class="filter-select" id="workFilter">
+      <option value="">All Work Status</option>
+      <option value="not_started">Not Started</option>
+      <option value="in_progress">In Progress</option>
+      <option value="completed">Completed</option>
+    </select>
+    <span class="filter-label ms-auto" id="countLabel" style="color:var(--blue); font-weight:700"></span>
+  </div>
+
+  <!-- Bookings List -->
+  <div class="d-flex flex-column gap-3 mt-4">
+
+    {% for b in bookings %}
+    <div class="booking-item" data-status="{{ b.status }}" data-work="{{ b.work_status }}">
+
+      <!-- BOOKING CARD -->
+      <div class="booking-card {% if b.status == 'pending' %}bc-pending{% elif b.status == 'accepted' %}bc-accepted{% elif b.status == 'rejected' %}bc-rejected{% else %}bc-completed{% endif %} reveal">
+        <div class="d-flex align-items-start gap-3 flex-wrap">
+
+          <!-- Customer Avatar -->
+          <div class="customer-avatar">
+            {{ b.user.username|slice:":2"|upper }}
+          </div>
+
+          <!-- Info -->
+          <div class="flex-grow-1">
+            <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+              <p class="customer-name">{{ b.user.username|title }}</p>
+
+              {% if b.status == 'pending' %}
+                <span class="status-badge sb-pending">⏳ Pending</span>
+              {% elif b.status == 'accepted' %}
+                <span class="status-badge sb-accepted"><i class="bi bi-check-circle-fill"></i> Accepted</span>
+              {% elif b.status == 'rejected' %}
+                <span class="status-badge sb-rejected"><i class="bi bi-x-circle-fill"></i> Rejected</span>
+              {% else %}
+                <span class="status-badge sb-completed"><i class="bi bi-check-all"></i> Completed</span>
+              {% endif %}
+
+              {% if b.work_status == 'not_started' %}
+                <span class="ws-badge ws-not-started"><i class="bi bi-hourglass"></i> Not Started</span>
+              {% elif b.work_status == 'in_progress' %}
+                <span class="ws-badge ws-in-progress"><i class="bi bi-play-circle-fill"></i> In Progress</span>
+              {% elif b.work_status == 'completed' %}
+                <span class="ws-badge ws-done"><i class="bi bi-check-circle-fill"></i> Done</span>
+              {% endif %}
+
+              {% if b.work_status == 'completed' %}
+                {% if b.payment_status == 'unpaid' and not b.is_closed %}
+                  <span class="pay-badge pay-unpaid"><i class="bi bi-exclamation-circle"></i> Awaiting Payment</span>
+                {% elif b.is_closed %}
+                  <span class="pay-badge pay-paid"><i class="bi bi-check-circle-fill"></i> Paid</span>
+                {% endif %}
+              {% endif %}
+            </div>
+
+            <p class="customer-skill">
+              <i class="bi bi-briefcase me-1" style="color:var(--blue)"></i>{{ b.worker.skill|title }}
+            </p>
+
+            <div class="meta-row">
+              <span class="meta-item"><i class="bi bi-calendar3"></i>{{ b.requested_date }}</span>
+              <span class="meta-item"><i class="bi bi-clock"></i>{{ b.requested_time }}</span>
+              <span class="meta-item"><i class="bi bi-calendar-event"></i>{{ b.created_at|date:"d M Y" }}</span>
+              {% if b.work_status == 'completed' %}
+              <span class="meta-item"><i class="bi bi-hourglass-split"></i>{{ b.total_hours }} hrs</span>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Right: rating + WhatsApp only -->
+          <div class="d-flex flex-column align-items-end gap-2 flex-shrink-0">
+            {% if b.rating %}
+            <div>
+              {% for i in "12345" %}
+                {% if forloop.counter <= b.rating %}<span class="star-on" style="font-size:.95rem">★</span>
+                {% else %}<span class="star-off" style="font-size:.95rem">★</span>
+                {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if b.status == 'accepted' %}
+            <a href="https://wa.me/91{{ b.user.mobile }}" target="_blank" class="btn btn-wa-sm">
+              <i class="bi bi-whatsapp me-1"></i>WhatsApp
+            </a>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+
+      <!-- FARE STRIP — outside the card, below it -->
+      {% if b.fare %}
+      <div class="fare-strip {% if b.is_closed %}fare-strip-paid{% else %}fare-strip-pending{% endif %}">
+        <span class="fare-strip-label">
+          {% if b.is_closed %}<i class="bi bi-check-circle-fill me-1"></i>Earned
+          {% else %}<i class="bi bi-clock me-1"></i>Pending Payment
+          {% endif %}
+        </span>
+        <span class="fare-strip-amount">₹{{ b.fare }}</span>
+        {% if b.total_hours %}
+        <span class="fare-strip-hours">{{ b.total_hours }} hrs worked</span>
+        {% endif %}
+      </div>
+      {% endif %}
+
+    </div>
+
+    {% empty %}
+    <div class="empty-state reveal">
+      <div class="empty-icon">📋</div>
+      <h4>No Jobs Yet</h4>
+      <p>You haven't received any bookings yet.<br>Go online and set your skill to start getting jobs!</p>
+      <a href="/worker_home/" class="btn btn-back px-4 mt-3">
+        <i class="bi bi-wifi me-2"></i>Go Online
+      </a>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="container-xl">
+    <div class="footer-bottom d-flex justify-content-between flex-wrap gap-2">
+      <span>© 2026 EmployIT · All rights reserved.</span>
+      <span>Made with ❤️ for daily workers</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Dual filter ──
+  const statusFilter = document.getElementById('statusFilter');
+  const workFilter   = document.getElementById('workFilter');
+  const countLabel   = document.getElementById('countLabel');
+  const items        = document.querySelectorAll('.booking-item');
+
+  function applyFilters() {
+    const sv = statusFilter.value;
+    const wv = workFilter.value;
+    let visible = 0;
+    items.forEach(item => {
+      const statusMatch = !sv || item.dataset.status === sv;
+      const workMatch   = !wv || item.dataset.work   === wv;
+      const show = statusMatch && workMatch;
+      item.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    countLabel.textContent = visible + ' job' + (visible !== 1 ? 's' : '');
+  }
+
+  countLabel.textContent = items.length + ' job' + (items.length !== 1 ? 's' : '');
+  statusFilter.addEventListener('change', applyFilters);
+  workFilter.addEventListener('change',   applyFilters);
+</script>
+</body>
+</html>

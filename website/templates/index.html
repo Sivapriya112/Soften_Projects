@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EmployIT – Find Workers, Get Work Done</title>
+    <link href="{% static 'img/logo.png' %}" rel="icon">
+
+
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+
+    :root {
+      --blue: #3B4FD8;
+      --blue-dark: #2a3ab5;
+      --blue-light: #6B7FE8;
+      --blue-pale: #EEF0FC;
+      --accent: #F5A623;
+      --text: #1a1d2e;
+      --muted: #6b7280;
+      --bg: #f7f8ff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
+    h1 { font-size: clamp(2.6rem, 5vw, 4rem); line-height: 1.1; }
+    h2 { font-size: clamp(1.9rem, 3.5vw, 2.8rem); line-height: 1.2; }
+    em { color: var(--blue); font-style: normal; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      backdrop-filter: blur(14px);
+      background: rgba(247,248,255,0.9) !important;
+      border-bottom: 1px solid rgba(59,79,216,0.08);
+      transition: box-shadow 0.3s;
+    }
+    .navbar.scrolled { box-shadow: 0 4px 30px rgba(59,79,216,0.12); }
+    .navbar-brand img { height: 40px; }
+    .nav-link { color: var(--text) !important; font-weight: 500; transition: color 0.2s; }
+    .nav-link:hover { color: var(--blue) !important; }
+
+
+    .btn { border-radius: 50px !important; font-weight: 600; font-family: 'DM Sans', sans-serif; transition: all 0.25s; }
+    .btn-employit { background: var(--blue); color: #fff; border: 2px solid var(--blue); }
+    .btn-employit:hover { background: var(--blue-dark); color: #fff; border-color: var(--blue-dark); box-shadow: 0 8px 25px rgba(59,79,216,0.35); transform: translateY(-1px); }
+    .btn-employit-outline { background: transparent; color: var(--blue); border: 2px solid var(--blue); }
+    .btn-employit-outline:hover { background: var(--blue); color: #fff; }
+    .btn-accent { background: var(--accent); color: #fff; border: 2px solid var(--accent); }
+    .btn-accent:hover { background: #e09410; color: #fff; border-color: #e09410; transform: translateY(-1px); box-shadow: 0 8px 25px rgba(245,166,35,0.35); }
+    .btn-white { background: #fff; color: var(--blue); border: 2px solid #fff; }
+    .btn-white:hover { background: var(--blue-pale); color: var(--blue); }
+    .btn-outline-wh { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.5); }
+    .btn-outline-wh:hover { background: rgba(255,255,255,0.1); border-color: #fff; color: #fff; }
+
+
+    .hero-section {
+      min-height: 100vh; padding-top: 90px;
+      position: relative; overflow: hidden;
+    }
+    .hero-section::before {
+      content: ''; position: absolute; top: -80px; right: -80px;
+      width: 560px; height: 560px;
+      background: radial-gradient(circle, rgba(59,79,216,0.12) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero-section::after {
+      content: ''; position: absolute; bottom: -60px; left: 8%;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(245,166,35,0.1) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--blue-pale); color: var(--blue);
+      padding: 0.4rem 1rem; border-radius: 50px;
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.5px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge .dot { width: 8px; height: 8px; background: var(--blue); border-radius: 50%; animation: pulse 1.5s infinite; }
+    .hero-sub { font-size: 1.05rem; color: var(--muted); line-height: 1.7; max-width: 480px; }
+
+    .search-bar {
+      display: flex; align-items: center; background: #fff; border-radius: 50px;
+      padding: 6px 6px 6px 18px; box-shadow: 0 8px 30px rgba(59,79,216,0.12);
+      border: 2px solid transparent; transition: border-color 0.2s; max-width: 460px;
+    }
+    .search-bar:focus-within { border-color: var(--blue); }
+    .search-bar input { border: none; outline: none; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; flex: 1; min-width: 0; }
+    .search-bar button { background: var(--blue); color: #fff; border: none; border-radius: 50px; padding: 8px 20px; font-weight: 600; font-size: 0.88rem; font-family: 'DM Sans', sans-serif; cursor: pointer; white-space: nowrap; }
+
+    .stat-item h3 { font-size: 2rem; color: var(--blue); margin-bottom: 0; }
+    .stat-item p { font-size: 0.82rem; color: var(--muted); font-weight: 500; margin: 0; }
+
+    /* Worker Card */
+    .hero-card {
+      background: #fff; border-radius: 24px; padding: 1.8rem;
+      box-shadow: 0 20px 60px rgba(59,79,216,0.12);
+      position: relative; animation: fadeIn 0.9s 0.3s ease both;
+    }
+    .worker-row { display: flex; align-items: center; gap: 0.9rem; padding: 0.75rem; border-radius: 14px; cursor: pointer; transition: background 0.2s; }
+    .worker-row:hover { background: var(--blue-pale); }
+    .w-avatar { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; color: #fff; }
+    .w-name { font-size: 0.9rem; font-weight: 600; margin: 0; }
+    .w-skill { font-size: 0.78rem; color: var(--muted); margin: 0; }
+    .badge-avail { font-size: 0.7rem; font-weight: 600; border-radius: 50px; padding: 3px 10px; background: #dcfce7; color: #16a34a; white-space: nowrap; }
+    .badge-busy { background: #fef3c7; color: #d97706; }
+
+    .float-badge { position: absolute; background: #fff; border-radius: 14px; padding: 10px 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 600; }
+    .float-badge.fb-top { top: -18px; left: -45px; animation: float 4s ease-in-out infinite; }
+    .float-badge.fb-bot { bottom: -18px; right: -35px; animation: float 4s 2s ease-in-out infinite; }
+
+    /* ── SECTION COMMONS ── */
+    .section-label { color: var(--blue); font-weight: 600; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+    .section-sub { color: var(--muted); max-width: 540px; margin: 0 auto; font-size: 0.98rem; line-height: 1.7; }
+
+    /* ── STEP CARDS ── */
+    .step-card { background: #fff; border-radius: 24px; padding: 2.2rem 1.8rem; text-align: center; position: relative; overflow: hidden; box-shadow: 0 4px 20px rgba(59,79,216,0.06); transition: transform 0.3s, box-shadow 0.3s; height: 100%; }
+    .step-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(59,79,216,0.15); }
+    .step-num { position: absolute; top: 1.2rem; right: 1.4rem; font-family: 'Playfair Display', serif; font-size: 3.2rem; color: var(--blue-pale); font-weight: 900; line-height: 1; }
+    .step-icon { width: 66px; height: 66px; border-radius: 18px; background: var(--blue-pale); margin: 0 auto 1.3rem; display: flex; align-items: center; justify-content: center; font-size: 1.9rem; transition: background 0.3s; }
+    .step-card:hover .step-icon { background: var(--blue); }
+
+    /* ── CATEGORY CARDS ── */
+    .category-card { background: #fff; border-radius: 20px; padding: 1.8rem 1.2rem; text-align: center; border: 2px solid transparent; box-shadow: 0 4px 15px rgba(59,79,216,0.06); transition: all 0.3s; cursor: pointer; height: 100%; }
+    .category-card:hover { border-color: var(--blue); transform: translateY(-5px); }
+    .cat-icon { font-size: 2.3rem; margin-bottom: 0.8rem; }
+    .category-card h5 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; font-family: 'DM Sans', sans-serif; }
+    .category-card p { font-size: 0.8rem; color: var(--muted); margin: 0; }
+
+    /* ── PRICING ── */
+    .pricing-wrap { background: var(--text); border-radius: 40px; padding: 5rem 3rem; color: #fff; }
+    .pricing-wrap h2 { color: #fff; }
+    .price-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 24px; padding: 2.2rem; transition: border-color 0.3s, transform 0.3s; }
+    .price-card:hover { border-color: var(--blue-light); transform: translateY(-5px); }
+    .price-card.featured { background: var(--blue); border-color: var(--blue); }
+    .price-lbl { font-size: 0.78rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+    .price-amt { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; }
+    .price-per { font-size: 0.82rem; color: rgba(255,255,255,0.5); }
+    .price-card.featured .price-per { color: rgba(255,255,255,0.7); }
+    .price-detail { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; color: rgba(255,255,255,0.7); margin-bottom: 6px; }
+    .price-card.featured .price-detail { color: rgba(255,255,255,0.9); }
+    .price-detail::before { content: '✓'; color: var(--accent); font-weight: 700; }
+
+    /* ── REVIEWS ── */
+    .testimonials-bg { background: var(--blue-pale); }
+    .review-card { background: #fff; border-radius: 20px; padding: 1.8rem; box-shadow: 0 4px 20px rgba(59,79,216,0.07); transition: transform 0.3s; height: 100%; }
+    .review-card:hover { transform: translateY(-5px); }
+    .stars { color: var(--accent); font-size: 1.05rem; }
+    .review-text { font-size: 0.92rem; color: var(--text); line-height: 1.7; font-style: italic; }
+    .rev-avatar { width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 0.88rem; }
+    .rev-name { font-weight: 600; font-size: 0.88rem; margin: 0; }
+    .rev-role { font-size: 0.76rem; color: var(--muted); margin: 0; }
+
+    /* ── CTA ── */
+    .cta-wrap { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%); border-radius: 40px; padding: 5rem 2rem; text-align: center; color: #fff; position: relative; overflow: hidden; }
+    .cta-wrap::before { content: ''; position: absolute; top: -50%; left: -20%; width: 480px; height: 480px; background: rgba(255,255,255,0.05); border-radius: 50%; }
+    .cta-wrap h2 { color: #fff; }
+    .cta-wrap p { color: rgba(255,255,255,0.8); max-width: 480px; margin: 0 auto 2rem; font-size: 1.05rem; }
+
+    /* ── FOOTER ── */
+    footer { background: #fff; border-top: 1px solid rgba(59,79,216,0.1); }
+    .footer-brand img { height: 42px; }
+    .footer-col h6 { font-weight: 700; font-size: 0.88rem; margin-bottom: 1rem; }
+    .footer-col a { text-decoration: none; color: var(--muted); font-size: 0.85rem; display: block; margin-bottom: 0.5rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--blue); }
+    .footer-bottom { font-size: 0.8rem; color: var(--muted); border-top: 1px solid rgba(59,79,216,0.08); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .rv1 { transition-delay: 0.1s; }
+    .rv2 { transition-delay: 0.2s; }
+    .rv3 { transition-delay: 0.3s; }
+
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp  { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
+    @keyframes float   { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-10px); } }
+    @keyframes pulse   { 0%,100% { opacity:1; } 50% { opacity:0.35; } }
+      .av-c0 { background: gray; }
+    .av-c1 { background: #ec4899; }
+    .av-c2 { background: #22c55e; }
+    .av-c3 { background: #f59e0b; }
+    .av-c4 { background: #06b6d4; }
+    .av-c5 { background: #ef4444; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════ NAVBAR ══════════════════ -->
+<nav class="navbar navbar-expand-lg fixed-top py-3" id="navbar">
+  <div class="container-xl">
+    <a class="navbar-brand" href="#">
+      <img src="{% static 'img/logo1.png' %}" alt="EmployIT Logo">
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-lg-3">
+        <li class="nav-item"><a class="nav-link" href="#how-it-works">How It Works</a></li>
+        <li class="nav-item"><a class="nav-link" href="#categories">Categories</a></li>
+        <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+        <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
+      </ul>
+      <div class="d-flex gap-2 mt-3 mt-lg-0">
+        <a href="login/" class="btn btn-employit-outline px-4">Log In</a>
+        <a href="register/" class="btn btn-employit px-4">Get Started</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<section class="hero-section d-flex align-items-center">
+  <div class="container-xl py-5">
+    <div class="row align-items-center g-5">
+
+      <!-- Text -->
+      <div class="col-lg-6">
+        <div class="hero-badge mb-3">
+          <span class="dot"></span> 1,200+ Workers Available Now
+        </div>
+        <h1 class="fw-bold mb-3" style="animation:fadeUp 0.7s 0.1s ease both">
+          Hire <em>Daily Workers</em><br>in Minutes
+        </h1>
+        <p class="hero-sub mb-4" style="animation:fadeUp 0.7s 0.2s ease both">
+          EmployIT connects you with verified local workers for any task. Browse availability, book instantly, and pay only for the time you need.
+        </p>
+
+        <!-- Search -->
+        <div class="search-bar mb-4" style="animation:fadeUp 0.7s 0.3s ease both">
+          <input type="text" placeholder="Search e.g. plumber, cleaner…">
+          <button><i class="bi bi-search me-1"></i> Search</button>
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex flex-wrap gap-3 mb-5" style="animation:fadeUp 0.7s 0.35s ease both">
+          <a href="user_home/" class="btn btn-employit btn-lg px-4">
+            <i class="bi bi-calendar-check me-2"></i>Book a Worker
+          </a>
+          <a href="register/" class="btn btn-employit-outline btn-lg px-4">
+            <i class="bi bi-person-plus me-2"></i>Register as Worker
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="d-flex gap-4" style="animation:fadeUp 0.7s 0.45s ease both">
+          <div class="stat-item"><h3>5K+</h3><p>Workers Registered</p></div>
+          <div class="stat-item"><h3>12K+</h3><p>Jobs Completed</p></div>
+          <div class="stat-item"><h3>4.9★</h3><p>Average Rating</p></div>
+        </div>
+      </div>
+
+      <!-- Visual Card -->
+     <div class="col-lg-6 d-none d-lg-flex justify-content-center">
+        <div style="position:relative; max-width:400px; width:100%; margin:30px 60px;">
+
+          <div class="float-badge fb-top">
+            <span style="font-size:1.2rem">✅</span> Booking Confirmed!
+          </div>
+
+          <div class="hero-card">
+            <div class="card-title-row">
+              <span>Available Workers</span>
+              <a href="/login/">View All →</a>
+            </div>
+
+            {% if preview_workers %}
+              {% for worker in preview_workers %}
+              <a href="/login/" class="worker-row">
+                {# Cycle through 6 avatar colours using forloop.counter0 mod 6 #}
+                {% with c=forloop.counter0 %}
+                  {% if c|divisibleby:6 or c == 0 %}
+                    <div class="w-avatar av-c0">
+                  {% elif c|add:"-1"|divisibleby:5 %}
+                    <div class="w-avatar av-c5">
+                  {% elif c|add:"-1"|divisibleby:4 %}
+                    <div class="w-avatar av-c4">
+                  {% elif c|add:"-1"|divisibleby:3 %}
+                    <div class="w-avatar av-c3">
+                  {% elif c|add:"-1"|divisibleby:2 %}
+                    <div class="w-avatar av-c2">
+                  {% else %}
+                    <div class="w-avatar av-c1">
+                  {% endif %}
+                {% endwith %}
+                    {{ worker.user.username|slice:":2"|upper }}
+                  </div>
+                <div class="flex-grow-1">
+                  <p class="w-name">{{ worker.user.username|title }}</p>
+                  <p class="w-skill">
+                    {{ worker.skill|title }}
+                    {% if worker.average_rating %}· ⭐ {{ worker.average_rating|floatformat:1 }}{% endif %}
+                  </p>
+                </div>
+                <span class="badge-avail">Online</span>
+              </a>
+              {% endfor %}
+            {% else %}
+              <div class="empty-card">
+                <i class="bi bi-person-x" style="font-size:2rem; opacity:.3"></i>
+                <p class="mt-2 mb-0">No workers online right now.<br>Check back soon!</p>
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="float-badge fb-bot">
+            <span style="font-size:1.2rem">💰</span> ₹500 Base · ₹130/hr
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ HOW IT WORKS ══════════════════ -->
+<section id="how-it-works" class="py-5 py-lg-6">
+  <div class="container-xl py-4">
+    <p class="section-label text-center reveal">How It Works</p>
+    <h2 class="text-center mb-2 reveal">Simple as <em>1, 2, 3</em></h2>
+    <p class="section-sub text-center mb-5 reveal">Whether you need a worker or are looking for jobs — EmployIT makes it effortless for both sides.</p>
+
+    <div class="row g-4">
+      <div class="col-md-4 reveal">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-icon">📋</div>
+          <h5 class="fw-bold mb-2">Post Your Need or Register</h5>
+          <p class="text-muted" style="font-size:0.9rem; font-family:'DM Sans',sans-serif">Users describe the task needed. Workers create a profile with skills and set their availability schedule.</p>
+        </div>
+      </div>
+      <div class="col-md-4 reveal rv1">
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-icon">🔍</div>
+          <h5 class="fw-bold mb-2">Browse & Book Instantly</h5>
+          <p class="text-muted" style="font-size:0.9rem; font-family:'DM Sans',sans-serif">Browse verified workers by category and availability. Confirm your booking in seconds.</p>
+        </div>
+      </div>
+      <div class="col-md-4 reveal rv2">
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-icon">💳</div>
+          <h5 class="fw-bold mb-2">Work Done, Pay Fairly</h5>
+          <p class="text-muted" style="font-size:0.9rem; font-family:'DM Sans',sans-serif">Payment is calculated automatically — ₹500 for 4 hours, ₹130 per extra hour. Simple and transparent.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ CATEGORIES ══════════════════ -->
+<section id="categories" class="py-5 py-lg-6" style="background:#fff;">
+  <div class="container-xl py-4">
+    <p class="section-label text-center reveal">Browse by Category</p>
+    <h2 class="text-center mb-2 reveal">Find the Right <em>Skill</em></h2>
+    <p class="section-sub text-center mb-5 reveal">From home maintenance to skilled trades — we have workers ready for any job you need.</p>
+
+    <div class="row g-3 row-cols-2 row-cols-sm-3 row-cols-md-4">
+      <div class="col reveal"><div class="category-card"><div class="cat-icon">🔧</div><h5>Electricians</h5><p>Wiring, repairs &amp; installations</p></div></div>
+      <div class="col reveal rv1"><div class="category-card"><div class="cat-icon">🔩</div><h5>Plumbers</h5><p>Leaks, pipes &amp; fittings</p></div></div>
+      <div class="col reveal rv2"><div class="category-card"><div class="cat-icon">🧹</div><h5>Cleaners</h5><p>Home, office &amp; deep cleaning</p></div></div>
+      <div class="col reveal rv3"><div class="category-card"><div class="cat-icon">🍳</div><h5>Cooks</h5><p>Daily meals &amp; event catering</p></div></div>
+      <div class="col reveal"><div class="category-card"><div class="cat-icon">🏗️</div><h5>Construction</h5><p>Painting, tiling &amp; labour</p></div></div>
+      <div class="col reveal rv1"><div class="category-card"><div class="cat-icon">🌿</div><h5>Gardeners</h5><p>Mowing, pruning &amp; landscaping</p></div></div>
+      <div class="col reveal rv2"><div class="category-card"><div class="cat-icon">🚗</div><h5>Drivers</h5><p>Transport &amp; delivery tasks</p></div></div>
+      <div class="col reveal rv3"><div class="category-card"><div class="cat-icon">📦</div><h5>Movers</h5><p>Packing, loading &amp; shifting</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ PRICING ══════════════════ -->
+<section id="pricing" class="py-5 py-lg-6">
+  <div class="container-xl py-4">
+    <div class="pricing-wrap">
+      <p class="section-label text-center reveal" style="color:var(--blue-light)">Pricing</p>
+      <h2 class="text-center mb-2 reveal">Clear, <em style="color:var(--accent)">Transparent</em> Pricing</h2>
+      <p class="text-center mb-5 reveal" style="color:rgba(255,255,255,0.6); max-width:520px; margin-left:auto; margin-right:auto; font-size:0.98rem; line-height:1.7">
+        No hidden charges. Pay only for what you use. Our simple pricing model works for both short and extended tasks.
+      </p>
+
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-5 reveal">
+          <div class="price-card h-100 d-flex flex-column">
+            <div class="price-lbl">Base Package</div>
+            <div class="price-amt">₹500</div>
+            <div class="price-per mb-3">for first 4 hours</div>
+            <div class="price-detail">Up to 4 hours of work</div>
+            <div class="price-detail">Verified &amp; skilled workers</div>
+            <div class="price-detail">Instant booking</div>
+            <div class="price-detail mb-4">Rated &amp; reviewed workers</div>
+            <a href="user_home/" class="btn btn-outline-wh btn-lg mt-auto">Book Now</a>
+          </div>
+        </div>
+        <div class="col-md-5 reveal rv1">
+          <div class="price-card featured h-100 d-flex flex-column">
+            <div class="price-lbl">Extended Hours</div>
+            <div class="price-amt">₹130</div>
+            <div class="price-per mb-3">per additional hour</div>
+            <div class="price-detail">After the base 4 hours</div>
+            <div class="price-detail">Flexible time extension</div>
+            <div class="price-detail">Same trusted worker</div>
+            <div class="price-detail mb-4">Auto-calculated payment</div>
+            <a href="login/" class="btn btn-accent btn-lg mt-auto">Get Started</a>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-center mt-4" style="color:rgba(255,255,255,0.45); font-size:0.85rem; font-family:'DM Sans',sans-serif">
+        Example: 6 hrs of work = ₹500 + (2 × ₹130) = <strong style="color:#fff">₹760 total</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ TESTIMONIALS ══════════════════ -->
+<section id="reviews" class="testimonials-bg py-5 py-lg-6">
+  <div class="container-xl py-4">
+    <p class="section-label text-center reveal">Testimonials</p>
+    <h2 class="text-center mb-2 reveal">Trusted by <em>Thousands</em></h2>
+    <p class="section-sub text-center mb-5 reveal">See what our users and workers say about the EmployIT experience.</p>
+
+    <div class="row g-4">
+      <div class="col-md-4 reveal">
+        <div class="review-card">
+          <div class="stars mb-2">★★★★★</div>
+          <p class="review-text mb-3">"Found a great electrician within 10 minutes! The booking was smooth and the pricing was exactly as shown. Will definitely use again."</p>
+          <div class="d-flex align-items-center gap-2">
+            <div class="rev-avatar" style="background:#3B4FD8">MK</div>
+            <div><p class="rev-name">Mohammed Kareem</p><p class="rev-role">User · Kozhikode</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 reveal rv1">
+        <div class="review-card">
+          <div class="stars mb-2">★★★★★</div>
+          <p class="review-text mb-3">"As a daily worker, EmployIT has completely changed my life. I get consistent bookings and the payment is always fair and on time."</p>
+          <div class="d-flex align-items-center gap-2">
+            <div class="rev-avatar" style="background:#10b981">LR</div>
+            <div><p class="rev-name">Lakshmi Rajan</p><p class="rev-role">Worker · Cleaner</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 reveal rv2">
+        <div class="review-card">
+          <div class="stars mb-2">★★★★☆</div>
+          <p class="review-text mb-3">"Very professional platform. I use it for my small business needs — cleaners, helpers, movers. Saves me so much time every week!"</p>
+          <div class="d-flex align-items-center gap-2">
+            <div class="rev-avatar" style="background:#f59e0b">AP</div>
+            <div><p class="rev-name">Ankit Patel</p><p class="rev-role">User · Business Owner</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ CTA ══════════════════ -->
+<section class="py-5 py-lg-6">
+  <div class="container-xl py-2">
+    <div class="cta-wrap reveal">
+      <h2 class="mb-3">Ready to Get <em style="color:var(--accent)">Started</em>?</h2>
+      <p>Join thousands of users and workers on EmployIT today. Post a job or start earning — it takes less than 2 minutes.</p>
+      <div class="d-flex gap-3 justify-content-center flex-wrap">
+        <a href="/user_home/" class="btn btn-white btn-lg px-4"><i class="bi bi-calendar-check me-2"></i>Book a Worker</a>
+        <a href="register/" class="btn btn-outline-wh btn-lg px-4"><i class="bi bi-person-plus me-2"></i>Join as a Worker</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer class="pt-5 pb-3">
+  <div class="container-xl">
+    <div class="row g-4 mb-4">
+      <div class="col-lg-4 footer-brand footer-col">
+        <img src="{% static 'img/logo1.png' %}" alt="EmployIT" class="mb-3 d-block">
+        <p style="color:var(--muted); font-size:0.9rem; line-height:1.7; max-width:280px">
+          Connecting daily workers with people who need them. Fair pay, verified workers, instant booking.
+        </p>
+      </div>
+      <div class="col-6 col-md-3 col-lg-2 offset-lg-2 footer-col">
+        <h6>For Users</h6>
+        <a href="user_home/">Browse Workers</a>
+        <a href="#pricing">Pricing</a>
+        <a href="user_home/">My Bookings</a>
+      </div>
+      <div class="col-6 col-md-3 footer-col">
+        <h6>For Workers</h6>
+        <a href="register/">Register Now</a>
+        <a href="worker_home/">Set Availability</a>
+        <a href="#pricing">Earnings</a>
+      </div>
+      <div class="col-6 col-md-3 footer-col">
+        <h6>Company</h6>
+        <a href="#">About EmployIT</a>
+        <a href="#">Contact Us</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+    <div class="footer-bottom py-3 d-flex justify-content-between flex-wrap gap-2">
+      <span>© 2026 EmployIT. All rights reserved.</span>
+      <span>Made with ❤️ for daily workers</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Navbar scroll shadow
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
